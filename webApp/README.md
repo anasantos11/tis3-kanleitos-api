@@ -33,6 +33,6 @@ caso contrario ocorrerá vairios errors no projeto
 
 
 todos os arquivos javascript são gerador a partir do comando abaixo:
-browserify app/js/app.js -o app/app.js
+browserify webApp/app/js/app.js -o webApp/app/app.js
 então todas as vezes que for necessário alterar o javascript, deverá ser rodado o comando
 pelo prompt de comando na raiz desta pasta.
