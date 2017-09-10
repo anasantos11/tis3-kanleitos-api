@@ -12,7 +12,7 @@ public class TesteConexao {
 	public static void main(String[] args) throws Exception {
 
 		PacienteDao dao = new PacienteDao();
-		Paciente paciente = new Paciente(572401, "Daniela dos Santos", 28, "Feminino");
+		Paciente paciente = new Paciente(572401, "Luiz Henriqiue", 30, "Trans");
 		dao.inserirPaciente(paciente);
 		System.out.println("Gravado! \n");
 		

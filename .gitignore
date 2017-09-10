@@ -1,3 +1,5 @@
 webApp/node_modules/*
 webApp/package-lock.json
 /.metadata/
+/.recommenders/
+kanleitos/wildfly-10.1.0.Final/*
