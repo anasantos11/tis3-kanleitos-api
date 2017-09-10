@@ -18,3 +18,21 @@ If you want to learn more about creating good readme files then refer the follow
 - [ASP.NET Core](https://github.com/aspnet/Home)
 - [Visual Studio Code](https://github.com/Microsoft/vscode)
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+
+dependencias do projeto:
+para seguir os proximos passos precisa ser instalado somente:
+NODE JS
+
+
+TODAS VEZ QUE VC DER PULL NO PROJETO E TIVER ALTERAÇÕES NO ARQUIVO
+"package.json"
+VC DEVE ENTRAR NA RAIZ DESTA PASTA E DAR O COMANDO:
+"npm install"
+caso contrario ocorrerá vairios errors no projeto
+
+
+todos os arquivos javascript são gerador a partir do comando abaixo:
+browserify app/js/app.js -o app/app.js
+então todas as vezes que for necessário alterar o javascript, deverá ser rodado o comando
+pelo prompt de comando na raiz desta pasta.
