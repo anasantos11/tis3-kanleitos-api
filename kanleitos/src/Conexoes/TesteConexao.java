@@ -1,19 +1,34 @@
 package Conexoes;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Bases.Paciente;
+import Dao.PacienteDao;
+
 
 public class TesteConexao {
+	public static void main(String[] args) throws Exception {
 
-	private static Connection connection;
-
-	public static void main(String[] args) {
-		connection = new ConnectionFactory().getConnection();
-		System.out.println("Conexão aberta!");
-
-		String sql = "select * from DEV.PACIENTES";
+		PacienteDao dao = new PacienteDao();
+		Paciente paciente = new Paciente(572401, "Daniela dos Santos", 28, "Feminino");
+		dao.inserirPaciente(paciente);
+		System.out.println("Gravado! \n");
+		
+		
+		List<Paciente> listaPacientes = new ArrayList<Paciente>();
+		listaPacientes = dao.getListaPacientes();
+		
+		System.out.println("Lista de pacientes cadastrados: \n");
+		listaPacientes.forEach(x -> {
+			System.out.println(x.toString());
+			
+		});
+		
+	
+		
+		/*String sql = "select * from DEV.PACIENTES";
 		try {
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -27,7 +42,7 @@ public class TesteConexao {
 			stmt.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-		}
+		}*/
 
 	}
 
