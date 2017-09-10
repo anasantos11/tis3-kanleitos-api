@@ -20,9 +20,15 @@ If you want to learn more about creating good readme files then refer the follow
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
 
 
+
+***WEBAPP***
 dependencias do projeto:
-para seguir os proximos passos precisa ser instalado somente:
-NODE JS
+para seguir os proximos passos precisa ser instalado:
+**NODE JS
+**XAMMP
+
+ao instalar o xamp, mudar o diretório padrão de htdocs, para o diretório
+raiz do web app, que contem o arquivo "index.html"
 
 
 TODAS VEZ QUE VC DER PULL NO PROJETO E TIVER ALTERAÇÕES NO ARQUIVO
