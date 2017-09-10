@@ -17,12 +17,12 @@ public class TesteConexao {
 		try {
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			ResultSet result = stmt.executeQuery(sql);
+			ResultSet result = stmt.executeQuery();
 			while (result.next()) {
-				System.out.println(result.getString(1));
+				System.out.println(result.getString(1) + " " + result.getString(2) + " " + result.getString(3) + " "
+						+ result.getString(4) + " " + result.getString(5));
 			}
-			
-			
+
 			result.close();
 			stmt.close();
 		} catch (SQLException e) {
