@@ -20,9 +20,15 @@ If you want to learn more about creating good readme files then refer the follow
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
 
 
+
+***WEBAPP***
 dependencias do projeto:
-para seguir os proximos passos precisa ser instalado somente:
-NODE JS
+para seguir os proximos passos precisa ser instalado:
+NODE JS: https://nodejs.org/en/
+XAMMP: https://www.apachefriends.org/pt_br/index.html
+
+ao instalar o xamp, mudar o diretório padrão de htdocs, para o diretório
+raiz do web app, que contem o arquivo "index.html"
 
 
 TODAS VEZ QUE VC DER PULL NO PROJETO E TIVER ALTERAÇÕES NO ARQUIVO
@@ -33,6 +39,16 @@ caso contrario ocorrerá vairios errors no projeto
 
 
 todos os arquivos javascript são gerador a partir do comando abaixo:
-browserify app/js/app.js -o app/app.js
+browserify webApp/app/js/app.js -o webApp/app/app.js
 então todas as vezes que for necessário alterar o javascript, deverá ser rodado o comando
 pelo prompt de comando na raiz desta pasta.
+
+***API RESTULL***
+para usar o restfull, vc deve baixar o wildfly, o JBOSS TOOLS, e  ECLIPSE JAVA EE
+WILDFLY: http://download.jboss.org/wildfly/10.1.0.Final/wildfly-10.1.0.Final-update.zip
+JBOSS TOOLS: https://tools.jboss.org/downloads/jbosstools/oxygen/4.5.0.Final.html
+ECLIPSE JAVA EE : http://www.eclipse.org/downloads/eclipse-packages/
+
+NO SITE DO JBOSSTOLLS TEM UM "DRAG AND DROP" QUE FACILITA A INSTALAÇÃO NO ECLIPSE
+
+a indexação do wildfly é mais comlicada explicarei pessoalmente.
