@@ -20,14 +20,14 @@ public class PacienteDao {
 	public boolean validarPaciente(Paciente paciente) {
 		boolean camposVazios = false;
 		if (paciente.getNumProntuario() == -1 || paciente.getNomePaciente() == null || paciente.getIdade() == -1
-				|| paciente.getGenero() == null) {
+				|| paciente.getGenero() == null ) {
 			camposVazios = true;
 		}
 		return camposVazios;
 	}
 
 	public void inserirPaciente(Paciente paciente) throws Exception {
-		String sql = "insert into dev.pacientes" + "(num_prontuario,nome_paciente,idade,genero)" + " values (?,?,?,?)";
+		String sql = "insert into dev.pacientes" + "(num_prontuario,nome_paciente,idade,genero, nome_mae)" + " values (?,?,?,?,?)";
 
 		if (validarPaciente(paciente)) {
 			throw new Exception("Existem campos não preenchidos.");
@@ -42,6 +42,7 @@ public class PacienteDao {
 			stmt.setString(2, paciente.getNomePaciente());
 			stmt.setInt(3, paciente.getIdade());
 			stmt.setString(4, paciente.getGenero());
+			stmt.setString(5, paciente.getNomeMae());
 
 			stmt.execute();
 			stmt.close();
@@ -68,6 +69,7 @@ public class PacienteDao {
 				paciente.setNomePaciente(result.getString("nome_paciente"));
 				paciente.setIdade(result.getInt("idade"));
 				paciente.setGenero(result.getString("genero"));
+				paciente.setNomeMae(result.getString("nome_mae"));
 
 				// adicionando o objeto à lista
 				listaPacientes.add(paciente);

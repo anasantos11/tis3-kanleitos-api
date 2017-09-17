@@ -6,12 +6,14 @@ public class Paciente {
 	private String nomePaciente;
 	private int idade;
 	private String genero;
+	private String nomeMae;
 
-	public Paciente(int numProntuario, String nomePaciente, int idade, String genero) {
+	public Paciente(int numProntuario, String nomePaciente, int idade, String genero, String nomeMae) {
 		setNumProntuario(numProntuario);
 		setNomePaciente(nomePaciente);
 		setIdade(idade);
 		setGenero(genero);
+		setNomeMae(nomeMae);
 	}
 	
 	public Paciente() {
@@ -19,6 +21,7 @@ public class Paciente {
 		setNomePaciente(null);
 		setIdade(-1);
 		setGenero(null);
+		setNomeMae(null);
 	}
 
 	public int getNumProntuario() {
@@ -61,10 +64,20 @@ public class Paciente {
 		this.idPaciente = idPaciente;
 	}
 	
+	public String getNomeMae() {
+		return nomeMae;
+	}
+
+	public void setNomeMae(String nomeMae) {
+		this.nomeMae = nomeMae;
+	}
+
 	@Override
 	public String toString() {
 		return "Paciente [idPaciente=" + idPaciente + ", numProntuario=" + numProntuario + ", nomePaciente="
-				+ nomePaciente + ", idade=" + idade + ", genero=" + genero + "]";
+				+ nomePaciente + ", idade=" + idade + ", genero=" + genero + ", nomeMae=" + nomeMae + "]";
 	}
+
+
 
 }

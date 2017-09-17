@@ -12,10 +12,16 @@ public class TesteConexao {
 	public static void main(String[] args) throws Exception {
 
 		PacienteDao dao = new PacienteDao();
-		Paciente paciente = new Paciente(572401, "Daniela dos Santos", 28, "Feminino");
-		dao.inserirPaciente(paciente);
-		System.out.println("Gravado! \n");
+		/**
+		 * Teste para inserir paciente
+		 */
+		//Paciente paciente = new Paciente(572403, "Bruna da Silva", 20, "Feminino", null);
+		//dao.inserirPaciente(paciente);
+		//System.out.println("Gravado! \n");
 		
+		/**
+		 * Teste para listar pacientes cadastrados
+		 */
 		
 		List<Paciente> listaPacientes = new ArrayList<Paciente>();
 		listaPacientes = dao.getListaPacientes();
