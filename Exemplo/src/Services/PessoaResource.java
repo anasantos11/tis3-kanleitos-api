@@ -37,11 +37,4 @@ public class PessoaResource {
 		
 		return listaPessoas;
 	}
-	
-//	@POST
-//	@Path("/creaVte")
-//	@Consumes(MediaType.APPLICATION_JSON + "charset=UFT-8")
-//	public ResponseBuilder criarPessoa(Pessoa p) {
-//		return null;
-//	}
 }

@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(value = XmlAccessType.FIELD)
 public class Pessoas {
 	
-	@XmlElement(name = "ListaDePessoas")
+	@XmlElement(name = "pessoas")
 	List<Pessoa> lista_pessoas;
 
 	public Pessoas(List<Pessoa> lista_pessoas) {
