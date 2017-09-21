@@ -5,19 +5,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modelos.Paciente;
+import Util.Metodos;
 import Dao.PacienteDao;
 
 
 public class TesteConexao {
+	private static Metodos metodos = Metodos.getInstance();
+	
 	public static void main(String[] args) throws Exception {
-
+		
 		PacienteDao dao = new PacienteDao();
 		/**
 		 * Teste para inserir paciente
 		 */
-		Paciente paciente = new Paciente(572403, "Bruna da Silva", 20, "Feminino", null);
+		/*Paciente paciente = new Paciente();
+		paciente.setNomePaciente("Wellington Polt");
+		paciente.setNumProntuario(572444);
+		paciente.setNomeMae("Maria de Souza");
+		paciente.setGenero("Masculino");
+		paciente.setIdade(25);
+		paciente.setDataNascimento(metodos.stringParseCalendar("01/08/1992"));
 		dao.inserirPaciente(paciente);
-		System.out.println("Gravado! \n");
+		System.out.println("Gravado! \n");*/
 		
 		/**
 		 * Teste para listar pacientes cadastrados

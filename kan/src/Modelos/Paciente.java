@@ -1,5 +1,8 @@
 package Modelos;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,16 +13,18 @@ public class Paciente {
 	private int idPaciente;
 	private int numProntuario;
 	private String nomePaciente;
+	private Calendar dataNascimento;
 	private int idade;
 	private String genero;
 	private String nomeMae;
 
-	public Paciente(int numProntuario, String nomePaciente, int idade, String genero, String nomeMae) {
+	public Paciente(int numProntuario, String nomePaciente, Calendar dataNascimento, int idade, String genero, String nomeMae) {
 		setNumProntuario(numProntuario);
 		setNomePaciente(nomePaciente);
 		setIdade(idade);
 		setGenero(genero);
 		setNomeMae(nomeMae);
+		setDataNascimento(dataNascimento);
 	}
 	
 	public Paciente() {
@@ -28,6 +33,7 @@ public class Paciente {
 		setIdade(-1);
 		setGenero(null);
 		setNomeMae(null);
+		setDataNascimento(null);
 	}
 
 	public int getNumProntuario() {
@@ -78,12 +84,26 @@ public class Paciente {
 		this.nomeMae = nomeMae;
 	}
 
-	@Override
-	public String toString() {
-		return "Paciente [idPaciente=" + idPaciente + ", numProntuario=" + numProntuario + ", nomePaciente="
-				+ nomePaciente + ", idade=" + idade + ", genero=" + genero + ", nomeMae=" + nomeMae + "]";
+	public Calendar getDataNascimento() {
+		return dataNascimento;
 	}
 
+	public void setDataNascimento(Calendar dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 
+	@Override
+	public String toString() {
+		String data;
+		if (dataNascimento != null) {
+			data = new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getTime());
+		}else {
+			data = null;
+		}
+		return "Paciente [idPaciente=" + idPaciente + ", numProntuario=" + numProntuario + ", nomePaciente="
+				+ nomePaciente + ", dataNascimento=" + data + ", idade=" + idade + ", genero=" + genero
+				+ ", nomeMae=" + nomeMae + "]";
+	}
+	
 
 }

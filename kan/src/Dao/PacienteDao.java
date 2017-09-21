@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import Conexoes.ConnectionFactory;
@@ -20,15 +21,16 @@ public class PacienteDao {
 
 	public boolean validarPaciente(Paciente paciente) {
 		boolean camposVazios = false;
-		if (paciente.getNumProntuario() == -1 || paciente.getNomePaciente() == null || paciente.getIdade() == -1
-				|| paciente.getGenero() == null ) {
+		if (paciente.getNumProntuario() == -1 || paciente.getDataNascimento() == null
+				|| paciente.getNomePaciente() == null || paciente.getIdade() == -1 || paciente.getGenero() == null) {
 			camposVazios = true;
 		}
 		return camposVazios;
 	}
 
 	public void inserirPaciente(Paciente paciente) throws Exception {
-		String sql = "insert into dev.pacientes" + "(num_prontuario,nome_paciente,idade,genero, nome_mae)" + " values (?,?,?,?,?)";
+		String sql = "insert into dev.pacientes"
+				+ "(num_prontuario,nome_paciente,idade,genero, nome_mae, data_nascimento)" + " values (?,?,?,?,?,?)";
 
 		if (validarPaciente(paciente)) {
 			throw new Exception("Existem campos não preenchidos.");
@@ -44,6 +46,11 @@ public class PacienteDao {
 			stmt.setInt(3, paciente.getIdade());
 			stmt.setString(4, paciente.getGenero());
 			stmt.setString(5, paciente.getNomeMae());
+			if (paciente.getDataNascimento() != null) {
+				stmt.setDate(6, new java.sql.Date(paciente.getDataNascimento().getTimeInMillis()));
+			}else {
+				stmt.setDate(6,null);
+			}
 
 			stmt.execute();
 			stmt.close();
@@ -71,6 +78,15 @@ public class PacienteDao {
 				paciente.setIdade(result.getInt("idade"));
 				paciente.setGenero(result.getString("genero"));
 				paciente.setNomeMae(result.getString("nome_mae"));
+				
+				// Montando data atraves do calendar
+				if (result.getDate("data_nascimento") != null) {
+					Calendar data = Calendar.getInstance();
+					data.setTime(result.getDate("data_nascimento"));
+					paciente.setDataNascimento(data);
+				} else {
+					paciente.setDataNascimento(null);
+				}
 
 				// adicionando o objeto à lista
 				listaPacientes.add(paciente);
