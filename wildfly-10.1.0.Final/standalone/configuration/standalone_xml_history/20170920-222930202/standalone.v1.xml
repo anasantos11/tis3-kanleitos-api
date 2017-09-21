@@ -148,18 +148,7 @@
                         <password>sa</password>
                     </security>
                 </datasource>
-                <datasource jndi-name="java:jboss/datasources/MSSQL-DS" pool-name="MSSQL-DS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:sqlserver://kanleitos.database.windows.net:1433;database=kanleitos</connection-url>
-                    <driver>sqlserver</driver>
-                    <security>
-                        <user-name>kanleitosadmin</user-name>
-                        <password>BLAW@17leitos</password>
-                    </security>
-                </datasource>
                 <drivers>
-                    <driver name="sqlserver" module="com.microsoft.sqlserver">
-                        <xa-datasource-class>com.microsoft.sqlserver.jdbc.SQLServerXADataSource</xa-datasource-class>
-                    </driver>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
