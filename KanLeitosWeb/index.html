@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="hjk">
 
   <head>
 
@@ -27,6 +27,26 @@
       
     <script src="https://use.fontawesome.com/b2f6d99f80.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+      var app = angular.module('hjk', []);
+      app.controller('cadastro', function($scope) {
+        $scope.paciente = {  
+          prontuario : "",
+          nome : "",
+          mae : "",
+          nascimento : "",
+          idade : "",
+          sexo : ""
+        }
+
+        $scope.salvarPaciente = function(paciente){
+          console.log(paciente)
+
+        }
+
+      });
+      </script>
     
 
   </head>
@@ -207,39 +227,39 @@
         <div class="jumbotron">
             <div class="container">
               <div class="col-lg-12 well">
-              <div class="row">
+              <div class="row" ng-controller="cadastro">
                     <form>
                       <div class="col-sm-12">
                         <div class="row">
                           <div class="col-sm-6 form-group">
                             <label>Número do Prontuário</label>
-                            <input type="text" placeholder="Digite o número do prontuário" class="form-control">
+                            <input type="text" ng-model="paciente.prontuario" placeholder="Digite o número do prontuário" class="form-control">
                           </div>
                         </div>		
 
                       <div class="form-group col-sm-18">
                         <label>Nome do Paciente: </label>
-                        <input type="text" placeholder="Digite o nome do paciente" class="form-control">
+                        <input type="text" ng-model="paciente.nome" placeholder="Digite o nome do paciente" class="form-control">
                       </div>		
                       <div class="form-group">
                         <label>Nome da mãe: </label>
-                        <input type="text" placeholder="Digite o nome da mãe do paciente" class="form-control">
+                        <input type="text" ng-model="paciente.mae" placeholder="Digite o nome da mãe do paciente" class="form-control">
                       </div>
                       <div class="row">
                           <div class="col-sm-4 form-group">
                             <label>Data de nascimento:</label>
-                            <input class="form-control" type="date" value="2017-09-17" id="example-date-input">
+                            <input class="form-control" type="date" ng-model="paciente.nascimento" value="2017-09-17" id="example-date-input">
                           </div>	
                           
                           <div class="col-sm-4 form-group">
                             <label>Idade</label>
-                            <input type="text" placeholder="Idade do paciente" class="form-control">
+                            <input type="text" ng-model="paciente.idade" placeholder="Idade do paciente" class="form-control">
                           </div>	
                           <div class="col-sm-4 form-group">
                                 <label>Sexo: </label>
                                 <div class="form-check"> 
                                   <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                    <input type="radio" ng-model="sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
                                     Feminino 
                                   </label>
                                 </div>
@@ -253,7 +273,7 @@
                           </div>	
                           	
                         </div>		
-                      <button type="button" onclick="confirmacadastro()" class="btn btn-lg btn-info">Cadastrar</button>
+                      <button type="button" ng-click="salvarPaciente(paciente)" onclick="confirmacadastro()" class="btn btn-lg btn-info">Cadastrar</button>
                       				
                       </div>
                     </form> 
