@@ -3,6 +3,6 @@
 	<persistence-unit name="ProjectTest">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:jboss/datasources/MSSQL-DS</jta-data-source>
-		<class>Bases.Paciente</class>
+		<class>Model.Paciente</class>
 	</persistence-unit>
 </persistence>

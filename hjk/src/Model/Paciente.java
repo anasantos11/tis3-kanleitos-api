@@ -1,8 +1,9 @@
-	package Bases;
+	package Model;
 
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.time.LocalDate;
 import java.util.Calendar;
 import javax.persistence.*;
 
@@ -18,12 +19,13 @@ public class Paciente implements Serializable {
 	@Id
 	@GeneratedValue
 	private Integer idPaciente;
+	
 	private Integer numProntuario;
 	private String nomePaciente;
 	private Integer idade;
 	private String genero;
 	private String nomeMae;
-	private Calendar dataNascimento;
+	private LocalDate dataNascimento;
 	private static final long serialVersionUID = 1L;
  
 	public Integer getIdPaciente() {
@@ -68,11 +70,11 @@ public class Paciente implements Serializable {
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
 	}   
-	public Calendar getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return this.dataNascimento;
 	}
 
-	public void setDataNascimento(Calendar dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 	

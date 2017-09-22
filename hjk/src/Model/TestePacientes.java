@@ -1,4 +1,4 @@
-package Bases;
+package Model;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ import com.sun.xml.internal.stream.Entity;
  * Servlet implementation class Pacientes
  */
 @WebServlet("/pacientes")
-public class Pacientes extends HttpServlet {
+public class TestePacientes extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Resource
