@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -138,6 +139,23 @@ public class TestePacientes extends HttpServlet {
 		}
 		/*request.getSession().setAttribute("sucesso",
                 "OK");*/
+		
+		/*response.setContentType("application/x-www-form-urlencoded; charset=utf-8");
+		response.setStatus(HttpServletResponse.SC_OK);
+		request.setAttribute("theResust", response);*/
+		
+		 response.setContentType("application/x-www-form-urlencoded; charset=utf-8");
+		 response.addHeader("res", "OK");
+	      PrintWriter out = response.getWriter();
+	      try {
+	        int result = 10;
+	        RequestDispatcher rd = null;
+	        rd = getServletContext().getRequestDispatcher("/result.jsp");
+	        request.setAttribute("theResult", result);
+	        rd.forward(request, response);
+	      } finally {
+	        out.close();
+	      }
 
 	}
 
