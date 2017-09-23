@@ -18,6 +18,9 @@ import Model.Paciente;
 public class PacienteDao {
          private static PacienteDao instance;
          
+     	@Resource
+    	private UserTransaction ut;
+     	
     	@PersistenceContext
     	protected EntityManager entityManager;
          

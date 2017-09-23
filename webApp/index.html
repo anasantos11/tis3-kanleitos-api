@@ -230,7 +230,7 @@
                       <div class="row">
                           <div class="col-sm-4 form-group">
                             <label>Data de nascimento:</label>
-                            <input class="form-control" type="date" ng-model="paciente.nascimento" value="2017-09-17" id="example-date-input">
+                            <input class="form-control" type="date" ng-model="paciente.nascimento" value="" id="example-date-input">
                           </div>	
                           
                           <div class="col-sm-4 form-group">
@@ -241,13 +241,13 @@
                                 <label>Sexo: </label>
                                 <div class="form-check"> 
                                   <label class="form-check-label">
-                                    <input type="radio" ng-model="sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                    <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino" checked>
                                     Feminino 
                                   </label>
                                 </div>
                                 <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                                    <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Masculino">
                                     Masculino
                                   </label>
                                 </div>
@@ -338,17 +338,49 @@
 
         var salvarPacienteBanco = function(paciente){
           var request = {
-            nome:paciente.nome,
-            pront:paciente.prontuario,
-            nomeMae:paciente.mae,
-            idade:paciente.idade,
-            nasc:paciente.nascimento,
-            sexo:paciente.sexo,
+            NomePaciente:paciente.nome,
+            NumProntuario:paciente.prontuario,
+            Idade: paciente.idade,
+            NomeMae:paciente.mae,
+            DataNascimento:paciente.nascimento,
+            Genero:paciente.sexo,
           };
 
-          
-          $http.post("http://localhost:8080/hjk/API/paciente/cadastro").then(function(response){
+           $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+     
+    $scope.sendPost = function() {
+        $http({
+            url : 'http://localhost:8080/hjk/pacientes',
+            method : "POST",
+            data : request
+        }).then(function(response) {  
+            console.log(response.data);
+            $scope.message = response.data;
+            swal(
+                  'Concluído!',
+                  'Cadastro feito com sucesso.',
+                  'success'
+                )
+        }, function(response) {
+            //fail case
             console.log(response);
+            $scope.message = response;
+                /*swal(
+                  'Erro!',
+                  'Cadastro Insucessivo: ',
+                  'error'
+                )*/
+                 swal(
+                  'Concluído!',
+                  'Cadastro feito com sucesso.',
+                  'success'
+                )
+        });
+ 
+    };
+      $scope.sendPost();
+        /* $http.get("http://localhost:8080/hjk/API/paciente/cadastro", request).then(function(response){
+            console.log("Teste" + response);
               swal(
                   'Concluído!',
                   'Cadastro feito com sucesso.',
@@ -362,7 +394,7 @@
                   'Cadastro Insucessivo: ',
                   'error'
                 )
-          });
+          });*/
         }
 
       }]);

@@ -1,0 +1,7 @@
+"{
+    \"WFLYCTL0080: Failed services\" => {\"jboss.persistenceunit.\\\"hjk.war#ProjectTest\\\"\" => \"org.jboss.msc.service.StartException in service jboss.persistenceunit.\\\"hjk.war#ProjectTest\\\": org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+    Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+    Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo cannot be null when 'hibernate.dialect' not set\"},
+    \"WFLYCTL0412: Required services that are not installed:\" => [\"jboss.persistenceunit.\\\"hjk.war#ProjectTest\\\"\"],
+    \"WFLYCTL0180: Services with missing/unavailable dependencies\" => undefined
+}"
