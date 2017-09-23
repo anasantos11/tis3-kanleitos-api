@@ -321,7 +321,7 @@
 
     <script>
       var app = angular.module('hjk', []);
-      app.controller('cadastro',"$scope","$http" ,function($scope, $http) {
+      app.controller('cadastro',["$scope","$http", "$filter", function($scope, $http, $filter) {
         $scope.paciente = {  
           prontuario : "",
           nome : "",
@@ -332,7 +332,8 @@
         }
 
         $scope.salvarPaciente = function(paciente){
-          console.log(paciente)
+          paciente.nascimentoo = $filter('date')(paciente.nascimento, 'dd-MM-yyyy')
+          salvarPacienteBanco(paciente);
         }
 
         var salvarPacienteBanco = function(paciente){
@@ -344,16 +345,27 @@
             nasc:paciente.nascimento,
             sexo:paciente.sexo,
           };
+
           
-          $http.post().then(function(response){
+          $http.post("http://localhost:8080/hjk/API/paciente/cadastro").then(function(response){
             console.log(response);
+              swal(
+                  'Concluído!',
+                  'Cadastro feito com sucesso.',
+                  'success'
+                )
           },
           function(err){
             console.log(err);
+            swal(
+                  'Erro!',
+                  'Cadastro Insucessivo: ',
+                  'error'
+                )
           });
         }
 
-      });
+      }]);
       </script>
 
     <!-- Custom scripts for this template -->
