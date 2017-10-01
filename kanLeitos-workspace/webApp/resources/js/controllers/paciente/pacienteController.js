@@ -1,5 +1,5 @@
-var app = angular.module('kanLeitos', []);
-app.controller('PacienteController', ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
+var app = angular.module('kanleitos', []);
+app.controller('pacienteController', ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
 
 	$scope.NovoPaciente = function () {
 		$scope.paciente = {
@@ -85,53 +85,28 @@ app.controller('PacienteController', ["$scope", "$http", "$filter", function ($s
 
 		$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
-		$scope.sendPost = function () {
-			$http({
-				url: 'http://localhost:8080/hjk/pacientes',
-				method: "POST",
-				data: request
-			}).then(function (response) {
-				console.log(response.data);
-				$scope.message = response.data;
-				swal(
-					'Erro!',
-					'Cadastro Insucessivo: ',
-					'error'
-				)
-			}, function (response) {
-				//fail case
-				console.log(response);
-				$scope.message = response;
-				/*swal(
-			'Erro!',
-			'Cadastro Insucessivo: ',
-			'error'
-		)*/
+
+		$http.post('http://localhost:8080/Cadastro/paciente', JSON.stringify(request)).then(function (response) {
+			debugger;
+			if (!response.data.Resposta.erro) {
 				swal(
 					'Concluído!',
-					'Cadastro feito com sucesso.',
+					'Cadastro feito com sucesso - ID Paciente: ' + response.data.idPaciente,
 					'success'
 				)
-			});
+				$scope.NovoPaciente();
+			}
+		}, function (response) {
+			debugger;
+			swal(
+				'Erro!',
+				response.data.message,
+				'error'
+			)
+		});
 
-		};
-		$scope.sendPost();
-		/* $http.get("http://localhost:8080/hjk/API/paciente/cadastro", request).then(function(response){
-				console.log("Teste" + response);
-					swal(
-							'Concluído!',
-							'Cadastro feito com sucesso.',
-							'success'
-						)
-				},
-				function(err){
-				console.log(err);
-				swal(
-							'Erro!',
-							'Cadastro Insucessivo: ',
-							'error'
-						)
-				});*/
+
+
 	}
 
 

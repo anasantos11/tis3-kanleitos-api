@@ -1,32 +1,33 @@
 package br.com.kanleitos.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Entity implementation class for Entity: Pacientes
- *
- */
-@Entity
-@Table(name = "PACIENTE")
 
+@Entity
 public class Paciente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idPaciente;
+	private int idPaciente;
 	
-	private Integer numProntuario;
+	@Column(name = "numProntuario", nullable = false)
+	private int numProntuario;
+	@Column(name = "nomePaciente", nullable = false)
 	private String nomePaciente;
-	private Integer idade;
+	@Column(name = "idade", nullable = false)
+	private int idade;
+	@Column(name = "genero", nullable = false)
 	private String genero;
+	@Column(name = "nomeMae", nullable = false)
 	private String nomeMae;
+	@Column(name = "dataNascimento", nullable = false)
 	private String dataNascimento;
 	
 	private static class PacienteKeys {
@@ -38,7 +39,6 @@ public class Paciente {
 		private static final String DATA_NASCIMENTO = "DataNascimento";
 	}
 	public Paciente(JSONObject json) throws JSONException {
-		
 
 		if (json.has(PacienteKeys.NUM_PRONTUARIO))
 			setNumProntuario(json.getInt(PacienteKeys.NUM_PRONTUARIO));
@@ -70,18 +70,18 @@ public class Paciente {
 		setNumProntuario(-1);
 	}
 
-	public Integer getIdPaciente() {
+	public int getIdPaciente() {
 		return this.idPaciente;
 	}
 
-	public void setIdPaciente(Integer idPaciente) {
+	public void setIdPaciente(int idPaciente) {
 		this.idPaciente = idPaciente;
 	}   
-	public Integer getNumProntuario() {
+	public int getNumProntuario() {
 		return this.numProntuario;
 	}
 
-	public void setNumProntuario(Integer numProntuario) {
+	public void setNumProntuario(int numProntuario) {
 		this.numProntuario = numProntuario;
 	}   
 	public String getNomePaciente() {
@@ -91,11 +91,11 @@ public class Paciente {
 	public void setNomePaciente(String nomePaciente) {
 		this.nomePaciente = nomePaciente;
 	}   
-	public Integer getIdade() {
+	public int getIdade() {
 		return this.idade;
 	}
 
-	public void setIdade(Integer idade) {
+	public void setIdade(int idade) {
 		this.idade = idade;
 	}   
 	public String getGenero() {
