@@ -1,5 +1,5 @@
 var app = angular.module('kanLeitos', []);
-app.controller('pacienteController', ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
+app.controller('PacienteController', ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
 
 	$scope.NovoPaciente = function () {
 		$scope.paciente = {

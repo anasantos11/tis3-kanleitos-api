@@ -1,0 +1,22 @@
+{
+  "name": "kanleitos",
+  "version": "1.0.0",
+  "description": "Software for management of an hospital",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kan",
+    "leitos",
+    "BLAW"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-ui-router": "^1.0.3",
+    "bootstrap": "^3.3.7",
+    "sweetalert2": "^6.10.1"
+  }
+}
