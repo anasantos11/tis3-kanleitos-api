@@ -1,4 +1,4 @@
-package br.com.kanleitos.service.models;
+package br.com.kanleitos.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +31,12 @@ public class Diagnostico {
 		private static final String CID = "CID";
 		private static final String TEMPO_PERMANENCIA = "tempoPermanencia";
 	}
+	
+	public Diagnostico() {
+		setCID("0000");
+		setDescricaoDiagnostico(null);
+		setTempoPermanencia(-1);
+	}
 
 	public Diagnostico(JSONObject json) throws JSONException {
 
@@ -43,7 +49,7 @@ public class Diagnostico {
 		if (json.has(Diagnosticokeys.TEMPO_PERMANENCIA))
 			setTempoPermanencia(json.getInt(Diagnosticokeys.TEMPO_PERMANENCIA));
 	}
-
+	
 	public String getDescricaoDiagnostico() {
 		return descricaoDiagnostico;
 	}
