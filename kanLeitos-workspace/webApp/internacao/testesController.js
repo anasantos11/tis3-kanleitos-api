@@ -1,5 +1,5 @@
 var app = angular.module('kanleitos', []);
-app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory", function ($scope, $http, $filter, diagnosticosFactory) {
+app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory", "pacienteFactory", function ($scope, $http, $filter, diagnosticosFactory, pacienteFactory) {
 
 	$scope.NovoPaciente = function () {
 		$scope.paciente = {
@@ -19,21 +19,11 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory"
 		NumProntuario: $scope.paciente.prontuario
 	}
 
-	$scope.getPacientes = function () {
-		$http.get('http://localhost:8080/Listar/paciente', JSON.stringify(request))
+	$scope.getDiagnosticos = function () {
+		diagnosticosFactory.getDiagnosticos()
 			.then(function (response) {
-				debugger;
-				console.log(response);
-				if (!response.data.Resposta.erro) {
-					swal(
-						'Concluído!',
-						'Cadastro feito com sucesso - ID Paciente: ' + response.data.idPaciente,
-						'success'
-					)
-					$scope.NovoPaciente();
-				}
+				$scope.Diagnosticos = response.data;
 			}, function (response) {
-				debugger;
 				swal(
 					'Erro!',
 					response.data.message,
@@ -42,11 +32,10 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory"
 			});
 	}
 
-	$scope.getDiagnosticos = function () {
-		debugger;
-		diagnosticosFactory.getDiagnosticos()
+	$scope.getPacientes = function () {
+		pacienteFactory.getPacientes()
 			.then(function (response) {
-				$scope.Diagnosticos = response.data;
+				$scope.Pacientes = response.data;
 			}, function (response) {
 				swal(
 					'Erro!',
@@ -72,7 +61,6 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory"
 
 
 		$http.post('http://localhost:8080/Cadastro/paciente', JSON.stringify(request)).then(function (response) {
-			debugger;
 			if (!response.data.Resposta.erro) {
 				swal(
 					'Concluído!',
@@ -82,7 +70,6 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory"
 				$scope.NovoPaciente();
 			}
 		}, function (response) {
-			debugger;
 			swal(
 				'Erro!',
 				response.data.message,
@@ -107,4 +94,23 @@ app.factory('diagnosticosFactory', function ($http) {
 		});
 	};
 	return diagnosticos;
+});
+app.factory('pacienteFactory', function ($http) {
+	var pacientes = {};
+	//Get Diagnosticos
+	pacientes.getPacientes = function () {
+		return $http({
+			url: "http://localhost:8080/Pacientes",
+			method: 'GET'
+		});
+	};
+	//Salvar Pacientes
+	pacientes.savePaciente = function (dados) {
+		return $http({
+			url: 'http://localhost:8080/Cadastro/paciente',
+			method: 'POST',
+			data: dados
+		});
+	};
+	return pacientes;
 });
