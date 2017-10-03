@@ -57,6 +57,20 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory"
 			});
 	}
 
+	$scope.getPaciente = function () {
+		pacienteFactory.getPaciente($scope.paciente.prontuario)
+			.then(function (response) {
+				$scope.pacient = response.data;
+			}, function (response) {
+				swal(
+					'Erro!',
+					response.data.message,
+					'error'
+				)
+			});
+	}
+
+
 
 	$scope.salvarPacienteBanco = function () {
 
@@ -112,14 +126,22 @@ app.factory('pacienteFactory', function ($http) {
 	//Get Diagnosticos
 	pacientes.getPacientes = function () {
 		return $http({
-			url: "http://localhost:8080/Pacientes",
+			url: "http://localhost:8080/ListaPacientes",
 			method: 'GET'
+		});
+	};
+	//Get Paciente pelo numProntuario
+	pacientes.getPaciente = function (prontuario) {
+		return $http({
+			url: "http://localhost:8080/Paciente",
+			method: 'GET',
+			params: { numProntuario: prontuario }
 		});
 	};
 	//Salvar Pacientes
 	pacientes.savePaciente = function (dados) {
 		return $http({
-			url: 'http://localhost:8080/Cadastro/paciente',
+			url: 'http://localhost:8080/CadastroPaciente',
 			method: 'POST',
 			data: dados
 		});

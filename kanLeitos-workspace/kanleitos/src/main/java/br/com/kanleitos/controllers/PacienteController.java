@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ public class PacienteController{
 	@Autowired
 	private PacienteRepository repository;
 
-	@RequestMapping(value = "Cadastro/paciente", method = org.springframework.web.bind.annotation.RequestMethod.POST)
+	@RequestMapping(value = "CadastroPaciente", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String cadastrarPaciente(@RequestBody String json) throws JSONException {
 		boolean erroFlag = true;
 		String decoded = null;
@@ -42,11 +43,19 @@ public class PacienteController{
 		return response;
 	}
 	
-	@RequestMapping(value = "Pacientes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	@RequestMapping(value = "ListaPacientes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String listarDiagnosticos() throws JSONException {
 		Iterable<Paciente> pacientes = repository.findAll();
 		Gson gson = new GsonBuilder().create();
 		String d = gson.toJson(pacientes);
+		return d;
+	}
+	
+	@RequestMapping(value = "Paciente", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	public @ResponseBody String getPaciente(@RequestParam  String numProntuario) throws JSONException {
+		Iterable<Paciente> paciente = repository.findByNumProntuario(Integer.parseInt(numProntuario));
+		Gson gson = new GsonBuilder().create();
+		String d = gson.toJson(paciente);
 		return d;
 	}
 
