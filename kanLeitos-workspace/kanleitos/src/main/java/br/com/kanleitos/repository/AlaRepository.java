@@ -3,11 +3,9 @@ package br.com.kanleitos.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.kanleitos.models.Diagnostico;
-
+import br.com.kanleitos.models.Ala;
 
 @Repository
-public interface DiagnosticoRepository extends CrudRepository<Diagnostico, Integer> {
+public interface AlaRepository extends CrudRepository<Ala, Integer> {
 
-	
 }
