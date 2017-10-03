@@ -190,26 +190,22 @@
                 </li>
                 <li class="breadcrumb-item active">Novo Paciente</li>
             </ol>
-            
+
             <div class="jumbotron" ng-controller="testeCtrl">
                 <form>
                     <div class="container">
-                        <div class="col-lg-12 well">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="col-sm-6 form-group">
-                                            <label>Número do Prontuário</label>
-                                            <input type="text" ng-model="paciente.prontuario" placeholder="Digite o número do prontuário" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <button type="button" ng-click="getPacientes()" class="btn btn-lg btn-info">Listar Pacientes</button>
-
-                                    <button type="button" ng-click="getDiagnosticos()" class="btn btn-lg btn-info">Listar Diagnosticos</button>
-                                    <div> {{diagnosticos.diagnostico}}         </div>              
-                                    
-                                </div>
+                        <div class="col-md-12 form-group">
+                            <label>Número do Prontuário</label>
+                            <input type="text" ng-model="paciente.prontuario" placeholder="Digite o número do prontuário" class="form-control">
+                        </div>
+                        <button type="button" ng-click="getPacientes()" class="btn btn-lg btn-info">Listar Pacientes</button>
+                        <button type="button" ng-click="getDiagnosticos()" class="btn btn-lg btn-info">Listar Diagnosticos</button>
+                        <div class="col-md-12 form-group">
+                            <div ng-repeat="diagnostico in Diagnosticos" class="row">
+                                <div class="col-md-2">Id Diagnosticos = {{diagnostico.idDiagnostico}}</div>
+                                <div class="col-md-5">Descrição = {{diagnostico.descricaoDiagnostico}}</div>
+                                <div class="col-md-2">CID = {{diagnostico.CID}}</div>
+                                <div class="col-md-3">Tempo Permanência = {{diagnostico.tempoPermanencia}}</div>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 var app = angular.module('kanleitos', []);
-app.controller('testeCtrl', ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
+app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory", function ($scope, $http, $filter, diagnosticosFactory) {
 
 	$scope.NovoPaciente = function () {
 		$scope.paciente = {
@@ -43,21 +43,11 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", function ($scope, $ht
 	}
 
 	$scope.getDiagnosticos = function () {
-		$http.get('http://localhost:8080/Diagnosticos')
+		debugger;
+		diagnosticosFactory.getDiagnosticos()
 			.then(function (response) {
-				debugger;
-				console.log(response);
-				$scope.diagnosticos.diagnostico = response;
-				if (!response.data.Resposta.erro) {
-					swal(
-						'Concluído!',
-						'Cadastro feito com sucesso - ID Paciente: ' + response.data.idPaciente,
-						'success'
-					)
-					$scope.NovoPaciente();
-				}
+				$scope.Diagnosticos = response.data;
 			}, function (response) {
-				debugger;
 				swal(
 					'Erro!',
 					response.data.message,
@@ -106,3 +96,15 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", function ($scope, $ht
 
 
 }]);
+//Factorys
+app.factory('diagnosticosFactory', function ($http) {
+	var diagnosticos = {};
+	//Get Diagnosticos
+	diagnosticos.getDiagnosticos = function () {
+		return $http({
+			url: "http://localhost:8080/Diagnosticos",
+			method: 'GET'
+		});
+	};
+	return diagnosticos;
+});
