@@ -1,5 +1,5 @@
 var app = angular.module('kanleitos', []);
-app.controller('pacienteController', ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
+app.controller('pacienteController', ["$scope", "$http", "$filter", "pacienteFactory", function ($scope, $http, $filter, pacienteFactory) {
 
 	$scope.NovoPaciente = function () {
 		$scope.paciente = {
@@ -72,6 +72,8 @@ app.controller('pacienteController', ["$scope", "$http", "$filter", function ($s
 		}
 		return true;
 	}
+
+
 	$scope.salvarPacienteBanco = function () {
 
 		var request = {
@@ -85,29 +87,43 @@ app.controller('pacienteController', ["$scope", "$http", "$filter", function ($s
 
 		$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
-
-		$http.post('http://localhost:8080/Cadastro/paciente', JSON.stringify(request)).then(function (response) {
-			debugger;
-			if (!response.data.Resposta.erro) {
+		pacienteFactory.savePaciente(request)
+			.then(function (response) {
+				if (!response.data.Resposta.erro) {
+					swal(
+						'Concluído!',
+						'Cadastro feito com sucesso - ID Paciente: ' + response.data.idPaciente,
+						'success'
+					)
+					$scope.NovoPaciente();
+				}
+			}, function (response) {
 				swal(
-					'Concluído!',
-					'Cadastro feito com sucesso - ID Paciente: ' + response.data.idPaciente,
-					'success'
+					'Erro!',
+					response.data.message,
+					'error'
 				)
-				$scope.NovoPaciente();
-			}
-		}, function (response) {
-			debugger;
-			swal(
-				'Erro!',
-				response.data.message,
-				'error'
-			)
-		});
-
-
-
+			});
 	}
 
-
 }]);
+
+app.factory('pacienteFactory', function ($http) {
+	var pacientes = {};
+	//Get Diagnosticos
+	pacientes.getPacientes = function () {
+		return $http({
+			url: "http://localhost:8080/Pacientes",
+			method: 'GET'
+		});
+	};
+	//Salvar Pacientes
+	pacientes.savePaciente = function (dados) {
+		return $http({
+			url: 'http://localhost:8080/Cadastro/paciente',
+			method: 'POST',
+			data: dados
+		});
+	};
+	return pacientes;
+});
