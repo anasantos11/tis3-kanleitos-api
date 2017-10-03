@@ -19,9 +19,14 @@ public class Ala {
 	@Column(name = "nomeAla", nullable = false)
 	private String nomeAla;
 
-	@Column(name = "inativa", nullable = false, columnDefinition = "BINARY(0)")
+	@Column(name = "inativa", nullable = false)
 	private boolean inativa;
 
+	public Ala() {
+		setNomeAla(null);
+		setInativa(false);
+	}
+	
 	private static class Alakeys {
 
 		private static final String NOME_ALA = "nomeAla";

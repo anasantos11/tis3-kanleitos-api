@@ -1,5 +1,5 @@
 var app = angular.module('kanleitos', []);
-app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory", "pacienteFactory", function ($scope, $http, $filter, diagnosticosFactory, pacienteFactory) {
+app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory", "pacienteFactory", "alasFactory", function ($scope, $http, $filter, diagnosticosFactory, pacienteFactory, alasFactory) {
 
 	$scope.NovoPaciente = function () {
 		$scope.paciente = {
@@ -32,6 +32,18 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory"
 			});
 	}
 
+	$scope.getAlas = function () {
+		alasFactory.getAlas()
+			.then(function (response) {
+				$scope.Alas = response.data;
+			}, function (response) {
+				swal(
+					'Erro!',
+					response.data.message,
+					'error'
+				)
+			});
+	}
 	$scope.getPacientes = function () {
 		pacienteFactory.getPacientes()
 			.then(function (response) {
@@ -113,4 +125,15 @@ app.factory('pacienteFactory', function ($http) {
 		});
 	};
 	return pacientes;
+});
+app.factory('alasFactory', function ($http) {
+	var alas = {};
+	//Get alas
+	alas.getAlas = function () {
+		return $http({
+			url: "http://localhost:8080/Alas",
+			method: 'GET'
+		});
+	};
+	return alas;
 });
