@@ -8,12 +8,12 @@ angular.module('kanleitos', []).
         method: 'GET'
       });
     };
-    //Get Paciente pelo numProntuario
-    pacientes.getPaciente = function (prontuario) {
+    //Get Paciente pelo numProntuario ou nomeMae
+    pacientes.getPaciente = function (prontuario, mae) {
       return $http({
         url: "http://localhost:8080/Paciente",
         method: 'GET',
-        params: { numProntuario: prontuario }
+        params: { numProntuario: prontuario, nomeMae: mae }
       });
     };
     //Salvar Pacientes

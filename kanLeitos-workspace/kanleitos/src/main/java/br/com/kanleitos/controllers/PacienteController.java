@@ -52,11 +52,19 @@ public class PacienteController{
 	}
 	
 	@RequestMapping(value = "Paciente", method = org.springframework.web.bind.annotation.RequestMethod.GET)
-	public @ResponseBody String getPaciente(@RequestParam  String numProntuario) throws JSONException {
-		Iterable<Paciente> paciente = repository.findByNumProntuario(Integer.parseInt(numProntuario));
+	public @ResponseBody String getPaciente(@RequestParam  String numProntuario, String nomeMae) throws JSONException {
+		Iterable<Paciente> paciente;
+		if(numProntuario != null && !numProntuario.isEmpty()) {
+			paciente = repository.findByNumProntuario(Integer.parseInt(numProntuario));
+		}else {
+			paciente = repository.findByNomeMae(nomeMae);
+		}
+
 		Gson gson = new GsonBuilder().create();
 		String d = gson.toJson(paciente);
 		return d;
 	}
+	
+	
 
 }

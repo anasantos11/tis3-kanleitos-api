@@ -58,7 +58,7 @@ app.controller('testeCtrl', ["$scope", "$http", "$filter", "diagnosticosFactory"
 	}
 
 	$scope.getPaciente = function () {
-		pacienteFactory.getPaciente($scope.paciente.prontuario)
+		pacienteFactory.getPaciente($scope.paciente.prontuario, $scope.paciente.nomeMae )
 			.then(function (response) {
 				$scope.pacient = response.data;
 			}, function (response) {
@@ -130,12 +130,12 @@ app.factory('pacienteFactory', function ($http) {
 			method: 'GET'
 		});
 	};
-	//Get Paciente pelo numProntuario
-	pacientes.getPaciente = function (prontuario) {
+	//Get Paciente pelo numProntuario ou nomeMae
+	pacientes.getPaciente = function (prontuario, mae) {
 		return $http({
 			url: "http://localhost:8080/Paciente",
 			method: 'GET',
-			params: { numProntuario: prontuario }
+			params: { numProntuario: prontuario, nomeMae: mae}
 		});
 	};
 	//Salvar Pacientes

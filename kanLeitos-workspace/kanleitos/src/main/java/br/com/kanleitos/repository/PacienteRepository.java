@@ -10,4 +10,6 @@ import br.com.kanleitos.models.Paciente;
 @Repository
 public interface PacienteRepository extends CrudRepository<Paciente, Integer> {
 	List<Paciente> findByNumProntuario(int numProntuario);
+	List<Paciente> findByNomeMae(String nomeMae);
+	
 }
