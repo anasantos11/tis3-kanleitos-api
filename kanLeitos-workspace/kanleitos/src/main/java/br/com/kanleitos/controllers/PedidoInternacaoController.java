@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.kanleitos.models.PedidoInternacao;
+import br.com.kanleitos.repository.AlaRepository;
+import br.com.kanleitos.repository.DiagnosticoRepository;
+import br.com.kanleitos.repository.PacienteRepository;
 import br.com.kanleitos.repository.PedidoInternacaoRepository;
 import br.com.kanleitos.service.models.CadastroPacienteResposta;
 
@@ -19,6 +22,16 @@ public class PedidoInternacaoController{
 
 	@Autowired
 	private PedidoInternacaoRepository repository;
+	
+	@Autowired
+	private PacienteRepository pacienteRepository;
+	
+	@Autowired
+	private AlaRepository repositoryAla;
+	
+	@Autowired
+	private DiagnosticoRepository repositoryDiagnostico;
+
 
 	@RequestMapping(value = "PedidoInternacao", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String pedidoInternacao(@RequestBody String json) throws JSONException {
@@ -29,7 +42,15 @@ public class PedidoInternacaoController{
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		PedidoInternacao p = new PedidoInternacao(new JSONObject(decoded));
+		JSONObject jsonObject = new JSONObject(decoded);
+		PedidoInternacao p = new PedidoInternacao(jsonObject);
+		//Get Paciente Ala e Diagnotisco
+		p.setPaciente(pacienteRepository.findByNumProntuario(jsonObject.getInt("NumProntuario")).get(0));
+		p.setAla(repositoryAla.findOne((jsonObject.getInt("IdAla"))));
+		p.setDiagnostico(repositoryDiagnostico.findOne((jsonObject.getInt("IdDiagnostico"))));
+		
+		
+		
 		repository.save(p);
 		erroFlag = false;
 
