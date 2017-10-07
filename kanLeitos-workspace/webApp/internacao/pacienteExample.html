@@ -219,7 +219,7 @@
 
                                         <div class="col-sm-4 form-group">
                                             <label>Idade</label>
-                                            <input type="text" ng-model="paciente.idade" placeholder="Idade do paciente" class="form-control">
+                                            <input type="text" ng-model="paciente.idade" placeholder= ng-bind={{ calcularIdade(paciente.nascimento) }} class="form-control">
                                         </div>
                                         <div class="col-sm-4 form-group">
                                             <label>Sexo: </label>
