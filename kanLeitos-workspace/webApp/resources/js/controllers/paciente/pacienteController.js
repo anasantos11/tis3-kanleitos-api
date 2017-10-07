@@ -106,6 +106,17 @@ app.controller('pacienteController', ["$scope", "$http", "$filter", "pacienteFac
 			});
 	}
 
+	$scope.calcularIdade = function calcularIdade(nascimento) {
+		// Obtém a idade em milissegundos
+		var idadeP = Date.now() - nascimento.getTime();
+	
+		// Converte os milissegundos em data e subtrai da era linux
+		var idadeData = new Date(idadeP);
+		var idade = idadeData.getUTCFullYear() - 1970;
+	
+		return idade;
+	}
+
 }]);
 
 app.factory('pacienteFactory', function ($http) {
