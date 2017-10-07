@@ -9,6 +9,7 @@
     <title>KanLeitos</title>
 
     <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <link href="../resources/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="../resources/css/sb-admin.css" rel="stylesheet">
     <link href="../resources/fonts.css" rel="stylesheet" type="text/css">
@@ -39,28 +40,21 @@
                     <a class="nav-link" href="#">
                         <i class="fa fa-bed"></i>
                         <span class="nav-link-text">
-                        Alas e Leitos</span>
+                            Alas e Leitos</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Internação">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
                         <i class="fa fa-plus-square"></i>
+                        <span class="nav-link-text">
+                            Internação</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseComponents">
                         <li>
-                            <a href="#" ui-sref-active="true">
-                                <i class="fa fa-user-plus" aria-hidden="true"> Cadastro</i>
-                            </a>
+                            <a href="#">Solicitar Internação</a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="fa fa-share-square" aria-hidden="true"> Solicitar Internação</i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-plus-circle" aria-hidden="true"> Interbar</i>
-                            </a>
+                            <a href="#">Registrar Internação</a>
                         </li>
                     </ul>
                 </li>
@@ -68,7 +62,7 @@
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
                         <i class="fa fa-file-text"></i>
                         <span class="nav-link-text">
-                        Relatórios</span>
+                            Relatórios</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseMulti">
                         <li>
@@ -101,7 +95,7 @@
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
                         <i class="fa fa-user-md"></i>
                         <span class="nav-link-text">
-                        Área do Usuário</span>
+                            Área do Usuário</span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseExamplePages">
                         <li>
@@ -124,60 +118,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle mr-lg-2" href="#" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-bell"></i>
-                        <span class="d-lg-none">Notificações
-                            <span class="badge badge-pill badge-warning">6 Novas</span>
-                        </span>
-                        <span class="new-indicator text-warning d-none d-lg-block">
-                            <i class="fa fa-fw fa-circle"></i>
-                            <span class="number">6</span>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-                        <h6 class="dropdown-header">Novas Notificações:</h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-success">
-                                <strong>
-                                    <i class="fa fa-long-arrow-up"></i>
-                                Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-danger">
-                                <strong>
-                                    <i class="fa fa-long-arrow-down"></i>
-                                Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-success">
-                                <strong>
-                                    <i class="fa fa-long-arrow-up"></i>
-                                Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item small" href="#">
-                            View all alerts
-                        </a>
-                    </div>
-                </li>
+
                 <h7 style="color: white"> Seja bem-vindo(a), Nome do Usuário</h7>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
                         <i class="fa fa-fw fa-sign-out"></i>
-                    Sair</a>
+                        Sair</a>
                 </li>
             </ul>
         </div>
@@ -188,64 +134,122 @@
                 <li class="breadcrumb-item">
                     <a href="cadastroPaciente.html">Internação</a>
                 </li>
-                <li class="breadcrumb-item active">Novo Paciente</li>
+                <li class="breadcrumb-item active">Solicitar Internação</li>
             </ol>
-            
+
             <div class="jumbotron" ng-controller="pacienteController">
                 <form>
                     <div class="container">
-                        <div class="col-lg-12 well">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="col-sm-6 form-group">
-                                            <label>Número do Prontuário</label>
-                                            <input type="text" ng-model="paciente.prontuario" placeholder="Digite o número do prontuário" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-18">
-                                        <label>Nome do Paciente: </label>
-                                        <input type="text" ng-model="paciente.nome" placeholder="Digite o nome do paciente" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Nome da mãe: </label>
-                                        <input type="text" ng-model="paciente.mae" placeholder="Digite o nome da mãe do paciente" class="form-control">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-4 form-group">
-                                            <label>Data de nascimento:</label>
-                                            <input class="form-control" type="date" ng-model="paciente.nascimento" value="" id="example-date-input">
-                                        </div>
-
-                                        <div class="col-sm-4 form-group">
-                                            <label>Idade</label>
-                                            <input type="text" ng-model="paciente.idade" placeholder="Idade do paciente" class="form-control">
-                                        </div>
-                                        <div class="col-sm-4 form-group">
-                                            <label>Sexo: </label>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                        <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino" checked>
-                                        Feminino 
-                                    </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                        <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Masculino">
-                                        Masculino
-                                    </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="button" ng-click="salvarPaciente()" class="btn btn-lg btn-info">Cadastrar</button>
-                                </div>
-                            </div>
+                        <div class="row">
+                            <a href="#" class="btn btn-primary btn-info">Cadastrar novo paciente </a> &nbsp;&nbsp;
+                            <a href="#" class="btn btn-primary btn-info">
+                                <span style="position: right" class="fa fa-search" title="Pesquisar paciente" .></span>
+                            </a>
                         </div>
                     </div>
-                </form>
-            </div>
-            <!-- /.jumbotron -->
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-2 form-group">
+                            <label>Data do pedido </label>
+                            <input class="form-control" type="date" ng-model="paciente.pedido" value="" id="dataPedido">
+                        </div>
 
+                        <div class="col-sm-2 form-group">
+                            <label for="Status">Status</label>
+                            <select class="form-control" id="Status">
+                                <option>Pendente</option>
+                                <option>Em andamento</option>
+                                <option>Concluído</option>
+                                <option>Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 form-group ">
+                            <label for="aih" class="col-2 col-form-label">AIH</label>
+                            <input class="form-control" type="number" value="" id="aih">
+                        </div>
+                        <div class="col-sm-6 form-group ">
+                            <label for="nomePaciente" class="col-6 col-form-label">Nome do Paciente</label>
+                            <input class="form-control" type="text" value="Nome" id="nomePaciente">
+                        </div>
+                        <div class="col-sm-6 form-group ">
+                            <label for="numProntuario" class="col-6 col-form-label">Número do Prontuário</label>
+                            <input class="form-control" type="number" value="" id="numProntuario">
+                        </div>
+
+                        <div class="col-sm-2 form-group">
+                            <label>Data de nascimento </label>
+                            <input class="form-control" type="date" ng-model="paciente.nascimento" value="" id="dataNascimento">
+                        </div>
+                        <div class="col-sm-2 form-group ">
+                            <label for="idade" class="col-2 col-form-label">Idade</label>
+                            <input class="form-control" type="number" value="" id="idade">
+                        </div>
+                        
+
+
+
+                        <div class="col-sm-4 form-group ">
+                                <label>Sexo </label>
+                                </br>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sexoFem" value="option1"> Feminino
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sexoMasc" value="option2"> Masculino
+                                    </label>
+                                </div>
+                            </div>
+                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="form-group col-xs-6 col-md-4">
+                        <label>Diagnóstico </label>
+                        <select class="form-control" ng-model="pedidoInternacao.IdDiagnostico">
+                            <option value="">Selecione </option>
+                            <option ng-repeat="diagnostico in Diagnosticos" value="{{diagnostico.idDiagnostico}}">{{diagnostico.descricaoDiagnostico}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-6 col-md-4">
+                        <label>Ala</label>
+                        <select ng-model="pedidoInternacao.IdAla" class="form-control">
+                            <option value="">Selecione</option>
+                            <option ng-repeat="ala in Alas" value="{{ala.idAla}}">{{ala.nomeAla}}</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label>Data de admissão </label>
+                        <input class="form-control" type="date" ng-model="paciente.admissao" value="" id="dataAdmissao">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Médico Responsável </label>
+                        <input type="text" class="form-control" placeholder="Médico Responsável">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Residente </label>
+                        <input type="text" class="form-control" placeholder="Residente">
+                    </div>
+                   
+                </form>
+                
+            </div>
+            <a href="#" class="btn btn-primary btn-primary">Solicitar Internação </a>
+            <!-- /.jumbotron -->
         </div>
     </div>
     <footer class="sticky-footer">
