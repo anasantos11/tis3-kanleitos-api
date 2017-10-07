@@ -1,0 +1,9 @@
+.mediumSize {
+    width: 70% !important;
+}
+.smallSize {
+    width: 40% !important;
+}
+.modal-dialog {
+    max-width: 100% !important;
+}

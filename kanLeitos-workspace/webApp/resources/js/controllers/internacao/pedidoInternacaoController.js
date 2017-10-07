@@ -22,6 +22,27 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
         $scope.CarregarAlas();
     }
 
+    $scope.carregarPacientes = function () {
+        pacienteFactory.getPacientes()
+            .then(function (response) {
+                $scope.ListaPacientes = response.data;
+                //$scope.Pacientes.dataNascimento = new Date($scope.Pacientes[0].dataNascimento);
+            }, function (response) {
+                if (response.data != undefined) {
+                    swal(
+                        'Erro!',
+                        response.data.message,
+                        'error'
+                    )
+                } else {
+                    swal(
+                        'Erro!',
+                        'Ocorreu algum erro no servidor',
+                        'error'
+                    )
+                }
+            });
+    };
 
     $scope.CarregarDiagnosticos = function () {
         diagnosticosFactory.getDiagnosticos()
@@ -87,26 +108,6 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
                     }
                 });
         }, 1000);
-    }
-    $scope.getPacientes = function () {
-        pacienteFactory.getPacientes()
-            .then(function (response) {
-                $scope.Pacientes = response.data;
-            }, function (response) {
-                if (response.data != undefined) {
-                    swal(
-                        'Erro!',
-                        response.data.message,
-                        'error'
-                    )
-                } else {
-                    swal(
-                        'Erro!',
-                        'Ocorreu algum erro no servidor',
-                        'error'
-                    )
-                }
-            });
     }
 
     $scope.Inicializar();
