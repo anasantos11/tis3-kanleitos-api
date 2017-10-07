@@ -75,15 +75,15 @@ public class PedidoInternacao {
 		this.diagnostico = diagnostico;
 	}
 	private static class PedidoInternacaoKeys {
-		private static final String PACIENTE = "Paciente";
-		private static final String ALA = "Ala";
-		private static final String DIAGNOSTICO = "Diagnostico";
-		private static final String MEDICO_RESPONSAVEL = "MedicoResponsavel";
-		private static final String RESIDENTE_RESPONSAVEL = "ResidenteResponsavel";
-		private static final String DATA_ADMISSAO = "DataAdmissao";
+		private static final String PACIENTE = "paciente";
+		private static final String ALA = "ala";
+		private static final String DIAGNOSTICO = "diagnostico";
+		private static final String MEDICO_RESPONSAVEL = "medicoResponsavel";
+		private static final String RESIDENTE_RESPONSAVEL = "residenteResponsavel";
+		private static final String DATA_ADMISSAO = "dataAdmissao";
 		private static final String AIH = "AIH";
-		private static final String DATA_PEDIDO = "DataPedido";
-		private static final String STATUS_PEDIDO = "Status";
+		private static final String DATA_PEDIDO = "dataPedido";
+		private static final String STATUS_PEDIDO = "status";
 
 	}
 

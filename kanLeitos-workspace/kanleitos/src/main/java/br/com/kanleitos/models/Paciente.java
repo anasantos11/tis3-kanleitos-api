@@ -31,12 +31,12 @@ public class Paciente {
 	private String dataNascimento;
 	
 	private static class PacienteKeys {
-		private static final String NUM_PRONTUARIO = "NumProntuario";
-		private static final String NOME_PACIENTE = "NomePaciente";
-		private static final String IDADE = "Idade";
-		private static final String GENERO = "Genero";
-		private static final String NOME_MAE = "NomeMae";
-		private static final String DATA_NASCIMENTO = "DataNascimento";
+		private static final String NUM_PRONTUARIO = "numProntuario";
+		private static final String NOME_PACIENTE = "nomePaciente";
+		private static final String IDADE = "idade";
+		private static final String GENERO = "genero";
+		private static final String NOME_MAE = "nomeMae";
+		private static final String DATA_NASCIMENTO = "dataNascimento";
 	}
 	public Paciente(JSONObject json) throws JSONException {
 

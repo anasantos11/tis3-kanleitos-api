@@ -37,9 +37,11 @@ public class PacienteController{
 		repository.save(p);
 		erroFlag = false;
 
-		CadastroPacienteResposta responseObject = new CadastroPacienteResposta(erroFlag);
-		responseObject.setIdPaciente(Integer.toString(p.getIdPaciente()));
-		String response = responseObject.toJson().toString();
+		//CadastroPacienteResposta responseObject = new CadastroPacienteResposta(erroFlag);
+		//responseObject.setIdPaciente(Integer.toString(p.getIdPaciente()));
+		//String response = responseObject.toJson().toString();
+		Gson gson = new GsonBuilder().create();
+		String response = gson.toJson(p);
 		return response;
 	}
 	

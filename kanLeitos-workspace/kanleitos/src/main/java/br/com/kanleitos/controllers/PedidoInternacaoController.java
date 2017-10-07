@@ -1,4 +1,5 @@
 package br.com.kanleitos.controllers;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -10,28 +11,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import br.com.kanleitos.models.PedidoInternacao;
 import br.com.kanleitos.repository.AlaRepository;
 import br.com.kanleitos.repository.DiagnosticoRepository;
 import br.com.kanleitos.repository.PacienteRepository;
 import br.com.kanleitos.repository.PedidoInternacaoRepository;
-import br.com.kanleitos.service.models.CadastroPacienteResposta;
 
 @Controller
-public class PedidoInternacaoController{
+public class PedidoInternacaoController {
 
 	@Autowired
 	private PedidoInternacaoRepository repository;
-	
+
 	@Autowired
 	private PacienteRepository pacienteRepository;
-	
+
 	@Autowired
 	private AlaRepository repositoryAla;
-	
+
 	@Autowired
 	private DiagnosticoRepository repositoryDiagnostico;
-
 
 	@RequestMapping(value = "PedidoInternacao", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String pedidoInternacao(@RequestBody String json) throws JSONException {
@@ -45,18 +47,19 @@ public class PedidoInternacaoController{
 		JSONObject jsonObject = new JSONObject(decoded);
 		PedidoInternacao p = new PedidoInternacao(jsonObject);
 		//Get Paciente Ala e Diagnotisco
-		p.setPaciente(pacienteRepository.findByNumProntuario(jsonObject.getInt("NumProntuario")).get(0));
-		p.setAla(repositoryAla.findOne((jsonObject.getInt("IdAla"))));
-		p.setDiagnostico(repositoryDiagnostico.findOne((jsonObject.getInt("IdDiagnostico"))));
+		p.setPaciente(pacienteRepository.findByNumProntuario(jsonObject.getInt("numProntuario")).get(0));
+		p.setAla(repositoryAla.findOne((jsonObject.getInt("idAla"))));
+		p.setDiagnostico(repositoryDiagnostico.findOne((jsonObject.getInt("idDiagnostico"))));
 		
 		
 		
 		repository.save(p);
 		erroFlag = false;
-
-		CadastroPacienteResposta responseObject = new CadastroPacienteResposta(erroFlag);
-		responseObject.setIdPaciente(Integer.toString(p.getIdPedidoInternacao()));
-		String response = responseObject.toJson().toString();
+		//CadastroPacienteResposta responseObject = new CadastroPacienteResposta(erroFlag);
+		//responseObject.setIdPaciente(Integer.toString(p.getIdPedidoInternacao()));
+		//String response = responseObject.toJson().toString();
+		Gson gson = new GsonBuilder().create();
+		String response = gson.toJson(p);
 		return response;
 	}
 

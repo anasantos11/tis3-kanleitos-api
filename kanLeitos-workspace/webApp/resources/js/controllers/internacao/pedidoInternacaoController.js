@@ -3,14 +3,18 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
 
     $scope.NovoPedido = function () {
         $scope.pedidoInternacao = {
+            numProntuario: 0,
+            nomePaciente: "",
+            nomeMae: "",
+            dataNascimento: "",
+            idade: 0,
+            genero: "",
             AIH: "",
-            DataPedido: new Date(),
-            Status: "Pendente",
-            MedicoResponsavel: "",
-            ResidenteResponsavel: "",
-            DataAdmissao: "",
-            NomePaciente: "",
-            NomeMae: ""
+            dataPedido: new Date(),
+            status: "Pendente",
+            medicoResponsavel: "",
+            residenteResponsavel: "",
+            dataAdmissao: ""
         }
     }
 
@@ -24,26 +28,18 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
 
     $scope.cadastrarPaciente = function () {
         $scope.pedidoInternacao.dataNascimento = $filter('date')($scope.pedidoInternacao.dataNascimento, 'yyyy-MM-dd');
-        var request = {
-            NomePaciente: $scope.pedidoInternacao.nomePaciente,
-            NumProntuario: $scope.pedidoInternacao.numProntuario,
-            Idade: $scope.pedidoInternacao.idade,
-            NomeMae: $scope.pedidoInternacao.nomeMae,
-            DataNascimento: $scope.pedidoInternacao.dataNascimento,
-            Genero: $scope.pedidoInternacao.genero,
-        };
         $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-        pacienteFactory.savePaciente(request)
+        pacienteFactory.savePaciente($scope.pedidoInternacao)
             .then(function (response) {
-                if (!response.data.Resposta.erro) {
-                    swal(
-                        'Concluído!',
-                        'Cadastro feito com sucesso - ID Paciente: ' + response.data.idPaciente,
-                        'success'
-                    )
-                    $scope.NovoPaciente();
-                }
+                swal(
+                    'Concluído!',
+                    'Cadastro feito com sucesso - Paciente: ' + response.data.nomePaciente,
+                    'success'
+                )
+                $('#cadastroPaciente').modal('hide');
+                $scope.NovoPedido();
             }, function (response) {
+                $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
                 swal(
                     'Erro!',
                     response.data.message,
@@ -55,7 +51,6 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
         pacienteFactory.getPacientes()
             .then(function (response) {
                 $scope.ListaPacientes = response.data;
-                //$scope.Pacientes.dataNascimento = new Date($scope.Pacientes[0].dataNascimento);
             }, function (response) {
                 if (response.data != undefined) {
                     swal(
@@ -115,25 +110,14 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
     };
     $scope.GetPaciente = function () {
         setTimeout(function () {
-            pacienteFactory.getPaciente($scope.pedidoInternacao.NumProntuario, $scope.pedidoInternacao.NomeMae)
+            pacienteFactory.getPaciente($scope.pedidoInternacao.numProntuario, $scope.pedidoInternacao.nomeMae)
                 .then(function (response) {
-                    $scope.pedidoInternacao.NomePaciente = response.data[0].nomePaciente;
-                    $scope.pedidoInternacao.Idade = response.data[0].idade;
-                    $scope.pedidoInternacao.DataNascimento = new Date(response.data[0].dataNascimento);
-                    $scope.pedidoInternacao.Sexo = response.data[0].genero;
-                }, function (response) {
-                    if (response.data != undefined) {
-                        swal(
-                            'Erro!',
-                            response.data.message,
-                            'error'
-                        )
-                    } else {
-                        swal(
-                            'Erro!',
-                            'Ocorreu algum erro no servidor',
-                            'error'
-                        )
+                    if (response.data.length > 0) {
+                        $scope.pedidoInternacao.nomePaciente = response.data[0].nomePaciente;
+                        $scope.pedidoInternacao.nomeMae = response.data[0].nomeMae;
+                        $scope.pedidoInternacao.idade = response.data[0].idade;
+                        $scope.pedidoInternacao.dataNascimento = new Date(response.data[0].dataNascimento);
+                        $scope.pedidoInternacao.genero = response.data[0].genero;
                     }
                 });
         }, 1000);
@@ -142,36 +126,22 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
     $scope.Inicializar();
 
     $scope.salvarPedidoInternacao = function () {
-        $scope.pedidoInternacao.DataAdmissao = $filter('date')($scope.pedidoInternacao.DataAdmissao, 'yyyy-MM-dd HH:mm:ss:sss');
-        $scope.pedidoInternacao.DataPedido = $filter('date')($scope.pedidoInternacao.DataPedido, 'yyyy-MM-dd HH:mm:ss:sss');
-
-        var request = {
-            AIH: $scope.pedidoInternacao.AIH,
-            DataAdmissao: $scope.pedidoInternacao.DataAdmissao,
-            DataPedido: $scope.pedidoInternacao.DataPedido,
-            IdAla: $scope.pedidoInternacao.IdAla,
-            IdDiagnostico: $scope.pedidoInternacao.IdDiagnostico,
-            MedicoResponsavel: $scope.pedidoInternacao.MedicoResponsavel,
-            NumProntuario: $scope.pedidoInternacao.NumProntuario,
-            ResidenteResponsavel: $scope.pedidoInternacao.ResidenteResponsavel,
-            Status: $scope.pedidoInternacao.Status
-        }
+        $scope.pedidoInternacao.dataAdmissao = $filter('date')($scope.pedidoInternacao.dataAdmissao, 'yyyy-MM-dd HH:mm:ss:sss');
+        $scope.pedidoInternacao.dataPedido = $filter('date')($scope.pedidoInternacao.dataPedido, 'yyyy-MM-dd HH:mm:ss:sss');
 
         $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-        pedidoInternacaoFactory.savePedidoInternacao(request)
+        pedidoInternacaoFactory.savePedidoInternacao($scope.pedidoInternacao)
             .then(function (response) {
-                if (!response.data.Resposta.erro) {
-                    swal(
-                        'Concluído!',
-                        'Cadastro feito com sucesso - ID Pedido: ' + response.data.idPedidoInternacao,
-                        'success'
-                    )
-                    $scope.NovoPedido();
-                }
+                swal(
+                    'Concluído!',
+                    'Pedido realizado com sucesso, nº ' + response.data.idPedidoInternacao,
+                    'success'
+                )
+                $scope.NovoPedido();
             }, function (response) {
-                $scope.pedidoInternacao.DataNascimento = new Date($scope.pedidoInternacao.DataNascimento);
-                $scope.pedidoInternacao.DataPedido = new Date($scope.pedidoInternacao.DataPedido);
-                $scope.pedidoInternacao.DataAdmissao = new Date($scope.pedidoInternacao.DataAdmissao);
+                $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
+                $scope.pedidoInternacao.dataPedido = new Date($scope.pedidoInternacao.dataPedido);
+                $scope.pedidoInternacao.dataAdmissao = new Date($scope.pedidoInternacao.dataAdmissao);
                 if (response.data != undefined) {
                     swal(
                         'Erro!',
@@ -185,7 +155,25 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
                         'error'
                     )
                 }
-            });
+            }
+
+            );
+    }
+
+    $scope.calcularIdade = function () {
+
+        // Obtém a idade em milissegundos
+        var idadeP = new Date() - new Date($scope.pedidoInternacao.dataNascimento).getTime();
+
+        // Converte os milissegundos em data e subtrai da era linux
+        var idadeData = new Date(idadeP);
+        var idade = idadeData.getUTCFullYear() - 1970;
+        if (!isNaN(idade) && idade != undefined) {
+            $scope.pedidoInternacao.idade = idade;
+        } else {
+            $scope.pedidoInternacao.idade = 0;
+        }
+
     }
 }]);
 
