@@ -22,9 +22,15 @@
     <script src="../node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="../node_modules/sweetalert2/src/sweetalert2.js"></script>
     <script src="../app.js"></script>
+
     <script src="../resources/js/controllers/internacao/pedidoInternacaoController.js"></script>
      <script src="../resources/js/sweetalert.min.js"></script>
     
+     <!--<script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script>-->
+
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top">
@@ -141,8 +147,8 @@
                 <form>
                     <div class="row">
                         <div class="col-sm-12 form-group">
-                            <button href="#" class="btn btn-primary btn-info" title="Cadastrar novo paciente">Cadastrar novo paciente </button>                            &nbsp;&nbsp;
-                            <button href="#" class="btn btn-primary btn-info " title="Pesquisar paciente">
+                            <button data-toggle="modal" data-target="#cadastroPaciente"  class="btn btn-primary btn-info" title="Cadastrar novo paciente">Cadastrar novo paciente </button>                            &nbsp;&nbsp;
+                            <button data-toggle="modal" data-target="#modalPesquisa" ng-click="carregarPacientes()" class="btn btn-primary btn-info " title="Pesquisar paciente">
                                Pesquisar paciente
                                <i class="fa fa-search" > </i>
                             </button>
@@ -250,26 +256,161 @@
     <a class="scroll-to-top rounded" href="#/page-top">
             <i class="fa fa-angle-up"></i>
         </a>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmação de saída</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                </div>
-                <div class="modal-body">
-                    Clique em "Sair" para finalizar a sessão atual.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="login.html">Sair</a>
+
+         <!-- MODAL DE CADASTRO -->
+         <div class="modal fade" id="cadastroPaciente" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h3 class="modal-title" id="lineModalLabel">Cadastrar Paciente</h3>
+                        </div>
+                        <div class="modal-body">
+
+                            <!-- content goes here -->
+                            <form>
+                                <div class="form-group ">
+                                    <label for="numProntuario" class="col-6 col-form-label">Número do Prontuário</label>
+                                    <input class="form-control" type="number" value="" id="numProntuario">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="nomePaciente" class="col-6 col-form-label">Nome do Paciente</label>
+                                    <input class="form-control" type="text" placeholder="Nome do paciente" id="nomePaciente">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="nomeMae" class="col-4 col-form-label">Nome da Mãe</label>
+                                    <input class="form-control" type="text" placeholder="Nome da mãe" id="nomePaciente">
+                                </div>
+                                <div class="form-group">
+                                    <label>Data de nascimento </label>
+                                    <input class="form-control" type="date" ng-model="paciente.nascimento" value="" id="dataNascimento">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="idade" class="col-2 col-form-label">Idade</label>
+                                    <input type="number" ng-model="paciente.idade" ng-bind="{{ calcularIdade(paciente.nascimento) }}" class="form-control">
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Sexo </label>
+                                    </br>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino"
+                                                checked> Feminino
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sexoMasc" value="option2"> Masculino
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                                <div class="btn-group btn-delete hidden" role="group">
+                                    <button type="button" id="delImage" class="btn btn-danger" data-dismiss="modal" role="button">Cancelar</button>
+                                </div> &nbsp;
+                                <div class="btn-group" role="group">
+                                    <button type="button" id="cadastroP" class="btn btn-success" data-action="save" role="button" onclick="cadastroPaciente()">Cadastrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
+
+        <!-- MODAL DE PESQUISA -->
+        <div class="modal fade" id="modalPesquisa" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h3 class="modal-title" id="lineModalLabel">Lista de Pacientes</h3>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nº Prontuário</th>
+                                    <th>Nome do Paciente</th>
+                                    <th>Nome da mãe</th>
+                                    <th>Data de nascimento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="paciente in Pacientes">
+                                    <td>{{paciente.numProntuario}}</td>
+                                    <td>{{paciente.nomePaciente}}</td>
+                                    <td>{{paciente.nomeMae}}</td>
+                                    <td>{{paciente.dataNascimento}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="col-sm-12 ">
+                            <div class="result pull-left">
+                                <strong>Mostrando 1 até 6 de 5000</strong>
+                            </div>
+
+                            <ul class="pagination pull-right">
+                                <li>
+                                    <a href="#">«</a>
+                                </li>
+                                <li>
+                                    <a href="#">1</a>
+                                </li>
+                                <li>
+                                    <a href="#">2</a>
+                                </li>
+                                <li>
+                                    <a href="#">3</a>
+                                </li>
+                                <li>
+                                    <a href="#">4</a>
+                                </li>
+                                <li>
+                                    <a href="#">5</a>
+                                </li>
+                                <li>
+                                    <a href="#">»</a>
+                                </li>
+                            </ul>
+                            <br>
+                            <br>
+                                    <button type="button" id="fecharModal" class="btn btn-default" data-dismiss="modal" role="button">Fechar</button>
+                                
+
+                               
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmação de saída</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Clique em "Sair" para finalizar a sessão atual.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-primary" href="login.html">Sair</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 </body>
 
 </html>
