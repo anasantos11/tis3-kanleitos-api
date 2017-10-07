@@ -18,7 +18,9 @@ body.fixed-nav {
 .content-wrapper {
   min-height: calc(100vh - 56px);
   padding-top: 1rem; }
-
+.form-control:disabled, .form-control[readonly] {
+    background-color: #e5e5e5;
+}
 .scroll-to-top {
   position: fixed;
   right: 15px;

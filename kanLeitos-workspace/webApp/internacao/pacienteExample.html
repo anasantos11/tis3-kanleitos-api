@@ -151,12 +151,12 @@
                     <div class="row">
                         <div class="col-sm-2 form-group">
                             <label>Data do pedido </label>
-                            <input class="form-control" type="date" ng-model="pedidoInternacao.DataPedido" value="" id="dataPedido">
+                            <input class="form-control" type="date" ng-model="pedidoInternacao.DataPedido" ng-disabled="true" value="" id="dataPedido">
                         </div>
 
                         <div class="col-sm-2 form-group">
                             <label for="Status">Status</label>
-                            <select class="form-control" id="Status" ng-model="pedidoInternacao.Status">
+                            <select class="form-control" id="Status" ng-model="pedidoInternacao.Status" ng-disabled="true">
                                  <option value="">Selecione </option>
                                 <option  value="Pendente">Pendente</option>
                                 <option  value="Em Andamento">Em Andamento</option>

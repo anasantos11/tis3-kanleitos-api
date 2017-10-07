@@ -5,7 +5,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
         $scope.pedidoInternacao = {
             AIH: "",
             DataPedido: new Date(),
-            Status: "",
+            Status: "Pendente",
             MedicoResponsavel: "",
             ResidenteResponsavel: "",
             DataAdmissao: "",
@@ -64,27 +64,29 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
             });
     };
     $scope.GetPaciente = function () {
-        pacienteFactory.getPaciente($scope.pedidoInternacao.NumProntuario, $scope.pedidoInternacao.NomeMae)
-            .then(function (response) {
-                $scope.pacient = response.data;
-                $scope.pedidoInternacao.NomePaciente = response.data[0].nomePaciente;
-                $scope.pedidoInternacao.Idade = response.data[0].idade;
-                $scope.pedidoInternacao.DataNascimento = new Date(response.data[0].dataNascimento);
-            }, function (response) {
-                if (response.data != undefined) {
-                    swal(
-                        'Erro!',
-                        response.data.message,
-                        'error'
-                    )
-                } else {
-                    swal(
-                        'Erro!',
-                        'Ocorreu algum erro no servidor',
-                        'error'
-                    )
-                }
-            });
+        setTimeout(function () {
+            pacienteFactory.getPaciente($scope.pedidoInternacao.NumProntuario, $scope.pedidoInternacao.NomeMae)
+                .then(function (response) {
+                    $scope.pedidoInternacao.NomePaciente = response.data[0].nomePaciente;
+                    $scope.pedidoInternacao.Idade = response.data[0].idade;
+                    $scope.pedidoInternacao.DataNascimento = new Date(response.data[0].dataNascimento);
+                    $scope.pedidoInternacao.Sexo = response.data[0].genero;
+                }, function (response) {
+                    if (response.data != undefined) {
+                        swal(
+                            'Erro!',
+                            response.data.message,
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Erro!',
+                            'Ocorreu algum erro no servidor',
+                            'error'
+                        )
+                    }
+                });
+        }, 1000);
     }
     $scope.getPacientes = function () {
         pacienteFactory.getPacientes()
