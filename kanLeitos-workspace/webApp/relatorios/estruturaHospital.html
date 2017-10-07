@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="kanleitos">
+
+<head>
+    <!-- META SECTION -->
+    <title>KanLeitos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- END META SECTION -->
+
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css" />
+
+    <!-- EOF CSS INCLUDE -->
+</head>
+
+<body ng-controller="EstruturaCtrl">
+    <!-- PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrap">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- START DEFAULT DATATABLE -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ala</th>
+                                    <th>Enfermaria</th>
+                                    <th>Leito</th>
+                                    <th>Tipo Leito</th>
+                                    <th>Gênero Leito</th>
+                                    <th>Status Leito</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="estrutura in Leitos">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{estrutura.ala.nomeAla}}</td>
+                                    <td>{{estrutura.enfermaria.nomeEnfermaria}}</td>
+                                    <td>{{estrutura.nomeLeito}}</td>
+                                    <td>{{estrutura.tipoLeito}}</td>
+                                    <td>{{estrutura.generoLeito}}</td>
+                                    <td>{{estrutura.statusLeito}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END DEFAULT DATATABLE -->
+            </div>
+        </div>
+
+    </div>
+    <!-- PAGE CONTENT WRAPPER -->
+
+    <!-- START SCRIPTS -->
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="estruturaController.js">
+
+    </script>
+    <!-- START PLUGINS -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- END PLUGINS -->
+
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+    <!-- END PAGE PLUGINS -->
+
+    <!-- START TEMPLATE -->
+    <script src="../node_modules/sweetalert2/src/sweetalert2.js"></script>
+
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/actions.js"></script>
+    <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->
+
+    <body>
+
+</html>

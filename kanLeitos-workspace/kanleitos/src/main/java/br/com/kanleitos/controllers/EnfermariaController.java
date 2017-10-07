@@ -8,20 +8,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import br.com.kanleitos.models.Ala;
-import br.com.kanleitos.repository.AlaRepository;
+import br.com.kanleitos.models.Enfermaria;
+import br.com.kanleitos.repository.EnfermariaRepository;
 
 @Controller
-public class AlaController{
+public class EnfermariaController{
 
 	@Autowired
-	private AlaRepository repository;
+	private EnfermariaRepository repository;
 
-	@RequestMapping(value = "Alas", method = org.springframework.web.bind.annotation.RequestMethod.GET)
-	public @ResponseBody String listarAlas() throws JSONException {
-		Iterable<Ala> alas = repository.findAll();
+	@RequestMapping(value = "Enfermarias", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	public @ResponseBody String listarEnfermarias() throws JSONException {
+		Iterable<Enfermaria> enfermarias = repository.findAll();
 		Gson gson = new GsonBuilder().create();
-		String d = gson.toJson(alas);
+		String d = gson.toJson(enfermarias);
 		return d;
 	}
 

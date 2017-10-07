@@ -7,6 +7,7 @@
     <meta name="author" content="">
 
     <title>KanLeitos</title>
+     <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css" />
 
     <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="../resources/css/dataTables.bootstrap4.css" rel="stylesheet">
@@ -22,11 +23,10 @@
     <script src="../node_modules/angular/angular.min.js"></script>
     <script src="../node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="../node_modules/sweetalert2/src/sweetalert2.js"></script>
-    <script src="../app.js"></script>
-    <script src="testesController.js"></script>
+
 </head>
 
-<body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top">
+<body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top" ng-controller="EstruturaCtrl">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
         <a class="navbar-brand" href="#">KanLeitos</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -184,66 +184,39 @@
     </nav>
     <div class="content-wrapper">
         <div class="container-fluid">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="cadastroPaciente.html">Internação</a>
-                </li>
-                <li class="breadcrumb-item active">Novo Paciente</li>
-            </ol>
-
-            <div class="jumbotron" ng-controller="testeCtrl">
-                <form>
-                    <div class="container">
-                        <div class="col-md-12 form-group">
-                            <label>Número do Prontuário</label>
-                            <input type="text" ng-model="paciente.prontuario" placeholder="Digite o número do prontuário" class="form-control">
-                        </div>
-                                                <div class="col-md-12 form-group">
-                            <label>Nome mãe</label>
-                            <input type="text" ng-model="paciente.nomeMae" placeholder="Digite o nome mãe" class="form-control">
-                        </div>
-                        <button type="button" ng-click="getPaciente()" class="btn btn-lg btn-info">Pegar Paciente</button>
-                        <button type="button" ng-click="getPacientes()" class="btn btn-lg btn-info">Listar Pacientes</button>
-                        <button type="button" ng-click="getDiagnosticos()" class="btn btn-lg btn-info">Listar Diagnosticos</button>
-                         <button type="button" ng-click="getAlas()" class="btn btn-lg btn-info">Listar Alas</button>
-                         <br>
-                         Paciente {{paciente.prontuario}} = {{pacient}}
-                         <br>
-                         Diagnosticos
-                        <div class="col-md-12 form-group">
-                            <div ng-repeat="diagnostico in Diagnosticos" class="row">
-                                <div class="col-md-2">Id Diagnosticos = {{diagnostico.idDiagnostico}}</div>
-                                <div class="col-md-5">Descrição = {{diagnostico.descricaoDiagnostico}}</div>
-                                <div class="col-md-2">CID = {{diagnostico.CID}}</div>
-                                <div class="col-md-3">Tempo Permanência = {{diagnostico.tempoPermanencia}}</div>
-                            </div>
-                        </div>
-                        Pacientes
-                        <div class="col-md-12 form-group">
-                            <div ng-repeat="paciente in Pacientes" class="row">
-                                <div class="col-md-1">Id:{{paciente.idPaciente}}</div>
-                                <div class="col-md-2">Prontuário:{{paciente.numProntuario}}</div>
-                                <div class="col-md-3">Nome:{{paciente.nomePaciente}}</div>
-                                <div class="col-md-2">{{paciente.dataNascimento}}</div>
-                                <div class="col-md-1">Idade:{{paciente.idade}}</div>
-                                <div class="col-md-3">Mãe:{{paciente.nomeMae}}</div>
-                            </div>
-                        </div>
-                        Alas
-                        <div class="col-md-12 form-group">
-                            <div ng-repeat="ala in Alas" class="row">
-                                <div class="col-md-4">Id:{{ala.idAla}}</div>
-                                <div class="col-md-4">Ala:{{ala.nomeAla}}</div>
-                                <div class="col-md-4">Inativo:{{ala.inativa}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+            <!-- START DEFAULT DATATABLE -->
+                <div class="panel-body">
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ala</th>
+                                <th>Enfermaria</th>
+                                <th>Leito</th>
+                                <th>Tipo Leito</th>
+                                <th>Gênero Leito</th>
+                                <th>Status Leito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="estrutura in Leitos">
+                                <td>{{$index+1}}</td>
+                                <td>{{estrutura.ala.nomeAla}}</td>
+                                <td>{{estrutura.enfermaria.nomeEnfermaria}}</td>
+                                <td>{{estrutura.nomeLeito}}</td>
+                                <td>{{estrutura.tipoLeito}}</td>
+                                <td>{{estrutura.generoLeito}}</td>
+                                <td>{{estrutura.statusLeito}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <!-- /.jumbotron -->
-
+            <!-- END DEFAULT DATATABLE -->
         </div>
     </div>
+
+
     <footer class="sticky-footer">
         <div class="container">
             <div class="text-center">
@@ -278,8 +251,6 @@
     <script src="../resources/js/bootstrap.min.js"></script>
     <script src="../resources/js/dataTables.bootstrap4.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="../app.js"></script>
-    <script src="testesController.js"></script>
 </body>
 
 </html>
