@@ -198,13 +198,13 @@
                             </br>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" ng-model="pedidoInternacao.Sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino"
+                                    <input type="radio" ng-model="pedidoInternacao.Genero" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino"
                                         checked> Feminino
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" ng-model="pedidoInternacao.Sexo" type="radio" name="inlineRadioOptions" id="sexoMasc" value="Masculino"> Masculino
+                                    <input class="form-check-input" ng-model="pedidoInternacao.Genero" type="radio" name="inlineRadioOptions" id="sexoMasc" value="Masculino"> Masculino
                                 </label>
                             </div>
                         </div>
@@ -259,7 +259,7 @@
         </a>
 
     <!-- MODAL DE CADASTRO -->
-    <div class="modal fade" id="cadastroPaciente" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="cadastroPaciente" ng-controller="pedidoInternacaoController" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog smallSize">
             <div class="modal-content">
                 <div class="modal-header">
@@ -275,23 +275,23 @@
                     <form>
                         <div class="form-group ">
                             <label for="numProntuario" class="col-6 col-form-label">Número do Prontuário</label>
-                            <input class="form-control" type="number" value="" id="numProntuario">
+                            <input class="form-control" type="number" value="" ng-model="pedidoInternacao.numProntuario">
                         </div>
                         <div class="form-group ">
                             <label for="nomePaciente" class="col-6 col-form-label">Nome do Paciente</label>
-                            <input class="form-control" type="text" placeholder="Nome do paciente" id="nomePaciente">
+                            <input class="form-control" type="text" placeholder="Nome do paciente" ng-model="pedidoInternacao.nomePaciente">
                         </div>
                         <div class="form-group ">
                             <label for="nomeMae" class="col-4 col-form-label">Nome da Mãe</label>
-                            <input class="form-control" type="text" placeholder="Nome da mãe" id="nomePaciente">
+                            <input class="form-control" type="text" placeholder="Nome da mãe" ng-model="pedidoInternacao.nomeMae">
                         </div>
                         <div class="form-group">
                             <label>Data de nascimento </label>
-                            <input class="form-control" type="date" ng-model="paciente.nascimento" value="" id="dataNascimento">
+                            <input class="form-control" type="date" value="" ng-model="pedidoInternacao.dataNascimento">
                         </div>
                         <div class="form-group ">
                             <label for="idade" class="col-2 col-form-label">Idade</label>
-                            <input type="number" ng-model="paciente.idade" ng-bind="{{ calcularIdade(paciente.nascimento) }}" class="form-control">
+                            <input type="number" ng-model="pedidoInternacao.idade" ng-bind="{{ calcularIdade(pedidoInternacao.dataNascimento) }}" class="form-control">
                         </div>
 
                         <div class="form-group ">
@@ -299,13 +299,13 @@
                             </br>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                            <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino"
+                                            <input type="radio" ng-model="pedidoInternacao.genero" class="form-check-input" name="optionsRadios"  value="Feminino"
                                                 checked> Feminino
                                         </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sexoMasc" value="option2"> Masculino
+                                            <input class="form-check-input" ng-model="pedidoInternacao.genero" type="radio" name="inlineRadioOptions" id="sexoMasc" value="Masculino"> Masculino
                                         </label>
                             </div>
                         </div>
@@ -318,7 +318,7 @@
                             <button type="button" id="delImage" class="btn btn-danger" data-dismiss="modal" role="button">Cancelar</button>
                         </div> &nbsp;
                         <div class="btn-group" role="group">
-                            <button type="button" id="cadastroP" class="btn btn-success" data-action="save" role="button" onclick="cadastroPaciente()">Cadastrar</button>
+                            <button type="button" id="cadastroP" class="btn btn-success" data-action="save" role="button" ng-click="cadastrarPaciente()">Cadastrar</button>
                         </div>
                     </div>
                 </div>

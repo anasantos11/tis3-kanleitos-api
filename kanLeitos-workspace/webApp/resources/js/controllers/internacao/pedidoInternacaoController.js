@@ -22,6 +22,35 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
         $scope.CarregarAlas();
     }
 
+    $scope.cadastrarPaciente = function () {
+        $scope.pedidoInternacao.dataNascimento = $filter('date')($scope.pedidoInternacao.dataNascimento, 'yyyy-MM-dd');
+        var request = {
+            NomePaciente: $scope.pedidoInternacao.nomePaciente,
+            NumProntuario: $scope.pedidoInternacao.numProntuario,
+            Idade: $scope.pedidoInternacao.idade,
+            NomeMae: $scope.pedidoInternacao.nomeMae,
+            DataNascimento: $scope.pedidoInternacao.dataNascimento,
+            Genero: $scope.pedidoInternacao.genero,
+        };
+        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+        pacienteFactory.savePaciente(request)
+            .then(function (response) {
+                if (!response.data.Resposta.erro) {
+                    swal(
+                        'Concluído!',
+                        'Cadastro feito com sucesso - ID Paciente: ' + response.data.idPaciente,
+                        'success'
+                    )
+                    $scope.NovoPaciente();
+                }
+            }, function (response) {
+                swal(
+                    'Erro!',
+                    response.data.message,
+                    'error'
+                )
+            });
+    }
     $scope.carregarPacientes = function () {
         pacienteFactory.getPacientes()
             .then(function (response) {
