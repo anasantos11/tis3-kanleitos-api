@@ -182,7 +182,7 @@
                         </div>
                         <div class="col-sm-2 form-group ">
                             <label for="idade" class="col-2 col-form-label">Idade</label>
-                            <input type="number" ng-model="paciente.idade" placeholder= ng-bind={{ calcularIdade(paciente.nascimento) }} class="form-control">
+                            <input type="number" ng-model="paciente.idade" ng-bind="{{ calcularIdade(paciente.nascimento) }}" class="form-control">
                         </div>
 
 
@@ -193,7 +193,8 @@
                             </br>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino" checked> Feminino
+                                    <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino"
+                                        checked> Feminino
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -202,21 +203,6 @@
                                 </label>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <div class="form-group col-xs-6 col-md-4">
                             <label>Diagnóstico </label>
                             <select class="form-control" ng-model="pedidoInternacao.IdDiagnostico">
