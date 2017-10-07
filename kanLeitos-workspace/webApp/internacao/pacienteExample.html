@@ -25,6 +25,10 @@
     <script src="../node_modules/sweetalert2/src/sweetalert2.js"></script>
     <script src="../app.js"></script>
     <script src="../resources/js/controllers/paciente/pacienteController.js"></script>
+    <script src="bower_components/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top">
@@ -141,9 +145,9 @@
                 <form>
                     <div class="container">
                         <div class="row">
-                            <a href="#" class="btn btn-primary btn-info">Cadastrar novo paciente </a> &nbsp;&nbsp;
+                            <a data-toggle="modal" data-target="#cadastroPaciente" class="btn btn-primary btn-info">Cadastrar novo paciente </a> &nbsp;&nbsp;
                             <a href="#" class="btn btn-primary btn-info">
-                                <span style="position: right" class="fa fa-search" title="Pesquisar paciente" .></span>
+                                <span data-toggle="modal" data-target="#modalPesquisa" class="fa fa-search" title="Pesquisar paciente" .></span>
                             </a>
                         </div>
                     </div>
@@ -168,12 +172,16 @@
                             <input class="form-control" type="number" value="" id="aih">
                         </div>
                         <div class="col-sm-6 form-group ">
-                            <label for="nomePaciente" class="col-6 col-form-label">Nome do Paciente</label>
-                            <input class="form-control" type="text" value="Nome" id="nomePaciente">
+                            <label for="nomePaciente" class="col-4 col-form-label">Nome do Paciente</label>
+                            <input class="form-control" type="text" placeholder="Nome do paciente" id="nomePaciente">
                         </div>
                         <div class="col-sm-6 form-group ">
-                            <label for="numProntuario" class="col-6 col-form-label">Número do Prontuário</label>
-                            <input class="form-control" type="number" value="" id="numProntuario">
+                            <label for="nomeMae" class="col-4 col-form-label">Nome da Mãe</label>
+                            <input class="form-control" type="text" placeholder="Nome da mãe" id="nomePaciente">
+                        </div>
+                        <div class="col-sm-4 form-group ">
+                            <label for="numProntuario" class="col-4 col-form-label">Número do Prontuário</label>
+                            <input class="form-control" type="number" id="numProntuario">
                         </div>
 
                         <div class="col-sm-2 form-group">
@@ -248,32 +256,199 @@
         <a class="scroll-to-top rounded" href="#/page-top">
             <i class="fa fa-angle-up"></i>
         </a>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Confirmação de saída</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Clique em "Sair" para finalizar a sessão atual.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="login.html">Sair</a>
+
+         <!-- MODAL DE CADASTRO -->
+         <div class="modal fade" id="cadastroPaciente" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">×</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h3 class="modal-title" id="lineModalLabel">Cadastrar Paciente</h3>
+                        </div>
+                        <div class="modal-body">
+
+                            <!-- content goes here -->
+                            <form>
+                                <div class="form-group ">
+                                    <label for="numProntuario" class="col-6 col-form-label">Número do Prontuário</label>
+                                    <input class="form-control" type="number" value="" id="numProntuario">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="nomePaciente" class="col-6 col-form-label">Nome do Paciente</label>
+                                    <input class="form-control" type="text" placeholder="Nome do paciente" id="nomePaciente">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="nomeMae" class="col-4 col-form-label">Nome da Mãe</label>
+                                    <input class="form-control" type="text" placeholder="Nome da mãe" id="nomePaciente">
+                                </div>
+                                <div class="form-group">
+                                    <label>Data de nascimento </label>
+                                    <input class="form-control" type="date" ng-model="paciente.nascimento" value="" id="dataNascimento">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="idade" class="col-2 col-form-label">Idade</label>
+                                    <input type="number" ng-model="paciente.idade" ng-bind="{{ calcularIdade(paciente.nascimento) }}" class="form-control">
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Sexo </label>
+                                    </br>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino"
+                                                checked> Feminino
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sexoMasc" value="option2"> Masculino
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+                                <div class="btn-group btn-delete hidden" role="group">
+                                    <button type="button" id="delImage" class="btn btn-danger" data-dismiss="modal" role="button">Cancelar</button>
+                                </div> &nbsp;
+                                <div class="btn-group" role="group">
+                                    <button type="button" id="cadastroP" class="btn btn-success" data-action="save" role="button" onclick="cadastroPaciente()">Cadastrar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="../resources/js/sb-admin.min.js"></script>
-        <script src="../resources/js/popper.min.js"></script>
-        <script src="../resources/js/bootstrap.min.js"></script>
-        <script src="../resources/js/dataTables.bootstrap4.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="../app.js"></script>
-        <script src="../resources/js/controllers/paciente/pacienteController.js"></script>
+
+
+        <!-- MODAL DE PESQUISA -->
+        <div class="modal fade" id="modalPesquisa" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h3 class="modal-title" id="lineModalLabel">Lista de Pacientes</h3>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nº Prontuário</th>
+                                    <th>Nome do Paciente</th>
+                                    <th>Nome da mãe</th>
+                                    <th>Data de nascimento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>123456</td>
+                                    <td>João Batista</td>
+                                    <td>Maria Batista</td>
+                                    <td>30/09/1960</td>
+                                </tr>
+                                <tr>
+                                    <td>654321</td>
+                                    <td>Joana Silva</td>
+                                    <td>Mariana Silva</td>
+                                    <td>12/08/1987</td>
+                                </tr>
+                                <tr>
+                                    <td>321456</td>
+                                    <td>Ana Oliveira</td>
+                                    <td>Kelly Oliveira</td>
+                                    <td>04/12/2008</td>
+                                </tr>
+
+                                <tr>
+                                    <td>645312</td>
+                                    <td>Marilúcia Soares</td>
+                                    <td>Marlene Souza</td>
+                                    <td>06/06/1956</td>
+                                </tr>
+                                <tr>
+                                    <td>987567</td>
+                                    <td>Claúdio Ramos</td>
+                                    <td>Elizabeth Ramos</td>
+                                    <td>27/02/1976</td>
+                                </tr>
+                                <tr>
+                                    <td>345678</td>
+                                    <td>José Fernandes</td>
+                                    <td>Cleide Fernandes</td>
+                                    <td>09/10/2001</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="col-sm-12 ">
+                            <div class="result pull-left">
+                                <strong>Mostrando 1 até 6 de 5000</strong>
+                            </div>
+
+                            <ul class="pagination pull-right">
+                                <li>
+                                    <a href="#">«</a>
+                                </li>
+                                <li>
+                                    <a href="#">1</a>
+                                </li>
+                                <li>
+                                    <a href="#">2</a>
+                                </li>
+                                <li>
+                                    <a href="#">3</a>
+                                </li>
+                                <li>
+                                    <a href="#">4</a>
+                                </li>
+                                <li>
+                                    <a href="#">5</a>
+                                </li>
+                                <li>
+                                    <a href="#">»</a>
+                                </li>
+                            </ul>
+                            <br>
+                            <br>
+                                    <button type="button" id="fecharModal" class="btn btn-default" data-dismiss="modal" role="button">Fechar</button>
+                                
+
+                               
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmação de saída</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Clique em "Sair" para finalizar a sessão atual.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-primary" href="login.html">Sair</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script src="../resources/js/sb-admin.min.js"></script>
+                                <script src="../resources/js/popper.min.js"></script>
+                                <script src="../resources/js/bootstrap.min.js"></script>
+                                <script src="../resources/js/dataTables.bootstrap4.js"></script>
+                                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                                <script src="../app.js"></script>
+                                <script src="../resources/js/controllers/paciente/pacienteController.js"></script>
 </body>
 
 </html>
