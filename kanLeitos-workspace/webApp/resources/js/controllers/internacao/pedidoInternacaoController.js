@@ -27,25 +27,27 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
     }
 
     $scope.cadastrarPaciente = function () {
-        $scope.pedidoInternacao.dataNascimento = $filter('date')($scope.pedidoInternacao.dataNascimento, 'yyyy-MM-dd');
-        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-        pacienteFactory.savePaciente($scope.pedidoInternacao)
-            .then(function (response) {
-                swal(
-                    'Concluído!',
-                    'Cadastro feito com sucesso - Paciente: ' + response.data.nomePaciente,
-                    'success'
-                )
-                $('#cadastroPaciente').modal('hide');
-                $scope.NovoPedido();
-            }, function (response) {
-                $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
-                swal(
-                    'Erro!',
-                    response.data.message,
-                    'error'
-                )
-            });
+        if ($scope.validarDadosPaciente()) {
+            $scope.pedidoInternacao.dataNascimento = $filter('date')($scope.pedidoInternacao.dataNascimento, 'yyyy-MM-dd');
+            $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+            pacienteFactory.savePaciente($scope.pedidoInternacao)
+                .then(function (response) {
+                    swal(
+                        'Concluído!',
+                        'Cadastro feito com sucesso - Paciente: ' + response.data.nomePaciente,
+                        'success'
+                    )
+                    $('#cadastroPaciente').modal('hide');
+                    $scope.NovoPedido();
+                }, function (response) {
+                    $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
+                    swal(
+                        'Erro!',
+                        response.data.message,
+                        'error'
+                    )
+                });
+        }
     }
     $scope.carregarPacientes = function () {
         pacienteFactory.getPacientes()
@@ -158,6 +160,58 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
             }
 
             );
+    }
+
+    $scope.validarDadosPaciente = function () {
+        if ($scope.pedidoInternacao.numProntuario <= 0) {
+            swal(
+                'Erro!',
+                'Digite o número do prontuário!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.nomePaciente == "") {
+            swal(
+                'Erro!',
+                'Digite o nome do paciente!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.nomeMae == "") {
+            swal(
+                'Erro!',
+                'Digite o nome da mãe do paciente!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.dataNascimento == "") {
+            swal(
+                'Erro!',
+                'Digite a data de nascimento!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.idade <= 0) {
+            swal(
+                'Erro!',
+                'Digite a idade do paciente!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.genero == "") {
+            swal(
+                'Erro!',
+                'Digite o sexo do paciente!',
+                'error'
+            )
+            return;
+        }
+        return true;
     }
 
     $scope.calcularIdade = function () {
