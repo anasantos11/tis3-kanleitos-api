@@ -8,7 +8,9 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
             Status: "",
             MedicoResponsavel: "",
             ResidenteResponsavel: "",
-            DataAdmissao: ""
+            DataAdmissao: "",
+            NomePaciente: "",
+            NomeMae: ""
         }
     }
 
@@ -26,11 +28,19 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
             .then(function (response) {
                 $scope.Diagnosticos = response.data;
             }, function (response) {
-                swal(
-                    'Erro!',
-                    response.data.message,
-                    'error'
-                )
+                if (response.data != undefined) {
+                    swal(
+                        'Erro!',
+                        response.data.message,
+                        'error'
+                    )
+                } else {
+                    swal(
+                        'Erro!',
+                        'Ocorreu algum erro no servidor',
+                        'error'
+                    )
+                }
             });
     };
     $scope.CarregarAlas = function () {
@@ -38,13 +48,64 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
             .then(function (response) {
                 $scope.Alas = response.data;
             }, function (response) {
-                swal(
-                    'Erro!',
-                    response.data.message,
-                    'error'
-                )
+                if (response.data != undefined) {
+                    swal(
+                        'Erro!',
+                        response.data.message,
+                        'error'
+                    )
+                } else {
+                    swal(
+                        'Erro!',
+                        'Ocorreu algum erro no servidor',
+                        'error'
+                    )
+                }
             });
     };
+    $scope.GetPaciente = function () {
+        pacienteFactory.getPaciente($scope.pedidoInternacao.NumProntuario, $scope.pedidoInternacao.NomeMae)
+            .then(function (response) {
+                $scope.pacient = response.data;
+                $scope.pedidoInternacao.NomePaciente = response.data[0].nomePaciente;
+                $scope.pedidoInternacao.Idade = response.data[0].idade;
+                $scope.pedidoInternacao.DataNascimento = new Date(response.data[0].dataNascimento);
+            }, function (response) {
+                if (response.data != undefined) {
+                    swal(
+                        'Erro!',
+                        response.data.message,
+                        'error'
+                    )
+                } else {
+                    swal(
+                        'Erro!',
+                        'Ocorreu algum erro no servidor',
+                        'error'
+                    )
+                }
+            });
+    }
+    $scope.getPacientes = function () {
+        pacienteFactory.getPacientes()
+            .then(function (response) {
+                $scope.Pacientes = response.data;
+            }, function (response) {
+                if (response.data != undefined) {
+                    swal(
+                        'Erro!',
+                        response.data.message,
+                        'error'
+                    )
+                } else {
+                    swal(
+                        'Erro!',
+                        'Ocorreu algum erro no servidor',
+                        'error'
+                    )
+                }
+            });
+    }
 
     $scope.Inicializar();
 
@@ -52,33 +113,12 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
         $scope.pedidoInternacao.DataAdmissao = $filter('date')($scope.pedidoInternacao.DataAdmissao, 'yyyy-MM-dd HH:mm:ss:sss');
         $scope.pedidoInternacao.DataPedido = $filter('date')($scope.pedidoInternacao.DataPedido, 'yyyy-MM-dd HH:mm:ss:sss');
 
-        /*var query = $scope.pedidoInternacao.IdAla;
-        $scope.pedidoInternacao.Ala = $scope.Alas.forEach(function(query){
-            return $scope.Alas.idAla == query;
-        });*/
-        
-        
-        /*function filterItems(query) {
-            return Alas.filter(function (obj) {
-                return obj.idAla == query;                
-            })
-        }*/
-
-
-        /*$scope.pedidoInternacao.Ala =  function getAla(){
-            return Alas.filter(function(obj){
-                return obj.idAla == pedidoInternacao.Ala.idAla;
-            })
-        }    */
-
         var request = {
             AIH: $scope.pedidoInternacao.AIH,
             DataAdmissao: $scope.pedidoInternacao.DataAdmissao,
             DataPedido: $scope.pedidoInternacao.DataPedido,
-            //Ala: $scope.pedidoInternacao.Ala,
             IdAla: $scope.pedidoInternacao.IdAla,
             IdDiagnostico: $scope.pedidoInternacao.IdDiagnostico,
-            //Diagnostico: $scope.pedidoInternacao.Diagnostico,
             MedicoResponsavel: $scope.pedidoInternacao.MedicoResponsavel,
             NumProntuario: $scope.pedidoInternacao.NumProntuario,
             ResidenteResponsavel: $scope.pedidoInternacao.ResidenteResponsavel,
@@ -97,11 +137,22 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
                     $scope.NovoPedido();
                 }
             }, function (response) {
-                swal(
-                    'Erro!',
-                    response.data.message,
-                    'error'
-                )
+                $scope.pedidoInternacao.DataNascimento = new Date($scope.pedidoInternacao.DataNascimento);
+                $scope.pedidoInternacao.DataPedido = new Date($scope.pedidoInternacao.DataPedido);
+                $scope.pedidoInternacao.DataAdmissao = new Date($scope.pedidoInternacao.DataAdmissao);
+                if (response.data != undefined) {
+                    swal(
+                        'Erro!',
+                        response.data.message,
+                        'error'
+                    )
+                } else {
+                    swal(
+                        'Erro!',
+                        'Ocorreu algum erro no servidor',
+                        'error'
+                    )
+                }
             });
     }
 }]);

@@ -1,6 +1,6 @@
-var Services = angular.module("hjk.services");
+var app = angular.module('kanleitos', []);
 
-Services.service("Notify", [function(){
+app.service("Notify", [function(){
 	
 	this.getErrorMenssage = function(title, message){
 		return swal(

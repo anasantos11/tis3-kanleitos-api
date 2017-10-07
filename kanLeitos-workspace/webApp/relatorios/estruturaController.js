@@ -1,4 +1,4 @@
-var app = angular.module('kanleitos', []);
+var app = angular.module('kanleitos', ['ui.bootstrap','ui.utils'] );
 app.controller('EstruturaCtrl', ["$scope", "$http", "$filter", "alasFactory", "enfermariaFactory", "leitoFactory", function ($scope, $http, $filter, alasFactory, enfermariaFactory, leitoFactory) {
 
     $scope.Estrutura = {

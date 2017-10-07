@@ -7,9 +7,7 @@
     <meta name="author" content="">
 
     <title>KanLeitos</title>
-
     <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.css">
     <link href="../resources/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="../resources/css/sb-admin.css" rel="stylesheet">
     <link href="../resources/fonts.css" rel="stylesheet" type="text/css">
@@ -24,7 +22,8 @@
     <script src="../node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="../node_modules/sweetalert2/src/sweetalert2.js"></script>
     <script src="../app.js"></script>
-    <script src="../resources/js/controllers/paciente/pacienteController.js"></script>
+    <script src="../resources/js/controllers/internacao/pedidoInternacaoController.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top">
@@ -137,72 +136,72 @@
                 <li class="breadcrumb-item active">Solicitar Internação</li>
             </ol>
 
-            <div class="jumbotron" ng-controller="pacienteController">
+            <div class="jumbotron" ng-controller="pedidoInternacaoController">
                 <form>
-                    <div class="container">
-                        <div class="row">
-                            <a href="#" class="btn btn-primary btn-info">Cadastrar novo paciente </a> &nbsp;&nbsp;
-                            <a href="#" class="btn btn-primary btn-info">
-                                <span style="position: right" class="fa fa-search" title="Pesquisar paciente" .></span>
-                            </a>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <button href="#" class="btn btn-primary btn-info" title="Cadastrar novo paciente">Cadastrar novo paciente </button>                            &nbsp;&nbsp;
+                            <button href="#" class="btn btn-primary btn-info " title="Pesquisar paciente">
+                               Pesquisar paciente
+                               <i class="fa fa-search" > </i>
+                            </button>
                         </div>
                     </div>
-                    <br>
                     <div class="row">
                         <div class="col-sm-2 form-group">
                             <label>Data do pedido </label>
-                            <input class="form-control" type="date" ng-model="paciente.pedido" value="" id="dataPedido">
+                            <input class="form-control" type="date" ng-model="pedidoInternacao.DataPedido" value="" id="dataPedido">
                         </div>
 
                         <div class="col-sm-2 form-group">
                             <label for="Status">Status</label>
-                            <select class="form-control" id="Status">
-                                <option>Pendente</option>
-                                <option>Em andamento</option>
-                                <option>Concluído</option>
-                                <option>Cancelado</option>
+                            <select class="form-control" id="Status" ng-model="pedidoInternacao.Status">
+                                 <option value="">Selecione </option>
+                                <option  value="Pendente">Pendente</option>
+                                <option  value="Em Andamento">Em Andamento</option>
+                                <option  value="Concluído">Concluído</option>
+                                <option  value="Cancelado">Cancelado</option>
                             </select>
                         </div>
                         <div class="col-sm-4 form-group ">
                             <label for="aih" class="col-2 col-form-label">AIH</label>
-                            <input class="form-control" type="number" value="" id="aih">
+                            <input class="form-control" type="number" id="aih" ng-model="pedidoInternacao.AIH">
                         </div>
                         <div class="col-sm-6 form-group ">
-                            <label for="nomePaciente" class="col-6 col-form-label">Nome do Paciente</label>
-                            <input class="form-control" type="text" value="Nome" id="nomePaciente">
+                            <label for="numProntuario">Número do Prontuário</label>
+                            <input class="form-control" type="number" value="" id="numProntuario" ng-change="GetPaciente()" ng-model="pedidoInternacao.NumProntuario">
                         </div>
+
                         <div class="col-sm-6 form-group ">
-                            <label for="numProntuario" class="col-6 col-form-label">Número do Prontuário</label>
-                            <input class="form-control" type="number" value="" id="numProntuario">
+                            <label for="nomePaciente">Nome do Paciente</label>
+                            <input class="form-control" type="text" value="Nome" id="nomePaciente" ng-model="pedidoInternacao.NomePaciente">
                         </div>
 
                         <div class="col-sm-2 form-group">
                             <label>Data de nascimento </label>
-                            <input class="form-control" type="date" ng-model="paciente.nascimento" value="" id="dataNascimento">
+                            <input class="form-control" type="date" ng-model="pedidoInternacao.DataNascimento" value="" id="dataNascimento">
                         </div>
                         <div class="col-sm-2 form-group ">
                             <label for="idade" class="col-2 col-form-label">Idade</label>
-                            <input type="number" ng-model="paciente.idade" ng-bind="{{ calcularIdade(paciente.nascimento) }}" class="form-control">
+                            <input type="number" ng-model="pedidoInternacao.Idade" ng-bind="{{ calcularIdade(pedidoInternacao.DataNascimento) }}" class="form-control">
                         </div>
-
-
-
-
                         <div class="col-sm-4 form-group ">
                             <label>Sexo </label>
                             </br>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input type="radio" ng-model="paciente.sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino"
+                                    <input type="radio" ng-model="pedidoInternacao.Sexo" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Feminino"
                                         checked> Feminino
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sexoMasc" value="option2"> Masculino
+                                    <input class="form-check-input" ng-model="pedidoInternacao.Sexo" type="radio" name="inlineRadioOptions" id="sexoMasc" value="Masculino"> Masculino
                                 </label>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="form-group col-xs-6 col-md-4">
                             <label>Diagnóstico </label>
                             <select class="form-control" ng-model="pedidoInternacao.IdDiagnostico">
@@ -220,60 +219,56 @@
                         </div>
                         <div class="col-sm-2 form-group">
                             <label>Data de admissão </label>
-                            <input class="form-control" type="date" ng-model="paciente.admissao" value="" id="dataAdmissao">
+                            <input class="form-control" type="date" ng-model="pedidoInternacao.DataAdmissao" value="" id="dataAdmissao">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label>Médico Responsável </label>
-                            <input type="text" class="form-control" placeholder="Médico Responsável">
+                            <input type="text" class="form-control" placeholder="Médico Responsável" ng-model="pedidoInternacao.MedicoResponsavel">
                         </div>
                         <div class="col-sm-6 form-group">
                             <label>Residente </label>
-                            <input type="text" class="form-control" placeholder="Residente">
+                            <input type="text" class="form-control" placeholder="Residente Responsável" ng-model="pedidoInternacao.ResidenteResponsavel">
                         </div>
+                    </div>
 
                 </form>
-
+                <div class="col-sm-12 text-right">
+                    <button class="btn btn-primary btn-primary" ng-click="salvarPedidoInternacao()">Solicitar Internação </button>
                 </div>
-                <a href="#" class="btn btn-primary btn-primary">Solicitar Internação </a>
-                <!-- /.jumbotron -->
+            </div>
+
+        </div>
+    </div>
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>Copyright &copy; KanLeitos 2017</small>
             </div>
         </div>
-        <footer class="sticky-footer">
-            <div class="container">
-                <div class="text-center">
-                    <small>Copyright &copy; KanLeitos 2017</small>
-                </div>
-            </div>
-        </footer>
-        <a class="scroll-to-top rounded" href="#/page-top">
+    </footer>
+    <a class="scroll-to-top rounded" href="#/page-top">
             <i class="fa fa-angle-up"></i>
         </a>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Confirmação de saída</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirmação de saída</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-                    <div class="modal-body">
-                        Clique em "Sair" para finalizar a sessão atual.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="login.html">Sair</a>
-                    </div>
+                </div>
+                <div class="modal-body">
+                    Clique em "Sair" para finalizar a sessão atual.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="login.html">Sair</a>
                 </div>
             </div>
         </div>
-        <script src="../resources/js/sb-admin.min.js"></script>
-        <script src="../resources/js/popper.min.js"></script>
-        <script src="../resources/js/bootstrap.min.js"></script>
-        <script src="../resources/js/dataTables.bootstrap4.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="../app.js"></script>
-        <script src="../resources/js/controllers/paciente/pacienteController.js"></script>
+    </div>
+
 </body>
 
 </html>
