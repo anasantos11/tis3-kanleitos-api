@@ -41,11 +41,19 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
                     $scope.NovoPedido();
                 }, function (response) {
                     $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
-                    swal(
-                        'Erro!',
-                        response.data.message,
-                        'error'
-                    )
+                    if (response.data != undefined) {
+                        swal(
+                            'Erro!',
+                            response.data.message,
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Erro!',
+                            'Ocorreu algum erro no servidor',
+                            'error'
+                        )
+                    }
                 });
         }
     }
@@ -128,40 +136,92 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
     $scope.Inicializar();
 
     $scope.salvarPedidoInternacao = function () {
-        $scope.pedidoInternacao.dataAdmissao = $filter('date')($scope.pedidoInternacao.dataAdmissao, 'yyyy-MM-dd HH:mm:ss:sss');
-        $scope.pedidoInternacao.dataPedido = $filter('date')($scope.pedidoInternacao.dataPedido, 'yyyy-MM-dd HH:mm:ss:sss');
+        if ($scope.validarDadosPedidoInternacao()) {
+            $scope.pedidoInternacao.dataAdmissao = $filter('date')($scope.pedidoInternacao.dataAdmissao, 'yyyy-MM-dd HH:mm:ss:sss');
+            $scope.pedidoInternacao.dataPedido = $filter('date')($scope.pedidoInternacao.dataPedido, 'yyyy-MM-dd HH:mm:ss:sss');
 
-        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-        pedidoInternacaoFactory.savePedidoInternacao($scope.pedidoInternacao)
-            .then(function (response) {
-                swal(
-                    'Concluído!',
-                    'Pedido realizado com sucesso, nº ' + response.data.idPedidoInternacao,
-                    'success'
-                )
-                $scope.NovoPedido();
-            }, function (response) {
-                $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
-                $scope.pedidoInternacao.dataPedido = new Date($scope.pedidoInternacao.dataPedido);
-                $scope.pedidoInternacao.dataAdmissao = new Date($scope.pedidoInternacao.dataAdmissao);
-                if (response.data != undefined) {
+            $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+            pedidoInternacaoFactory.savePedidoInternacao($scope.pedidoInternacao)
+                .then(function (response) {
                     swal(
-                        'Erro!',
-                        response.data.message,
-                        'error'
+                        'Concluído!',
+                        'Pedido realizado com sucesso, nº ' + response.data.idPedidoInternacao,
+                        'success'
                     )
-                } else {
-                    swal(
-                        'Erro!',
-                        'Ocorreu algum erro no servidor',
-                        'error'
-                    )
+                    $scope.NovoPedido();
+                }, function (response) {
+                    $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
+                    $scope.pedidoInternacao.dataPedido = new Date($scope.pedidoInternacao.dataPedido);
+                    $scope.pedidoInternacao.dataAdmissao = new Date($scope.pedidoInternacao.dataAdmissao);
+                    if (response.data != undefined) {
+                        swal(
+                            'Erro!',
+                            response.data.message,
+                            'error'
+                        )
+                    } else {
+                        swal(
+                            'Erro!',
+                            'Ocorreu algum erro no servidor',
+                            'error'
+                        )
+                    }
                 }
-            }
 
-            );
+                );
+        }
     }
-
+    $scope.validarDadosPedidoInternacao = function () {
+        if ($scope.pedidoInternacao.numProntuario <= 0) {
+            swal(
+                'Erro!',
+                'Digite o número do prontuário!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.AIH == "") {
+            swal(
+                'Erro!',
+                'Digite o número do AIH!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.idDiagnostico == undefined) {
+            swal(
+                'Erro!',
+                'Selecione um diagnóstico!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.idAla == undefined) {
+            swal(
+                'Erro!',
+                'Selecione uma Ala!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.dataAdmissao == "") {
+            swal(
+                'Erro!',
+                'Insira a data de admissão!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.pedidoInternacao.medicoResponsavel == "" && $scope.pedidoInternacao.residenteResponsavel == "") {
+            swal(
+                'Erro!',
+                'Deve informar ao menos um responsável',
+                'error'
+            )
+            return;
+        }
+        return true;
+    }
     $scope.validarDadosPaciente = function () {
         if ($scope.pedidoInternacao.numProntuario <= 0) {
             swal(
