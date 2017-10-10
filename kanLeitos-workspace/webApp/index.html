@@ -1,4 +1,5 @@
 <html ng-app="kanleitos">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,23 +13,14 @@
     <link href="resources/css/sb-admin.css" rel="stylesheet">
     <link href="resources/fonts.css" rel="stylesheet" type="text/css">
     <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <script src="resources/js/jquery/jquery.min.js"></script>
-    <script src="resources/js/jquery/jquery.easing.min.js"></script>
-    <script src="resources/js/jquery/jquery.dataTables.js"></script>
-    <script src="resources/js/popper.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
-    <script src="resources/js/dataTables.bootstrap4.js"></script>
-    <script src="node_modules/angular/angular.min.js"></script>
-    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="node_modules/sweetalert2/src/sweetalert2.js"></script>
-    <script src="app.js"></script>
-    <script src="resources/js/controllers/paciente/pacienteController.js"></script>
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
         <a class="navbar-brand" href="#">KanLeitos</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -184,7 +176,7 @@
         <div class="container-fluid">
             <div ui-view>
 
-                <h1>Bem Vindo à Home</h1>    
+                <h1>Bem Vindo à Home</h1>
 
             </div>
         </div>
@@ -218,12 +210,21 @@
             </div>
         </div>
     </div>
-    <script src="resources/js/sb-admin.min.js"></script>
-    <script src="resources/js/popper.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
-    <script src="resources/js/dataTables.bootstrap4.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="app.js"></script>
-    <script src="resources/js/controllers/paciente/pacienteController.js"></script>
 </body>
+<script src="resources/js/jquery/jquery.min.js"></script>
+<script src="resources/js/jquery/jquery.easing.min.js"></script>
+<script src="resources/js/jquery/jquery.dataTables.js"></script>
+<script src="resources/js/popper.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/dataTables.bootstrap4.js"></script>
+<script src="node_modules/sweetalert2/src/sweetalert2.js"></script>
+<script src="resources/js/sb-admin.min.js"></script>
+
+<!-- AngularJS, ordem não pode ser alterada -->
+<script src="node_modules/angular/angular.min.js"></script>
+<script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="app.js"></script>
+<script src="kanleitosFactorys.js"></script>
+<script src="resources/js/controllers/internacao/pedidoInternacaoController.js"></script>
+
 </html>
