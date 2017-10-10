@@ -13,13 +13,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 		templateUrl: "internacao/cadastroPaciente.html"
 	});
 
-	$stateProvider.state("xxx", {
-		url: "/testex",
-		templateUrl: "x.html"
-	});
-
-	$stateProvider.state("yyy", {
-		url: "/testey",
-		templateUrl: "y.html"
+	$stateProvider.state("pedidoInternacao", {
+		url: "/pedidoInternacao",
+		templateUrl: "internacao/pedidoInternacao.html"
 	});
 })
