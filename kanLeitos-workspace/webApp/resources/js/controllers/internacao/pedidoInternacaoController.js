@@ -1,4 +1,3 @@
-var app = angular.module('kanleitos', []);
 app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "pedidoInternacaoFactory", "diagnosticosFactory", "pacienteFactory", "alasFactory", function ($scope, $http, $filter, pedidoInternacaoFactory, diagnosticosFactory, pacienteFactory, alasFactory) {
 
     $scope.NovoPedido = function () {
@@ -290,67 +289,3 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
 
     }
 }]);
-
-//Factorys
-app.factory('diagnosticosFactory', function ($http) {
-    var diagnosticos = {};
-    //Get Diagnosticos
-    diagnosticos.getDiagnosticos = function () {
-        return $http({
-            url: "http://localhost:8080/Diagnosticos",
-            method: 'GET'
-        });
-    };
-    return diagnosticos;
-});
-app.factory('pacienteFactory', function ($http) {
-    var pacientes = {};
-    //Get Diagnosticos
-    pacientes.getPacientes = function () {
-        return $http({
-            url: "http://localhost:8080/ListaPacientes",
-            method: 'GET'
-        });
-    };
-    //Get Paciente pelo numProntuario ou nomeMae
-    pacientes.getPaciente = function (prontuario, mae) {
-        return $http({
-            url: "http://localhost:8080/Paciente",
-            method: 'GET',
-            params: { numProntuario: prontuario, nomeMae: mae }
-        });
-    };
-    //Salvar Pacientes
-    pacientes.savePaciente = function (dados) {
-        return $http({
-            url: 'http://localhost:8080/CadastroPaciente',
-            method: 'POST',
-            data: dados
-        });
-    };
-    return pacientes;
-});
-app.factory('alasFactory', function ($http) {
-    var alas = {};
-    //Get alas
-    alas.getAlas = function () {
-        return $http({
-            url: "http://localhost:8080/Alas",
-            method: 'GET'
-        });
-    };
-    return alas;
-});
-
-app.factory('pedidoInternacaoFactory', function ($http) {
-    var pedido = {};
-    //Salvar Pedido Internacao
-    pedido.savePedidoInternacao = function (dados) {
-        return $http({
-            url: 'http://localhost:8080/PedidoInternacao',
-            method: 'POST',
-            data: dados
-        });
-    };
-    return pedido;
-});

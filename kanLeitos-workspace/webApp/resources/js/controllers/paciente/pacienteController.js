@@ -1,4 +1,3 @@
-var app = angular.module('kanleitos', []);
 app.controller('pacienteController', ["$scope", "$http", "$filter", "pacienteFactory", function ($scope, $http, $filter, pacienteFactory) {
 
 	$scope.NovoPaciente = function () {
@@ -119,22 +118,3 @@ app.controller('pacienteController', ["$scope", "$http", "$filter", "pacienteFac
 
 }]);
 
-app.factory('pacienteFactory', function ($http) {
-	var pacientes = {};
-	//Get Diagnosticos
-	pacientes.getPacientes = function () {
-		return $http({
-			url: "http://localhost:8080/Pacientes",
-			method: 'GET'
-		});
-	};
-	//Salvar Pacientes
-	pacientes.savePaciente = function (dados) {
-		return $http({
-			url: 'http://localhost:8080/Cadastro/paciente',
-			method: 'POST',
-			data: dados
-		});
-	};
-	return pacientes;
-});

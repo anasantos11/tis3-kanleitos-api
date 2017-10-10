@@ -1,13 +1,17 @@
-var app = angular.module('kanleitos', ['ui.bootstrap','ui.utils']);
 app.controller('EstruturaCtrl', ["$scope", "$http", "$filter", "alasFactory", "enfermariaFactory", "leitoFactory", function ($scope, $http, $filter, alasFactory, enfermariaFactory, leitoFactory) {
-    $scope.dataTableOpt = {
-        //custom datatable options 
-        // or load data through ajax call also
-        "aLengthMenu": [[10, 50, 100, -1], [10, 50, 100, 'All']],
+
+    $scope.Estrutura = {
+        leitos: [
+            { nomeAla: 'Ala A', nomeEnfermaria: 'Enfermaria E', nomeLeito: 'Leito-01' },
+            { nomeAla: 'Ala B', nomeEnfermaria: 'Enfermaria D', nomeLeito: 'Leito-01' },
+            { nomeAla: 'Ala C', nomeEnfermaria: 'Enfermaria C', nomeLeito: 'Leito-01' },
+            { nomeAla: 'Ala D', nomeEnfermaria: 'Enfermaria B', nomeLeito: 'Leito-01' },
+            { nomeAla: 'Ala E', nomeEnfermaria: 'Enfermaria A', nomeLeito: 'Leito-01' },
+        ],
     };
 
     $scope.Inicializar = function () {
-        $scope.CarregarLeitos();
+        $scope.CarregarLeitos(); 
     }
 
     $scope.CarregarAlas = function () {
