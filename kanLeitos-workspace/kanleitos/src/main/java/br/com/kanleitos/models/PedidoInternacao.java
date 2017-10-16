@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class PedidoInternacao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPedidoInternacao;
 
 	@OneToOne(cascade = CascadeType.ALL)

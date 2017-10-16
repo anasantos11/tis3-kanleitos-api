@@ -13,7 +13,7 @@ import org.json.JSONObject;
 public class Ala {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAla;
 
 	@Column(name = "nomeAla", nullable = false)

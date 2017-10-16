@@ -17,7 +17,7 @@ import org.json.JSONObject;
 public class Leito {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idLeito;
 	
 	@OneToOne(cascade = CascadeType.ALL)

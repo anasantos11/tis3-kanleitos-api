@@ -17,7 +17,7 @@ import org.json.JSONObject;
 public class Enfermaria {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEnfermaria;
 	
 	@OneToOne(cascade = CascadeType.ALL)

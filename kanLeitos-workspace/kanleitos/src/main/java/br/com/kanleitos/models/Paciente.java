@@ -14,11 +14,12 @@ import org.json.JSONObject;
 public class Paciente {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPaciente;
 	
 	@Column(name = "numProntuario", nullable = false)
 	private int numProntuario;
+	
 	@Column(name = "nomePaciente", nullable = false)
 	private String nomePaciente;
 	@Column(name = "idade", nullable = false)
