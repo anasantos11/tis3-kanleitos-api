@@ -17,8 +17,6 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
         }
     }
 
-
-
     $scope.Inicializar = function () {
         $scope.NovoPedido();
         $scope.CarregarDiagnosticos();
