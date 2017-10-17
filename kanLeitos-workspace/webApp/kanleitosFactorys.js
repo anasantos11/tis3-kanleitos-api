@@ -85,3 +85,15 @@ app.factory('pedidoInternacaoFactory', function ($http) {
     };
     return pedido;
 });
+app.factory('registroInternacaoFactory', function ($http) {
+    var registro = {};
+    //Salvar Registro Internacao
+    registro.saveRegistroInternacao = function (dados) {
+        return $http({
+            url: 'http://localhost:8080/RegistroInternacao',
+            method: 'POST',
+            data: dados
+        });
+    };
+    return registro;
+});
