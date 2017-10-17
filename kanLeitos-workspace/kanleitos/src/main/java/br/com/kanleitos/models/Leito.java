@@ -2,6 +2,7 @@ package br.com.kanleitos.models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,13 +39,14 @@ public class Leito {
 	private String tipoLeito;
 	
 	@Column(name = "statusLeito", nullable = false)
-	private String statusLeito;
+	@Convert(converter = StatusLeitoConverter.class)
+	private TipoStatusLeito statusLeito;
 
 	public Leito() {
 		setNomeLeito(null);
 		setGeneroLeito(null);
 		setTipoLeito(null);
-		setStatusLeito(null);
+		setStatusLeito(TipoStatusLeito.DESOCUPADO);
 		setAla(new Ala());
 		setEnfermaria(new Enfermaria());
 	}
@@ -70,7 +72,7 @@ public class Leito {
 			setTipoLeito(json.getString(Leitokeys.TIPO_LEITO));
 		
 		if (json.has(Leitokeys.STATUS_LEITO))
-			setStatusLeito(json.getString(Leitokeys.STATUS_LEITO));
+			setStatusLeito(TipoStatusLeito.fromName(json.getString(Leitokeys.STATUS_LEITO)));
 		
 		if (json.has(Leitokeys.ALA))
 			setAla(json.getJSONObject(Leitokeys.ALA));
@@ -129,11 +131,11 @@ public class Leito {
 		this.tipoLeito = tipoLeito;
 	}
 
-	public String getStatusLeito() {
+	public TipoStatusLeito getStatusLeito() {
 		return statusLeito;
 	}
 
-	public void setStatusLeito(String statusLeito) {
+	public void setStatusLeito(TipoStatusLeito statusLeito) {
 		this.statusLeito = statusLeito;
 	}
 

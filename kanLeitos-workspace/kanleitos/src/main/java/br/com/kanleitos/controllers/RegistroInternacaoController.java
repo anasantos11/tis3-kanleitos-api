@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import br.com.kanleitos.models.RegistroInternacao;
+import br.com.kanleitos.models.TipoStatusLeito;
 import br.com.kanleitos.repository.EnfermariaRepository;
 import br.com.kanleitos.repository.LeitoRepository;
 import br.com.kanleitos.repository.PedidoInternacaoRepository;
@@ -48,9 +49,12 @@ public class RegistroInternacaoController {
 		//Get PedidoInternacao Enfermaria e Leito
 		r.setPedidoInternacao(pedidoRepository.findOne(jsonObject.getInt("idPedido")));
 		r.setEnfermaria(enfermariaRepository.findOne(jsonObject.getInt("idEnfermaria")));
-		r.setLeito(leitoRepository.findOne(jsonObject.getInt("idLeito")));	
-		
+		r.setLeito(leitoRepository.findOne(jsonObject.getInt("idLeito")));		
 		registroRepository.save(r);
+		
+		//Alterar Status do Leito para Ocupado
+		r.getLeito().setStatusLeito(TipoStatusLeito.OCUPADO_COMUM);	
+		leitoRepository.save(r.getLeito());
 		
 		Gson gson = new GsonBuilder().create();
 		String response = gson.toJson(r);
