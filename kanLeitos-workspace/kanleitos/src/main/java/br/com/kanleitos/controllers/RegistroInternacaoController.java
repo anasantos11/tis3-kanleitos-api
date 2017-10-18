@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.com.kanleitos.models.Leito;
 import br.com.kanleitos.models.RegistroInternacao;
 import br.com.kanleitos.models.TipoStatusLeito;
 import br.com.kanleitos.repository.EnfermariaRepository;
@@ -60,5 +61,12 @@ public class RegistroInternacaoController {
 		String response = gson.toJson(r);
 		return response;
 	}
-
+	
+	@RequestMapping(value = "PacientesInternados", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	public @ResponseBody String listarInternacoes() throws JSONException {
+		Iterable<RegistroInternacao> internacoes = registroRepository.findAll();
+		Gson gson = new GsonBuilder().create();
+		String d = gson.toJson(internacoes);
+		return d;
+	}
 }
