@@ -17,4 +17,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 		url: "/pedidoInternacao",
 		templateUrl: "internacao/pedidoInternacao.html"
 	});
+
+		$stateProvider.state("registroInternacao", {
+		url: "/registroInternacao",
+		templateUrl: "internacao/registroInternacao.html"
+	});
 })
