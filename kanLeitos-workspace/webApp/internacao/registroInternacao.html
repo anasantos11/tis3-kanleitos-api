@@ -1,124 +1,147 @@
 <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="cadastroPaciente.html">Internação</a>
-        </li>
-        <li class="breadcrumb-item active">Registrar Internação</li>
-    </ol>
+    <li class="breadcrumb-item">
+        <a href="cadastroPaciente.html">Internação</a>
+    </li>
+    <li class="breadcrumb-item active">Registrar Internação</li>
+</ol>
 
-    <div class="jumbotron" ng-controller="registroInternacaoController">
+<div class="jumbotron" ng-controller="registroInternacaoController" class="col-12 col-md-auto">
+    <form>
+        <div class="row">
+            <div class="col-4 form-group ">
+                <label for="numProntuario">Número do Prontuário</label>
+                <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                        <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="button">
+                                <i class="fa fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 form-group">
+                <label>Data do pedido </label>
+                <input class="form-control" type="date" ng-model="pedidoInternacao.dataPedido" ng-disabled="true">
+            </div>
+
+            <div class="col-sm-2 form-group">
+                <label for="Status">Status</label>
+                <select class="form-control" ng-model="pedidoInternacao.status" ng-disabled="true">
+                    <option value="">Selecione </option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Em Andamento">Em Andamento</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+            </div>
+            <div class="col-sm-4 form-group ">
+                <label for="aih">AIH</label>
+                <input class="form-control" type="number" ng-model="pedidoInternacao.AIH">
+            </div>
+
+            <div class="col-sm-6 form-group ">
+                <label for="nomePaciente">Nome do Paciente</label>
+                <input class="form-control" type="text" ng-model="pedidoInternacao.nomePaciente">
+            </div>
+
+            <div class="col-sm-6 form-group ">
+                <label for="nomeMae">Nome da Mãe</label>
+                <input class="form-control" type="text" ng-model="pedidoInternacao.nomeMae">
+            </div>
+
+            <div class="col-sm-3 form-group">
+                <label>Data de nascimento </label>
+                <input class="form-control" type="date" ng-model="pedidoInternacao.dataNascimento" ng-change=" calcularIdade()" value="">
+            </div>
+
+            <div class="col-sm-2 form-group">
+                <label for="idade">Idade</label>
+                <input type="number" ng-model="pedidoInternacao.idade" class="form-control">
+            </div>
 
             <div class="col-sm-4 form-group ">
-                    <label for="numProntuario">Número do Prontuário</label>
-                    <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario">
+                <label>Sexo </label>
+                </br>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" ng-model="pedidoInternacao.genero" class="form-check-input" value="Feminino" checked> Feminino
+                    </label>
                 </div>
 
-            <div class="row">
-                    <div class="col-sm-3 form-group">
-                        <label>Data do pedido </label>
-                        <input class="form-control" type="date" ng-model="pedidoInternacao.dataPedido" ng-disabled="true">
-                    </div>
-
-                    <div class="col-sm-2 form-group">
-                        <label for="Status">Status</label>
-                        <select class="form-control" ng-model="pedidoInternacao.status" ng-disabled="true">
-                             <option value="">Selecione </option>
-                            <option  value="Pendente">Pendente</option>
-                            <option  value="Em Andamento">Em Andamento</option>
-                            <option  value="Concluído">Concluído</option>
-                            <option  value="Cancelado">Cancelado</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4 form-group ">
-                        <label for="aih">AIH</label>
-                        <input class="form-control" type="number" ng-model="pedidoInternacao.AIH">
-                    </div>
-
-                    <div class="col-sm-6 form-group ">
-                        <label for="nomePaciente">Nome do Paciente</label>
-                        <input class="form-control" type="text" ng-model="pedidoInternacao.nomePaciente">
-                    </div>
-                    <div class="col-sm-6 form-group ">
-                            <label for="nomeMae">Nome da Mãe</label>
-                            <input class="form-control" type="text" ng-model="pedidoInternacao.nomeMae">
-                        </div>
-                    <div class="3ol-sm-4 form-group">
-                        <label>Data de nascimento </label>
-                        <input class="form-control" type="date" ng-model="pedidoInternacao.dataNascimento" ng-change=" calcularIdade()" value="">
-                    </div>
-                    <div class="col-sm-2 form-group ">
-                        <label for="idade">Idade</label>
-                        <input type="number" ng-model="pedidoInternacao.idade" class="form-control">
-                    </div>
-                    <div class="col-sm-4 form-group ">
-                        <label>Sexo </label>
-                        </br>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" ng-model="pedidoInternacao.genero" class="form-check-input"  value="Feminino"
-                                    checked> Feminino
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input class="form-check-input" ng-model="pedidoInternacao.genero" type="radio"  value="Masculino"> Masculino
-                            </label>
-                        </div>
-                    </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" ng-model="pedidoInternacao.genero" type="radio" value="Masculino"> Masculino
+                    </label>
                 </div>
-                <div class="row">
-                    <div class="form-group col-xs-6 col-md-4">
-                        <label>Diagnóstico </label>
-                        <select class="form-control" ng-model="pedidoInternacao.idDiagnostico">
-                            <option value="">Selecione </option>
-                            <option ng-repeat="diagnostico in Diagnosticos" value="{{diagnostico.idDiagnostico}}">{{diagnostico.descricaoDiagnostico}}</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-xs-6 col-md-4">
-                        <label>Ala</label>
-                        <select ng-model="pedidoInternacao.idAla" class="form-control">
-                            <option value="">Selecione</option>
-                            <option ng-repeat="ala in Alas" value="{{ala.idAla}}">{{ala.nomeAla}}</option>
-                        </select>
+            </div>
+        </div>
 
-                    </div>
-                    <div class="col-3m-4 form-group">
-                        <label>Data de admissão </label>
-                        <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Médico Responsável </label>
-                        <input type="text" class="form-control" placeholder="Médico Responsável" ng-model="pedidoInternacao.medicoResponsavel">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Residente Responsável</label>
-                        <input type="text" class="form-control" placeholder="Residente Responsável" ng-model="pedidoInternacao.residenteResponsavel">
-                    </div>
-                    <div class="col-sm-2 form-group">
-                            <label for="Status">Enfermaria</label>
-                            <select class="form-control" ng-model="pedidoInternacao.status" ng-disabled="true">
-                                 <option value="">Selecione </option>
-                                <option  value="Pendente">Pendente</option>
-                                <option  value="Em Andamento">Em Andamento</option>
-                                <option  value="Concluído">Concluído</option>
-                                <option  value="Cancelado">Cancelado</option>
-                            </select>
-                        </div>
-                    <div class="col-sm-4 form-group ">
-                            <label for="numProntuario">Número do Leito</label>
-                            <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario">
-                        </div>
-                        <div class="col-3m-4 form-group">
-                                <label>Data de internação </label>
-                                <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
-                            </div>
-                            <div class="col-3m-4 form-group">
-                                    <label>Data de previsão de alta </label>
-                                    <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
-                                </div>
-                </div>
-            </form>
-            <div class="col-sm-12 text-right">
-                    <button class="btn btn-primary btn-primary" ng-click="salvarRegistroInternacao()">Registrar Internação </button>
-                </div>
-        </div> 
-    
+        <div class="row">
+            <div class="form-group col-xs-6 col-md-4">
+                <label>Diagnóstico </label>
+                <select class="form-control" ng-model="pedidoInternacao.idDiagnostico">
+                    <option value="">Selecione </option>
+                    <option ng-repeat="diagnostico in Diagnosticos" value="{{diagnostico.idDiagnostico}}">{{diagnostico.descricaoDiagnostico}}</option>
+                </select>
+            </div>
+            <div class="form-group col-xs-6 col-md-4">
+                <label>Ala</label>
+                <select ng-model="pedidoInternacao.idAla" class="form-control">
+                    <option value="">Selecione</option>
+                    <option ng-repeat="ala in Alas" value="{{ala.idAla}}">{{ala.nomeAla}}</option>
+                </select>
+
+            </div>
+            <div class="col-sm-3 form-group">
+                <label>Data de admissão </label>
+                <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Médico Responsável </label>
+                <input type="text" class="form-control" placeholder="Médico Responsável" ng-model="pedidoInternacao.medicoResponsavel">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Residente Responsável</label>
+                <input type="text" class="form-control" placeholder="Residente Responsável" ng-model="pedidoInternacao.residenteResponsavel">
+            </div>
+
+
+
+            <legend> Dados de Registro </legend>
+
+
+            <div class="col-sm-2 form-group">
+                <label for="Status">Enfermaria</label>
+                <select class="form-control" ng-model="pedidoInternacao.status" ng-disabled="true">
+                    <option value="">Selecione </option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Em Andamento">Em Andamento</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
+                </select>
+            </div>
+
+            <div class="col-sm-3 form-group ">
+                <label for="numProntuario">Número do Leito</label>
+                <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario">
+            </div>
+
+            <div class="col-sm-3 form-group">
+                <label>Data de internação </label>
+                <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
+            </div>
+
+            <div class="col-sm-3 form-group">
+                <label>Data de previsão de alta </label>
+                <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
+            </div>
+        </div>
+    </form>
+    <div class="col-sm-12 text-right">
+        <button class="btn btn-primary btn-primary" ng-click="salvarRegistroInternacao()">Registrar Internação </button>
+    </div>
+</div>
