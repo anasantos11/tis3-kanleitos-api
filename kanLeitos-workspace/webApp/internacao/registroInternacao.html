@@ -55,13 +55,13 @@
             </div>
 
             <div class="col-sm-3 form-group">
-                <label>Data de nascimento </label>
-                <input class="form-control" type="date" ng-model="pedidoInternacao.dataNascimento" ng-change=" calcularIdade()" value="">
-            </div>
+                    <label>Data de nascimento:</label>
+                    <input class="form-control" type="date" ng-model="paciente.nascimento" ng-change="paciente.idade = calcularIdade(paciente.nascimento)">
+                </div>
 
             <div class="col-sm-2 form-group">
                 <label for="idade">Idade</label>
-                <input type="number" ng-model="pedidoInternacao.idade" class="form-control">
+                <input type="text" ng-model="paciente.idade" class="form-control">
             </div>
 
             <div class="col-sm-4 form-group ">
@@ -103,11 +103,11 @@
             </div>
             <div class="col-sm-6 form-group">
                 <label>Médico Responsável </label>
-                <input type="text" class="form-control" placeholder="Médico Responsável" ng-model="pedidoInternacao.medicoResponsavel">
+                <input type="text" class="form-control" ng-model="pedidoInternacao.medicoResponsavel">
             </div>
             <div class="col-sm-6 form-group">
                 <label>Residente Responsável</label>
-                <input type="text" class="form-control" placeholder="Residente Responsável" ng-model="pedidoInternacao.residenteResponsavel">
+                <input type="text" class="form-control" ng-model="pedidoInternacao.residenteResponsavel">
             </div>
 
 
