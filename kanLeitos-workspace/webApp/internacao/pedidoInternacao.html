@@ -131,7 +131,7 @@
                 <div class="row col-sm-12">
                     <div class="col-sm-12 form-group">
                         <label for="numProntuario">Número do Prontuário</label>
-                        <input class="form-control" type="number" value="" ng-model="pedidoInternacao.numProntuario">
+                        <input class="form-control" maxlength="12" pattern="([0-9]{12})"type="text" value="" ng-model="pedidoInternacao.numProntuario">
                     </div>
                     <div class="col-sm-12 form-group">
                         <label for="nomePaciente">Nome do Paciente</label>

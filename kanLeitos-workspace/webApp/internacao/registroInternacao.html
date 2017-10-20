@@ -12,7 +12,7 @@
                 <label for="numProntuario">Número do Prontuário</label>
                 <div id="custom-search-input">
                     <div class="input-group col-md-12">
-                        <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario" />
+                        <input maxlength="12" class="form-control" type="text" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario" />
                         <span class="input-group-btn">
                             <button class="btn btn-info btn-lg" type="button">
                                 <i class="fa fa fa-search"></i>
