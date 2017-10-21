@@ -11,9 +11,9 @@
             <div class="col-sm-4 form-group ">
                 <label for="numProntuario">Número do Prontuário</label>
                     <div class="input-group" >
-                        <input class="form-control" type="number"  ng-model="pedidoInternacao.paciente.numProntuario" />
+                        <input class="form-control" type="number"  ng-model="pedidoInternacao.paciente.numProntuario" ng-change="GetPedido()" />
                         <span class="input-group-btn">registroInternacao
-                            <button class="btn btn-info btn-lg" type="button" ng-click="GetPedido()">
+                            <button data-toggle="modal" data-target="#modalPedido" class="btn btn-info btn-lg" type="button" ng-click="carregarPedidos()">
                                 <i class="fa fa fa-search"></i>
                             </button>
                         </span>
@@ -126,5 +126,72 @@
     </form>
     <div class="col-sm-12 text-right">
         <button class="btn btn-primary btn-primary" ng-click="salvarRegistroInternacao()">Registrar Internação </button>
+    </div>
+</div>
+
+<!-- MODAL DE PESQUISA -->
+<div class="modal fade" id="modalPedido" ng-init="carregarPedidos()" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+    aria-hidden="true" ng-controller="registroInternacaoController">
+    <div class="modal-dialog mediumSize">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="lineModalLabel">Lista de Pedidos Internação</h3>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nº Prontuário</th>
+                            <th>Nome do Paciente</th>
+                            <th>Nome da mãe</th>
+                            <th>Data de nascimento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="pedido in ListaPedidos">
+                            <td>{{pedido.paciente.numProntuario}}</td>
+                            <td>{{pedido.paciente.nomePaciente}}</td>
+                            <td>{{pedido.paciente.nomeMae}}</td>
+                            <td>{{pedido.paciente.dataNascimento}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-sm-12 ">
+                    <div class="result pull-left">
+                        <strong>Mostrando 1 até 6 de 5000</strong>
+                    </div>
+                    <ul class="pagination pull-right">
+                        <li>
+                            <a href="#">«</a>
+                        </li>
+                        <li>
+                            <a href="#">1</a>
+                        </li>
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                        <li>
+                            <a href="#">4</a>
+                        </li>
+                        <li>
+                            <a href="#">5</a>
+                        </li>
+                        <li>
+                            <a href="#">»</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="fecharModal" class="btn btn-primary btn-primary" data-dismiss="modal" role="button">Fechar</button>
+            </div>
+        </div>
     </div>
 </div>

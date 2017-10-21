@@ -85,5 +85,13 @@ public class PedidoInternacaoController {
 		String d = gson.toJson(pedido.get(0));
 		return d;
 	}
+	
+	@RequestMapping(value = "ListaPedidos", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	public @ResponseBody String listarPedidos() throws JSONException {
+		Iterable<PedidoInternacao> pedidos = repository.findAll();
+		Gson gson = new GsonBuilder().create();
+		String d = gson.toJson(pedidos);
+		return d;
+	}
 
 }

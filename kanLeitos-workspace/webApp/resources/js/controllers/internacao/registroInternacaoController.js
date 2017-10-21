@@ -130,8 +130,29 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
     };
     $scope.Inicializar();
 
-    $scope.GetPedido = function () {
+    $scope.carregarPedidos = function () {
+    pedidoInternacaoFactory.getPedidos()
+        .then(function (response) {
+            $scope.ListaPedidos = response.data;
+        }, function (response) {
+            if (response.data != undefined) {
+                swal(
+                    'Erro!',
+                    response.data.message,
+                    'error'
+                )
+            } else {
+                swal(
+                    'Erro!',
+                    'Ocorreu algum erro no servidor',
+                    'error'
+                )
+            }
+        });
+    };
 
+    $scope.GetPedido = function () {
+        setTimeout(function () {
         pedidoInternacaoFactory.getPedido($scope.pedidoInternacao.paciente.numProntuario)
             .then(function (response) {
                 $scope.pedidoInternacao = response.data;
@@ -152,6 +173,7 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
                     'error'
                 )
             });
+        }, 1000);
     }
     $scope.salvarRegistroInternacao = function () {
         if ($scope.validarRegistroInternacao()) {

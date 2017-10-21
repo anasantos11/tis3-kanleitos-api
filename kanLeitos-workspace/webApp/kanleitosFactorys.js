@@ -91,10 +91,16 @@ app.factory('pedidoInternacaoFactory', function ($http) {
         });
     };
     pedido.getPedido = function (prontuario) {
+        return $http({
+            url: "http://localhost:8080/GetPedidoInternacao",
+            method: 'GET',
+            params: { numProntuario: prontuario }
+        });
+    };
+    pedido.getPedidos = function () {
     return $http({
-        url: "http://localhost:8080/GetPedidoInternacao",
-        method: 'GET',
-        params: { numProntuario: prontuario }
+        url: "http://localhost:8080/ListaPedidos",
+        method: 'GET'
     });
     };
     return pedido;
