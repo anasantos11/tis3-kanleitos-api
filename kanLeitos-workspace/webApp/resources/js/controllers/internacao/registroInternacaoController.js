@@ -171,4 +171,30 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "p
         }
 
     }
+
+    $scope.validarRegistroInternacao = function () {
+        if ($scope.registroInternacao.idEnfermaria == undefined) {
+            swal(
+                'Erro!',
+                'Digite o número do prontuário!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.registroInternacao.previsaoAlta == "") {
+            swal(
+                'Erro!',
+                'Digite a data de previsão de alta do paciente!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.registroInternacao.dataInternacao == "") {
+            swal(
+                'Erro!',
+                'Digite a data de internação do paciente!',
+                'error'
+            )
+            return;
+        }
 }]);
