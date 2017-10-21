@@ -46,7 +46,7 @@ public class RegistroInternacao {
 	@Column(name = "previsaoAlta", nullable = false)
 	private String previsaoAlta;
 
-	@Column(name = "dataAlta", nullable = false)
+	@Column(name = "dataAlta")
 	private String dataAlta;
 
 	@Column(name = "diasInternacao", nullable = false)

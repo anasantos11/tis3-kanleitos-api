@@ -50,7 +50,9 @@ public class RegistroInternacaoController {
 		//Get PedidoInternacao Enfermaria e Leito
 		r.setPedidoInternacao(pedidoRepository.findOne(jsonObject.getInt("idPedido")));
 		r.setEnfermaria(enfermariaRepository.findOne(jsonObject.getInt("idEnfermaria")));
-		r.setLeito(leitoRepository.findOne(jsonObject.getInt("idLeito")));		
+		r.setLeito(leitoRepository.findOne(jsonObject.getInt("idLeito")));	
+		r.setDiasInternacao(0);
+		r.setClassificacao("Verde");
 		registroRepository.save(r);
 		
 		//Alterar Status do Leito para Ocupado
