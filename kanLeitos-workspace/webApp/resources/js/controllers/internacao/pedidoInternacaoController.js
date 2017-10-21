@@ -123,11 +123,16 @@ app.controller('pedidoInternacaoController', ["$scope", "$http", "$filter", "ped
                         $scope.pedidoInternacao.nomePaciente = response.data[0].nomePaciente;
                         $scope.pedidoInternacao.nomeMae = response.data[0].nomeMae;
                         $scope.pedidoInternacao.idade = response.data[0].idade;
-                        $scope.pedidoInternacao.dataNascimento = new Date(response.data[0].dataNascimento);
+                        $scope.pedidoInternacao.dataNascimento = new Date(getData(response.data[0].dataNascimento));
                         $scope.pedidoInternacao.genero = response.data[0].genero;
                     }
                 });
         }, 1000);
+    }
+
+    const getData = (dataDesformatada) => {
+        const splitedDate = dataDesformatada.split("-")
+        return "" + splitedDate[1] + "/" + splitedDate[2] + "/" + splitedDate[0];
     }
 
     $scope.Inicializar();
