@@ -53,14 +53,7 @@ app.controller('pacienteController', ["$scope", "$http", "$filter", "pacienteFac
 			)
 			return;
 		}
-		if ($scope.paciente.idade == "") {
-			swal(
-				'Erro!',
-				'Digite a idade do paciente!',
-				'error'
-			)
-			return;
-		}
+	
 		if ($scope.paciente.sexo == "") {
 			swal(
 				'Erro!',
