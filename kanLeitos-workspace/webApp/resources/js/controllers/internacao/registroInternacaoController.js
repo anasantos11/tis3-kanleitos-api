@@ -2,12 +2,12 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "p
 
     $scope.NovoRegistro = function () {
         $scope.registroInternacao = {
-            numProntuario: 0,
+            numProntuario: null,
             AIH: "",
             nomePaciente: "",
             nomeMae: "",
             dataNascimento: "",
-            idade: 0,
+            idade: null,
             genero: "",
             dataAdmissao: "",
             medicoResponsavel: "",
@@ -109,16 +109,19 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "p
     $scope.Inicializar();
 
     $scope.calcularIdade = function () {
-        // Obtém a idade em milissegundos
-        var idadeP = new Date() - new Date($scope.registroInternacao.dataNascimento).getTime();
+        const nasc = new Date($scope.registroInternacao.dataNascimento)
 
-        // Converte os milissegundos em data e subtrai da era linux
-        var idadeData = new Date(idadeP);
-        var idade = idadeData.getUTCFullYear() - 1970;
-        if (!isNaN(idade) && idade != undefined) {
-            $scope.registroInternacao.idade = idade;
-        } else {
-            $scope.registroInternacao.idade = 0;
+        if($scope.registroInternacao.dataNascimento && nasc.toLocaleDateString().length){
+            var idadeP = new Date() - new Date($scope.registroInternacao.dataNascimento).getTime();
+            var idadeData = new Date(idadeP);
+            var idade = idadeData.getUTCFullYear() - 1970;
+            if (!isNaN(idade) && idade != undefined) {
+                $scope.registroInternacao.idade = idade;
+            } else {
+                $scope.registroInternacao.idade = 0;
+            }
+        }else{
+            $scope.registroInternacao.idade = null
         }
 
     }
