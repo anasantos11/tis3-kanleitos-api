@@ -1,4 +1,4 @@
-app.controller('registroInternacaoController', ["$scope", "$http", "$filter","registroInternacaoFactory", "pedidoInternacaoFactory", "diagnosticosFactory", "alasFactory", "enfermariaFactory", "leitoFactory", function ($scope, $http, $filter,registroInternacaoFactory, pedidoInternacaoFactory, diagnosticosFactory, alasFactory, enfermariaFactory, leitoFactory) {
+app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "registroInternacaoFactory", "pedidoInternacaoFactory", "diagnosticosFactory", "alasFactory", "enfermariaFactory", "leitoFactory", function ($scope, $http, $filter, registroInternacaoFactory, pedidoInternacaoFactory, diagnosticosFactory, alasFactory, enfermariaFactory, leitoFactory) {
 
     $scope.NovoRegistro = function () {
         $scope.registroInternacao = {
@@ -154,41 +154,41 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter","re
             });
     }
     $scope.salvarRegistroInternacao = function () {
-       // if ($scope.validarDadosPedidoInternacao()) {
-            $scope.registroInternacao.idPedido = $scope.pedidoInternacao.idPedidoInternacao;
-            $scope.registroInternacao.dataInternacao = $filter('date')($scope.registroInternacao.dataInternacao, 'yyyy-MM-dd HH:mm:ss:sss');
-            $scope.registroInternacao.previsaoAlta = $filter('date')($scope.registroInternacao.previsaoAlta, 'yyyy-MM-dd HH:mm:ss:sss');
+        if ($scope.validarRegistroInternacao()) {
+        $scope.registroInternacao.idPedido = $scope.pedidoInternacao.idPedidoInternacao;
+        $scope.registroInternacao.dataInternacao = $filter('date')($scope.registroInternacao.dataInternacao, 'yyyy-MM-dd HH:mm:ss:sss');
+        $scope.registroInternacao.previsaoAlta = $filter('date')($scope.registroInternacao.previsaoAlta, 'yyyy-MM-dd HH:mm:ss:sss');
 
 
-            $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-            registroInternacaoFactory.saveRegistroInternacao($scope.registroInternacao)
-                .then(function (response) {
+        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+        registroInternacaoFactory.saveRegistroInternacao($scope.registroInternacao)
+            .then(function (response) {
+                swal(
+                    'Concluído!',
+                    'Internação realizada com sucesso, nº ' + response.data.idRegistroInternacao,
+                    'success'
+                )
+                $scope.NovoPedido();
+            }, function (response) {
+                $scope.registroInternacao.dataInternacao = new Date($scope.registroInternacao.dataInternacao);
+                $scope.registroInternacao.previsaoAlta = new Date($scope.registroInternacao.previsaoAlta);
+                if (response.data != undefined) {
                     swal(
-                        'Concluído!',
-                        'Internação realizada com sucesso, nº ' + response.data.idRegistroInternacao,
-                        'success'
+                        'Erro!',
+                        response.data.message,
+                        'error'
                     )
-                    $scope.NovoPedido();
-                }, function (response) {
-                    $scope.registroInternacao.dataInternacao = new Date($scope.registroInternacao.dataInternacao);
-                    $scope.registroInternacao.previsaoAlta = new Date($scope.registroInternacao.previsaoAlta);
-                    if (response.data != undefined) {
-                        swal(
-                            'Erro!',
-                            response.data.message,
-                            'error'
-                        )
-                    } else {
-                        swal(
-                            'Erro!',
-                            'Ocorreu algum erro no servidor',
-                            'error'
-                        )
-                    }
+                } else {
+                    swal(
+                        'Erro!',
+                        'Ocorreu algum erro no servidor',
+                        'error'
+                    )
                 }
+            }
 
-                );
-       // }
+            );
+        }
     }
 
     $scope.calcularIdade = function () {
@@ -210,18 +210,34 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter","re
     }
 
     $scope.validarRegistroInternacao = function () {
-        if ($scope.registroInternacao.idEnfermaria == undefined) {
+        if ($scope.pedidoInternacao == undefined) {
             swal(
                 'Erro!',
-                'Digite o número do prontuário!',
+                'Pedido de Internação não encontrado!',
                 'error'
             )
             return;
         }
-        if ($scope.registroInternacao.previsaoAlta == "") {
+        if ($scope.pedidoInternacao.idPedidoInternacao <= 0) {
             swal(
                 'Erro!',
-                'Digite a data de previsão de alta do paciente!',
+                'Pedido de Internação não encontrado!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.registroInternacao.idEnfermaria == undefined) {
+            swal(
+                'Erro!',
+                'Escolha uma enfermaria!',
+                'error'
+            )
+            return;
+        }
+        if ($scope.registroInternacao.idLeito  == undefined ) {
+            swal(
+                'Erro!',
+                'Escolha um leito!',
                 'error'
             )
             return;
@@ -234,4 +250,13 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter","re
             )
             return;
         }
+        if ($scope.registroInternacao.previsaoAlta == "") {
+            swal(
+                'Erro!',
+                'Digite a previsão de alta do paciente!',
+                'error'
+            )
+            return;
+        }
+    };
 }]);
