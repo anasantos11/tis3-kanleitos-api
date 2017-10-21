@@ -37,6 +37,14 @@
                 <label for="aih">AIH</label>
                 <input class="form-control" type="number" placeholder="Digite a AIH" ng-model="pedidoInternacao.AIH">
             </div>
+            </div>
+            <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="numProntuario">Número do Prontuário</label>
+                    <input class="form-control" type="number" placeholder="Digite o número do prontuário" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario">
+                </div>
+            </div>
 
             <div class="col-sm-6 form-group ">
                 <label for="nomePaciente">Nome do Paciente</label>
@@ -57,10 +65,6 @@
             <div class="col-sm-2 form-group">
                 <label for="idade">Idade</label>
                 <input type="number" placeholder="Idade" ng-model="pedidoInternacao.idade" class="form-control">
-            </div>
-            <div class="col-sm-3 form-group">
-                <label for="numProntuario">Número do Prontuário</label>
-                <input class="form-control" type="number" placeholder="Digite o número do prontuário" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario">
             </div>
             <div class="col-sm-4 form-group ">
                 <label>Sexo </label>
