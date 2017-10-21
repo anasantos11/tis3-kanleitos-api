@@ -8,6 +8,16 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 		templateUrl: "dashboard/kanBam.html",
 	});
 
+	$stateProvider.state("emConstrucao", {
+		url: "/emConstrucao",
+		templateUrl: "erro.html",
+	});
+
+	$stateProvider.state("login", {
+		url: "/login",
+		templateUrl: "login.html",
+	});
+
 	$stateProvider.state("cadastroPaciente", {
 		url: "/cadastroPaciente",
 		templateUrl: "internacao/cadastroPaciente.html"
