@@ -26,6 +26,12 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "p
 
     }
 
+    $scope.carregarLeitosEnfermaria = function(enfermaria){
+       $scope.Leitos = $scope.Leitos.filter(function(obj){
+                    return obj.enfermaria.idEnfermaria == enfermaria;
+     })
+    };
+
     $scope.CarregarDiagnosticos = function () {
         diagnosticosFactory.getDiagnosticos()
             .then(function (response) {
@@ -107,6 +113,24 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "p
             });
     };
     $scope.Inicializar();
+
+    $scope.GetPedido = function () {
+
+        pedidoInternacaoFactory.getPedido($scope.pedidoInternacao.paciente.numProntuario)
+            .then(function (response) {
+                $scope.pedidoInternacao = response.data;
+                $scope.pedidoInternacao.paciente.dataNascimento = new Date($scope.pedidoInternacao.paciente.dataNascimento);
+                $scope.pedidoInternacao.dataAdmissao = new Date($scope.pedidoInternacao.dataAdmissao);
+                $scope.pedidoInternacao.AIH =  parseInt($scope.pedidoInternacao.AIH);
+                $scope.pedidoInternacao.ala = $scope.Alas.filter(function(obj){
+                    return obj.idAla == $scope.pedidoInternacao.ala.idAla;
+                })[0];
+                $scope.pedidoInternacao.diagnostico = $scope.Diagnosticos.filter(function(obj){
+                    return obj.idDiagnostico == $scope.pedidoInternacao.diagnostico.idDiagnostico;
+                })[0];
+
+            });
+    }
 
     $scope.calcularIdade = function () {
         const nasc = new Date($scope.registroInternacao.dataNascimento)

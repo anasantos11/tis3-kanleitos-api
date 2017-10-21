@@ -83,6 +83,13 @@ app.factory('pedidoInternacaoFactory', function ($http) {
             data: dados
         });
     };
+    pedido.getPedido = function (prontuario) {
+    return $http({
+        url: "http://localhost:8080/GetPedidoInternacao",
+        method: 'GET',
+        params: { numProntuario: prontuario }
+    });
+    };
     return pedido;
 });
 app.factory('registroInternacaoFactory', function ($http) {

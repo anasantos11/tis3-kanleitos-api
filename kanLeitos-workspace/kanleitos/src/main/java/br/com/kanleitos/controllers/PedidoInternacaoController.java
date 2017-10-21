@@ -2,6 +2,7 @@ package br.com.kanleitos.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,15 +68,21 @@ public class PedidoInternacaoController {
 	
 	@RequestMapping(value = "GetPedidoInternacao", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String getPaciente(@RequestParam  String numProntuario, String idPedidoInternacao) throws JSONException {
-		Iterable<PedidoInternacao> pedido = null;
+		List<PedidoInternacao> pedido = null;
+		List<Paciente> paciente = null;
 		if(numProntuario != null && !numProntuario.isEmpty()) {
-			pedido = repository.findByNumProntuario(Integer.parseInt(numProntuario));
+			paciente = pacienteRepository.findByNumProntuario(Integer.parseInt(numProntuario));
+			if(paciente.size() > 0) {
+				int id = paciente.get(0).getIdPaciente();
+				if( id > 0)
+					pedido = repository.findByPaciente(paciente.get(0));
+			}
 		}else {
 			//paciente = repository.findOne(Integer.parseInt(idPedidoInternacao));
 		}
 
 		Gson gson = new GsonBuilder().create();
-		String d = gson.toJson(pedido);
+		String d = gson.toJson(pedido.get(0));
 		return d;
 	}
 
