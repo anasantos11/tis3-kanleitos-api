@@ -8,10 +8,9 @@
 <div class="jumbotron" ng-controller="registroInternacaoController" class="col-12 col-md-auto">
     <form>
         <div class="row">
-            <div class="col-4 form-group ">
+            <div class="col-sm-4 form-group ">
                 <label for="numProntuario">Número do Prontuário</label>
-                <div id="custom-search-input">
-                    <div class="input-group col-md-12">
+                    <div class="input-group">
                         <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="registroInternacao.numProntuario" />
                         <span class="input-group-btn">registroInternacao
                             <button class="btn btn-info btn-lg" type="button">
@@ -19,26 +18,9 @@
                             </button>
                         </span>
                     </div>
-                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3 form-group">
-                <label>Data do pedido </label>
-                <input class="form-control" type="date" ng-model="registroInternacao.dataPedido" ng-disabled="true">
-            </div>
-
-            <div class="col-sm-3 form-group">
-                <label for="Status">Status</label>
-                <select class="form-control" ng-model="registroInternacao.status" ng-disabled="true">
-                    <option value="">Selecione </option>
-                    <option value="Pendente">Pendente</option>
-                    <option value="Em Andamento">Em Andamento</option>
-                    <option value="Concluído">Concluído</option>
-                    <option value="Cancelado">Cancelado</option>
-                </select>
-            </div>
-
             <div class="col-sm-3 form-group ">
                 <label for="aih">AIH</label>
                 <input class="form-control" type="number" ng-model="registroInternacao.AIH">
