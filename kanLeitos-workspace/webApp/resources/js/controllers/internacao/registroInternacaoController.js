@@ -30,9 +30,6 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "p
         leitoFactory.getLeitoEnfermaria(enfermaria)
         .then(function(response){
              $scope.Leitos = response.data;
-             /*        
-       $scope.Leitos = $scope.Leitos.filter(function(obj){
-                    return obj.enfermaria.idEnfermaria == enfermaria;*/
         }, function (response) {
             if (response.data != undefined) {
                 swal(
