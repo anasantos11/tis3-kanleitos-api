@@ -5,7 +5,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	$stateProvider.state("home", {
 		url: "/home",
-		templateUrl: "index.html",
+		templateUrl: "dashboard/kanBam.html",
 	});
 
 	$stateProvider.state("cadastroPaciente", {
