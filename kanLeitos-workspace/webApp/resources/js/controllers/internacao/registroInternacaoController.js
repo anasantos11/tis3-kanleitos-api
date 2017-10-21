@@ -167,13 +167,13 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
                 })[0];
 
             }, function (response) {
-                swal(
-                    'Erro!',
-                    'Pedido de Internação não encontrado',
-                    'error'
-                )
+                    swal(
+                        'Erro!',
+                        'Pedido de Internação não encontrado',
+                        'error'
+                    )
             });
-        }, 1000);
+        }, 2000);
     }
     $scope.salvarRegistroInternacao = function () {
         if ($scope.validarRegistroInternacao()) {
@@ -190,7 +190,7 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
                     'Internação realizada com sucesso, nº ' + response.data.idRegistroInternacao,
                     'success'
                 )
-                $scope.NovoPedido();
+                $scope.NovoRegistro();
             }, function (response) {
                 $scope.registroInternacao.dataInternacao = new Date($scope.registroInternacao.dataInternacao);
                 $scope.registroInternacao.previsaoAlta = new Date($scope.registroInternacao.previsaoAlta);
@@ -280,5 +280,6 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
             )
             return;
         }
+    return true;
     };
 }]);
