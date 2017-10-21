@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="cadastroPaciente.html">Internação</a>
+        <a href="">Internação</a>
     </li>
     <li class="breadcrumb-item active">Registrar Internação</li>
 </ol>
@@ -12,8 +12,8 @@
                 <label for="numProntuario">Número do Prontuário</label>
                 <div id="custom-search-input">
                     <div class="input-group col-md-12">
-                        <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario" />
-                        <span class="input-group-btn">
+                        <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="registroInternacao.numProntuario" />
+                        <span class="input-group-btn">registroInternacao
                             <button class="btn btn-info btn-lg" type="button">
                                 <i class="fa fa fa-search"></i>
                             </button>
@@ -25,12 +25,12 @@
         <div class="row">
             <div class="col-sm-3 form-group">
                 <label>Data do pedido </label>
-                <input class="form-control" type="date" ng-model="pedidoInternacao.dataPedido" ng-disabled="true">
+                <input class="form-control" type="date" ng-model="registroInternacao.dataPedido" ng-disabled="true">
             </div>
 
             <div class="col-sm-3 form-group">
                 <label for="Status">Status</label>
-                <select class="form-control" ng-model="pedidoInternacao.status" ng-disabled="true">
+                <select class="form-control" ng-model="registroInternacao.status" ng-disabled="true">
                     <option value="">Selecione </option>
                     <option value="Pendente">Pendente</option>
                     <option value="Em Andamento">Em Andamento</option>
@@ -41,27 +41,27 @@
 
             <div class="col-sm-3 form-group ">
                 <label for="aih">AIH</label>
-                <input class="form-control" type="number" ng-model="pedidoInternacao.AIH">
+                <input class="form-control" type="number" ng-model="registroInternacao.AIH">
             </div>
 
             <div class="col-sm-6 form-group ">
                 <label for="nomePaciente">Nome do Paciente</label>
-                <input class="form-control" type="text" ng-model="pedidoInternacao.nomePaciente">
+                <input class="form-control" type="text" ng-model="registroInternacao.nomePaciente">
             </div>
 
             <div class="col-sm-6 form-group ">
                 <label for="nomeMae">Nome da Mãe</label>
-                <input class="form-control" type="text" ng-model="pedidoInternacao.nomeMae">
+                <input class="form-control" type="text" ng-model="registroInternacao.nomeMae">
             </div>
 
             <div class="col-sm-3 form-group">
                 <label>Data de nascimento </label>
-                <input class="form-control" type="date" ng-model="pedidoInternacao.dataNascimento" ng-change=" calcularIdade()" value="">
+                <input class="form-control" type="date" ng-model="registroInternacao.dataNascimento" ng-change=" calcularIdade()" value="">
             </div>
 
             <div class="col-sm-2 form-group">
                 <label for="idade">Idade</label>
-                <input type="number" ng-model="pedidoInternacao.idade" class="form-control">
+                <input type="number" ng-model="registroInternacao.idade" class="form-control">
             </div>
 
             <div class="col-sm-4 form-group ">
@@ -69,13 +69,13 @@
                 </br>
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input type="radio" ng-model="pedidoInternacao.genero" class="form-check-input" value="Feminino" checked> Feminino
+                        <input type="radio" ng-model="registroInternacao.genero" class="form-check-input" value="Feminino" checked> Feminino
                     </label>
                 </div>
 
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input class="form-check-input" ng-model="pedidoInternacao.genero" type="radio" value="Masculino"> Masculino
+                        <input class="form-check-input" ng-model="registroInternacao.genero" type="radio" value="Masculino"> Masculino
                     </label>
                 </div>
             </div>
@@ -84,14 +84,14 @@
         <div class="row">
             <div class="form-group col-xs-6 col-md-4">
                 <label>Diagnóstico </label>
-                <select class="form-control" ng-model="pedidoInternacao.idDiagnostico">
+                <select class="form-control" ng-model="registroInternacao.idDiagnostico">
                     <option value="">Selecione </option>
                     <option ng-repeat="diagnostico in Diagnosticos" value="{{diagnostico.idDiagnostico}}">{{diagnostico.descricaoDiagnostico}}</option>
                 </select>
             </div>
             <div class="form-group col-xs-6 col-md-4">
                 <label>Ala</label>
-                <select ng-model="pedidoInternacao.idAla" class="form-control">
+                <select ng-model="registroInternacao.idAla" class="form-control">
                     <option value="">Selecione</option>
                     <option ng-repeat="ala in Alas" value="{{ala.idAla}}">{{ala.nomeAla}}</option>
                 </select>
@@ -99,15 +99,15 @@
             </div>
             <div class="col-sm-3 form-group">
                 <label>Data de admissão </label>
-                <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
+                <input class="form-control" type="date" ng-model="registroInternacao.dataAdmissao">
             </div>
             <div class="col-sm-6 form-group">
                 <label>Médico Responsável </label>
-                <input type="text" class="form-control" placeholder="Médico Responsável" ng-model="pedidoInternacao.medicoResponsavel">
+                <input type="text" class="form-control" placeholder="Médico Responsável" ng-model="registroInternacao.medicoResponsavel">
             </div>
             <div class="col-sm-6 form-group">
                 <label>Residente Responsável</label>
-                <input type="text" class="form-control" placeholder="Residente Responsável" ng-model="pedidoInternacao.residenteResponsavel">
+                <input type="text" class="form-control" placeholder="Residente Responsável" ng-model="registroInternacao.residenteResponsavel">
             </div>
 
 
@@ -117,28 +117,28 @@
 
             <div class="col-sm-3 form-group">
                 <label for="Status">Enfermaria</label>
-                <select class="form-control" ng-model="pedidoInternacao.status" ng-disabled="true">
-                    <option value="">Selecione </option>
-                    <option value="Pendente">Pendente</option>
-                    <option value="Em Andamento">Em Andamento</option>
-                    <option value="Concluído">Concluído</option>
-                    <option value="Cancelado">Cancelado</option>
+                <select ng-model="registroInternacao.idEnfermaria" class="form-control">
+                    <option value="">Selecione</option>
+                    <option ng-repeat="enfermaria in Enfermarias" value="{{enfermaria.idEnfermaria}}">{{enfermaria.nomeEnfermaria}}</option>
                 </select>
             </div>
 
             <div class="col-sm-3 form-group ">
                 <label for="numProntuario">Número do Leito</label>
-                <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario">
+                <select ng-model="registroInternacao.idLeito" class="form-control">
+                    <option value="">Selecione</option>
+                    <option ng-repeat="leito in Leitos" value="{{leito.idLeito}}">{{leito.nomeLeito}}</option>
+                </select>
             </div>
 
             <div class="col-sm-3 form-group">
                 <label>Data de internação </label>
-                <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
+                <input class="form-control" type="date" ng-model="registroInternacao.dataAdmissao">
             </div>
 
             <div class="col-sm-3 form-group">
                 <label>Data de previsão de alta </label>
-                <input class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
+                <input class="form-control" type="date" ng-model="registroInternacao.dataAdmissao">
             </div>
         </div>
     </form>
