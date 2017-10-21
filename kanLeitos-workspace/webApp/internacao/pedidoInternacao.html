@@ -35,17 +35,17 @@
             </div>
             <div class="col-sm-3 form-group">
                 <label for="aih">AIH</label>
-                <input class="form-control" type="number" ng-model="pedidoInternacao.AIH">
+                <input class="form-control" type="number" placeholder="Digite a AIH" ng-model="pedidoInternacao.AIH">
             </div>
 
             <div class="col-sm-6 form-group ">
                 <label for="nomePaciente">Nome do Paciente</label>
-                <input class="form-control" type="text" ng-model="pedidoInternacao.nomePaciente">
+                <input class="form-control" type="text" placeholder="Digite o nome do paciente" ng-model="pedidoInternacao.nomePaciente">
             </div>
 
             <div class="col-sm-6 form-group ">
                 <label for="nomeMae">Nome da Mãe</label>
-                <input class="form-control" type="text" ng-model="pedidoInternacao.nomeMae">
+                <input class="form-control" type="text" placeholder="Digite o nome da mãe do paciente" ng-model="pedidoInternacao.nomeMae">
             </div>
 
 
@@ -56,11 +56,11 @@
             </div>
             <div class="col-sm-2 form-group">
                 <label for="idade">Idade</label>
-                <input type="number" ng-model="pedidoInternacao.idade" class="form-control">
+                <input type="number" placeholder="Idade" ng-model="pedidoInternacao.idade" class="form-control">
             </div>
             <div class="col-sm-3 form-group">
                 <label for="numProntuario">Número do Prontuário</label>
-                <input class="form-control" type="number" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario">
+                <input class="form-control" type="number" placeholder="Digite o número do prontuário" ng-change="GetPaciente()" ng-model="pedidoInternacao.numProntuario">
             </div>
             <div class="col-sm-4 form-group ">
                 <label>Sexo </label>
@@ -99,11 +99,11 @@
             </div>
             <div class="col-sm-6 form-group">
                 <label>Médico Responsável </label>
-                <input type="text" class="form-control" placeholder="Médico Responsável" ng-model="pedidoInternacao.medicoResponsavel">
+                <input type="text" class="form-control" placeholder="Digite o nome do médico responsável" ng-model="pedidoInternacao.medicoResponsavel">
             </div>
             <div class="col-sm-6 form-group">
                 <label>Residente Responsável</label>
-                <input type="text" class="form-control" placeholder="Residente Responsável" ng-model="pedidoInternacao.residenteResponsavel">
+                <input type="text" class="form-control" placeholder="Digite o nome do residente responsável" ng-model="pedidoInternacao.residenteResponsavel">
             </div>
         </div>
     </form>
@@ -128,29 +128,31 @@
             <div class="modal-body">
 
                 <!-- content goes here -->
-                <div class="row col-sm-12">
-                    <div class="col-sm-12 form-group">
+                <div class="row">
+                        <div class="col-8 form-group ">
                         <label for="numProntuario">Número do Prontuário</label>
-                        <input class="form-control" type="number" value="" ng-model="pedidoInternacao.numProntuario">
+                        <input class="form-control" maxlength="12" pattern="([0-9]{12})"type="text" value="" ng-model="pedidoInternacao.numProntuario">
                     </div>
-                    <div class="col-sm-12 form-group">
+                    <div class="col-12 form-group ">
                         <label for="nomePaciente">Nome do Paciente</label>
                         <input class="form-control" type="text" placeholder="Nome do paciente" ng-model="pedidoInternacao.nomePaciente">
                     </div>
-                    <div class="col-sm-12 form-group">
+                    <div class="col-12 form-group ">
                         <label for="nomeMae">Nome da Mãe</label>
                         <input class="form-control" type="text" placeholder="Nome da mãe" ng-model="pedidoInternacao.nomeMae">
                     </div>
-                    <div class="col-3m-6 form-group">
+                    <div class="col-6 form-group ">
                         <label>Data de nascimento </label>
                         <input class="form-control" type="date" ng-model="pedidoInternacao.dataNascimento" ng-change=" calcularIdade()">
                     </div>
-                    <div class="col-sm-6 form-group">
+                  
+                    <div class="col-2 form-group ">
                         <label for="idade">Idade</label>
                         <input type="number" ng-model="pedidoInternacao.idade" class="form-control">
                     </div>
+               
 
-                    <div class="col-sm-12 form-group ">
+                <div class="col-12 form-group ">
                         <label>Sexo </label>
                         </br>
                         <div class="form-check form-check-inline">

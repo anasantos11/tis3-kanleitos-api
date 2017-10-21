@@ -55,13 +55,13 @@
             </div>
 
             <div class="col-sm-3 form-group">
-                <label>Data de nascimento </label>
-                <input class="form-control" type="date" ng-model="registroInternacao.dataNascimento" ng-change=" calcularIdade()" value="">
-            </div>
+                    <label>Data de nascimento:</label>
+                    <input class="form-control" type="date" ng-model="registroInternacao.dataNascimento" ng-change="paciente.idade = calcularIdade(paciente.nascimento)">
+                </div>
 
             <div class="col-sm-2 form-group">
                 <label for="idade">Idade</label>
-                <input type="number" ng-model="registroInternacao.idade" class="form-control">
+                <input type="text" ng-model="registroInternacao.idade" class="form-control">
             </div>
 
             <div class="col-sm-4 form-group ">
