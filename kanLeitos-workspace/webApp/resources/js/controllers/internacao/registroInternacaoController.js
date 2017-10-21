@@ -27,10 +27,29 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "p
     }
 
     $scope.carregarLeitosEnfermaria = function(enfermaria){
+        leitoFactory.getLeitoEnfermaria(enfermaria)
+        .then(function(response){
+             $scope.Leitos = response.data;
+             /*        
        $scope.Leitos = $scope.Leitos.filter(function(obj){
-                    return obj.enfermaria.idEnfermaria == enfermaria;
-     })
+                    return obj.enfermaria.idEnfermaria == enfermaria;*/
+        }, function (response) {
+            if (response.data != undefined) {
+                swal(
+                    'Erro!',
+                    response.data.message,
+                    'error'
+                )
+            } else {
+                swal(
+                    'Erro!',
+                    'Ocorreu algum erro no servidor',
+                    'error'
+                )
+            }
+        });
     };
+
 
     $scope.CarregarDiagnosticos = function () {
         diagnosticosFactory.getDiagnosticos()

@@ -33,6 +33,13 @@ app.factory('leitoFactory', function ($http) {
             method: 'GET'
         });
     };
+    leitos.getLeitoEnfermaria = function (idEnfermaria) {
+    return $http({
+        url: "http://localhost:8080/GetLeitosEnfermaria",
+        method: 'GET',
+        params: { idEnfermaria: idEnfermaria }
+    });
+    };
     return leitos;
 });
 app.factory('diagnosticosFactory', function ($http) {

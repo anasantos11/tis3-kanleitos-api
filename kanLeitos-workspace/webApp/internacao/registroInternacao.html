@@ -99,7 +99,7 @@
 
             <div class="col-sm-3 form-group">
                 <label for="Status">Enfermaria</label>
-                <select ng-disabled="true" ng-model="registroInternacao.idEnfermaria" class="form-control" ng-change="carregarLeitosEnfermaria(registroInternacao.idEnfermaria)">
+                <select  ng-model="registroInternacao.idEnfermaria" class="form-control" ng-change="carregarLeitosEnfermaria(registroInternacao.idEnfermaria)">
                     <option value="">Selecione</option>
                     <option ng-repeat="enfermaria in Enfermarias" value="{{enfermaria.idEnfermaria}}">{{enfermaria.nomeEnfermaria}}</option>
                 </select>
