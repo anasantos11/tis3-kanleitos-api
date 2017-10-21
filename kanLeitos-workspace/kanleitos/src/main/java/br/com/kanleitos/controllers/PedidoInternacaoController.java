@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.com.kanleitos.models.Paciente;
 import br.com.kanleitos.models.PedidoInternacao;
 import br.com.kanleitos.repository.AlaRepository;
 import br.com.kanleitos.repository.DiagnosticoRepository;
@@ -61,6 +63,20 @@ public class PedidoInternacaoController {
 		Gson gson = new GsonBuilder().create();
 		String response = gson.toJson(p);
 		return response;
+	}
+	
+	@RequestMapping(value = "GetPedidoInternacao", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	public @ResponseBody String getPaciente(@RequestParam  String numProntuario, String idPedidoInternacao) throws JSONException {
+		Iterable<PedidoInternacao> pedido = null;
+		if(numProntuario != null && !numProntuario.isEmpty()) {
+			pedido = repository.findByNumProntuario(Integer.parseInt(numProntuario));
+		}else {
+			//paciente = repository.findOne(Integer.parseInt(idPedidoInternacao));
+		}
+
+		Gson gson = new GsonBuilder().create();
+		String d = gson.toJson(pedido);
+		return d;
 	}
 
 }
