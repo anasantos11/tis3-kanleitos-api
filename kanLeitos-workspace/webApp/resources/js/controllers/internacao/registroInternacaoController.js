@@ -129,6 +129,12 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "p
                     return obj.idDiagnostico == $scope.pedidoInternacao.diagnostico.idDiagnostico;
                 })[0];
 
+            }, function(response){
+                swal(
+                    'Erro!',
+                    'Pedido de Internação não encontrado',
+                    'error'
+                )
             });
     }
 
