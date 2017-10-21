@@ -7,3 +7,10 @@
 .modal-dialog {
     max-width: 100% !important;
 }
+img{
+    width:10%;
+}
+
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
+    padding-top: 40px;
+}
