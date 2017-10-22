@@ -11,6 +11,22 @@ a > img{
     width:30%;
 }
 
+
+@media only screen and (max-width: 768px) {
+a > img{
+    width:65%
+}
+.navbar-dark .navbar-toggler{
+    margin-left: 12%;
+}
+}
+
+
+.navbar-dark .navbar-toggler{
+    margin-left: 12%;
+}
+
+
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
     padding-top: 40px;
 }
@@ -56,3 +72,95 @@ a > img{
   margin-top: 10px;
 }
 /* end errors */
+
+.form-group ::-webkit-input-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f }
+.form-group ::-moz-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f } /* firefox 19+ */
+.form-group :-ms-input-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f } /* ie */
+.form-group input:-o-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f } /*opera*/
+
+/*ICONS *//*
+.center-block {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-group .icon-addon .form-control {
+    border-radius: 0;
+}
+
+.icon-addon {
+    position: relative;
+    color: #555;
+    display: block;
+}
+
+.icon-addon:after,
+.icon-addon:before {
+    display: table;
+    content: " ";
+}
+
+.icon-addon:after {
+    clear: both;
+}
+
+.icon-addon.addon-md .glyphicon,
+.icon-addon .glyphicon, 
+.icon-addon.addon-md .fa,
+.icon-addon .fa {
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    font-size: 14px;
+    width: 20px;
+    margin-left: -2.5px;
+    text-align: center;
+    padding: 10px 0;
+    top: 1px
+}
+
+.icon-addon.addon-lg .form-control {
+    line-height: 1.33;
+    height: 46px;
+    font-size: 18px;
+    padding: 10px 16px 10px 40px;
+}
+
+.icon-addon.addon-sm .form-control {
+    height: 30px;
+    padding: 5px 10px 5px 28px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.icon-addon.addon-lg .fa,
+.icon-addon.addon-lg .glyphicon {
+    font-size: 18px;
+    margin-left: 0;
+    left: 11px;
+    top: 4px;
+}
+
+.icon-addon.addon-md .form-control,
+.icon-addon .form-control {
+    padding-left: 30px;
+    float: left;
+    font-weight: normal;
+}
+
+.icon-addon.addon-sm .fa,
+.icon-addon.addon-sm .glyphicon {
+    margin-left: 0;
+    font-size: 12px;
+    left: 5px;
+    top: -1px
+}
+
+.icon-addon .form-control:focus + .glyphicon,
+.icon-addon:hover .glyphicon,
+.icon-addon .form-control:focus + .fa,
+.icon-addon:hover .fa {
+    color: #2580db;
+}*/
+/*FIM ICONS */

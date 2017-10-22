@@ -1,7 +1,7 @@
 var app = angular.module("kanleitos", ['ui.router']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-	$urlRouterProvider.otherwise("/");
+	$urlRouterProvider.otherwise("/home");
 
 	$stateProvider.state("home", {
 		url: "/home",
@@ -11,11 +11,6 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 	$stateProvider.state("emConstrucao", {
 		url: "/emConstrucao",
 		templateUrl: "erro.html",
-	});
-
-	$stateProvider.state("login", {
-		url: "/login",
-		templateUrl: "login.html",
 	});
 
 	$stateProvider.state("cadastroPaciente", {
