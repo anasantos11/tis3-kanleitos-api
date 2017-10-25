@@ -40,7 +40,6 @@ public class PedidoInternacaoController {
 
 	@RequestMapping(value = "PedidoInternacao", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String pedidoInternacao(@RequestBody String json) throws JSONException {
-		boolean erroFlag = true;
 		String decoded = null;
 		try {
 			decoded = URLDecoder.decode(json, "UTF-8");
@@ -57,10 +56,6 @@ public class PedidoInternacaoController {
 		
 		
 		repository.save(p);
-		erroFlag = false;
-		//CadastroPacienteResposta responseObject = new CadastroPacienteResposta(erroFlag);
-		//responseObject.setIdPaciente(Integer.toString(p.getIdPedidoInternacao()));
-		//String response = responseObject.toJson().toString();
 		Gson gson = new GsonBuilder().create();
 		String response = gson.toJson(p);
 		return response;

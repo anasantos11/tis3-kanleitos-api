@@ -1,4 +1,4 @@
-package br.com.kanleitos.models;
+package br.com.kanleitos.util;
 
 public enum TipoStatusLeito {
 	DESOCUPADO("Desocupado"), OCUPADO_COMUM("Ocupado Comum"), OCUPADO_ISOLAMENTO_RESPIRATORIO(

@@ -13,6 +13,9 @@ import javax.persistence.OneToOne;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.com.kanleitos.util.StatusLeitoConverter;
+import br.com.kanleitos.util.TipoStatusLeito;
+
 @Entity
 
 public class Leito {

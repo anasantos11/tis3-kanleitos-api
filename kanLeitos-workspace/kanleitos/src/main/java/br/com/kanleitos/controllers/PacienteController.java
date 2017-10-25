@@ -16,7 +16,6 @@ import com.google.gson.GsonBuilder;
 
 import br.com.kanleitos.models.Paciente;
 import br.com.kanleitos.repository.PacienteRepository;
-import br.com.kanleitos.service.models.CadastroPacienteResposta;
 
 @Controller
 public class PacienteController{
@@ -26,7 +25,6 @@ public class PacienteController{
 
 	@RequestMapping(value = "CadastroPaciente", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String cadastrarPaciente(@RequestBody String json) throws JSONException {
-		boolean erroFlag = true;
 		String decoded = null;
 		try {
 			decoded = URLDecoder.decode(json, "UTF-8");
@@ -35,18 +33,14 @@ public class PacienteController{
 		}
 		Paciente p = new Paciente(new JSONObject(decoded));
 		repository.save(p);
-		erroFlag = false;
 
-		//CadastroPacienteResposta responseObject = new CadastroPacienteResposta(erroFlag);
-		//responseObject.setIdPaciente(Integer.toString(p.getIdPaciente()));
-		//String response = responseObject.toJson().toString();
 		Gson gson = new GsonBuilder().create();
 		String response = gson.toJson(p);
 		return response;
 	}
 	
 	@RequestMapping(value = "ListaPacientes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
-	public @ResponseBody String listarDiagnosticos() throws JSONException {
+	public @ResponseBody String listarPacientes() throws JSONException {
 		Iterable<Paciente> pacientes = repository.findAll();
 		Gson gson = new GsonBuilder().create();
 		String d = gson.toJson(pacientes);

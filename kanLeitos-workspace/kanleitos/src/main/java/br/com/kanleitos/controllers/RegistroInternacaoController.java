@@ -14,13 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import br.com.kanleitos.models.Leito;
 import br.com.kanleitos.models.RegistroInternacao;
-import br.com.kanleitos.models.TipoStatusLeito;
 import br.com.kanleitos.repository.EnfermariaRepository;
 import br.com.kanleitos.repository.LeitoRepository;
 import br.com.kanleitos.repository.PedidoInternacaoRepository;
 import br.com.kanleitos.repository.RegistroInternacaoRepository;
+import br.com.kanleitos.util.TipoStatusLeito;
 
 @Controller
 public class RegistroInternacaoController {

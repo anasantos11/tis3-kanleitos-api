@@ -1,4 +1,4 @@
-package br.com.kanleitos.models;
+package br.com.kanleitos.util;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
