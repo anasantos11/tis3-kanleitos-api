@@ -13,8 +13,8 @@ public enum Classificacao {
 		return nome;
 	}
 
-	public static Classificacao fromName(String status) {
-		switch (status) {
+	public static Classificacao fromName(String classificacao) {
+		switch (classificacao) {
 		case "Verde":
 			return Classificacao.VERDE;
 		case "Amarelo":
@@ -22,7 +22,7 @@ public enum Classificacao {
 		case "Vermelho":
 			return Classificacao.VERMELHO;
 		default:
-			throw new IllegalArgumentException("Unknown" + status);
+			throw new IllegalArgumentException("Unknown" + classificacao);
 		}
 	}
 

@@ -19,7 +19,7 @@ public class KanController {
 	@Autowired
 	private RegistroInternacaoRepository registroRepository;
 
-	@RequestMapping(value = "KanbanInternacies", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	@RequestMapping(value = "KanbanInternacoes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String getKanbanInternacoes(@RequestParam  String classificacao) throws JSONException {
 		Iterable<RegistroInternacao> registros = registroRepository.findByClassificacao(classificacao);
 		Gson gson = new GsonBuilder().create();

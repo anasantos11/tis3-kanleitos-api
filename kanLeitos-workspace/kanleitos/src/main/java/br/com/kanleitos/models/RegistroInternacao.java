@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,11 @@ import javax.persistence.OneToOne;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import br.com.kanleitos.util.Classificacao;
+import br.com.kanleitos.util.ClassificacaoConverter;
+import br.com.kanleitos.util.StatusRegistro;
+import br.com.kanleitos.util.StatusRegistroConverter;
 
 @Entity
 public class RegistroInternacao {
@@ -53,7 +59,12 @@ public class RegistroInternacao {
 	private int diasInternacao;
 
 	@Column(name = "classificacao", nullable = false)
-	private String classificacao;
+	@Convert(converter = ClassificacaoConverter.class)
+	private Classificacao classificacao;
+	
+	@Column(name = "statusRegistro", nullable = false)
+	@Convert(converter = StatusRegistroConverter.class)
+	private StatusRegistro statusRegistro;
 
 	public RegistroInternacao() throws JSONException {
 		setPedidoInternacao(new PedidoInternacao());
@@ -62,8 +73,10 @@ public class RegistroInternacao {
 		setDataInternacao(null);
 		setPrevisaoAlta(null);
 		setDataAlta(null);
-		setDiasInternacao(-1);
-		setClassificacao(null);
+		setDiasInternacao(0);
+		setClassificacao(Classificacao.VERDE);
+		setStatusRegistro(StatusRegistro.EM_ANDAMENTO);
+		
 	}
 
 	private static class RegistroInternacaoKeys {
@@ -76,6 +89,7 @@ public class RegistroInternacao {
 		private static final String DATA_ALTA = "dataAlta";
 		private static final String DIAS_INTERNACAO = "diasInternacao";
 		private static final String CLASSIFICACAO = "classificacao";
+		private static final String STATUS_REGISTRO = "statusRegistro";
 	}
 
 	public RegistroInternacao(JSONObject json) throws JSONException {
@@ -105,7 +119,10 @@ public class RegistroInternacao {
 			setDiasInternacao(json.getInt(RegistroInternacaoKeys.DIAS_INTERNACAO));
 
 		if (json.has(RegistroInternacaoKeys.CLASSIFICACAO))
-			setClassificacao(json.getString(RegistroInternacaoKeys.CLASSIFICACAO));
+			setClassificacao(Classificacao.fromName(json.getString(RegistroInternacaoKeys.CLASSIFICACAO)));
+
+		if (json.has(RegistroInternacaoKeys.STATUS_REGISTRO))
+			setStatusRegistro(StatusRegistro.fromName(json.getString(RegistroInternacaoKeys.STATUS_REGISTRO)));
 
 	}
 
@@ -189,16 +206,24 @@ public class RegistroInternacao {
 		this.diasInternacao = diasInternacao;
 	}
 
-	public String getClassificacao() {
+	public Classificacao getClassificacao() {
 		return classificacao;
 	}
 
-	public void setClassificacao(String classificacao) {
+	public void setClassificacao(Classificacao classificacao) {
 		this.classificacao = classificacao;
 	}
 
 	public int getIdRegistroInternacao() {
 		return idRegistroInternacao;
+	}
+
+	public StatusRegistro getStatusRegistro() {
+		return statusRegistro;
+	}
+
+	public void setStatusRegistro(StatusRegistro statusRegistro) {
+		this.statusRegistro = statusRegistro;
 	}
 
 }
