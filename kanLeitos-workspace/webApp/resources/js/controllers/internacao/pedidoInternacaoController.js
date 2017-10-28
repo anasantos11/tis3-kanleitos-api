@@ -19,7 +19,6 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
         }
 
         $rootScope.$watch((data)=>{
-            console.log(data)
             if(data.pacienteSelecionado){
                 $scope.pedidoInternacao.numProntuario = data.pacienteSelecionado.numProntuario || null
                 $scope.pedidoInternacao.nomePaciente = data.pacienteSelecionado.nomePaciente || null
