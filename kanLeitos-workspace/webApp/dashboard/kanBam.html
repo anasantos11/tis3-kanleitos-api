@@ -1,10 +1,12 @@
 <!-- Breadcrumbs-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-        <a href="#">Pacientes Internados</a>
+        <a href="#">Página Inicial </a>
     </li>
     <li class="breadcrumb-item active">Kanban</li>
 </ol>
+
+
 <!-- Icon Cards-->
 <div class="row">
     <div class="col-xl-3 col-sm-6 mb-3">
@@ -61,4 +63,52 @@
             </a>
         </div>
     </div>
+</div>
+
+
+<div class="row">
+
+    <style>
+        .add-button {
+            cursor: pointer;
+            background-color: #666;
+            color: #fff;
+            text-align: center;
+            line-height: 14px;
+        }
+        .add-button:hover {
+            background-color: #333;
+        }
+    </style>
+    
+    <div id="dp"></div>
+    
+    <script type="text/javascript">
+    
+        var dp = new DayPilot.Kanban("dp");
+        dp.columns.list = [
+            {name: "New", id: "1", areas: [ {right: 5, top: 1, bottom: 1, width: 18,  html: "+", cssClass: "add-button", action: "JavaScript", js: function(args) { console.log(args); add();}} ]},
+            {name: "Draft", id: "2"},
+            {name: "Implementation", id: "3"}
+        ];
+        dp.cards.list = [
+            {id: 1, "name": "Task 1", column: "1", text: "This is a description of task #1."},
+            {id: 2, "name": "Task 2", column: "1", text: "This is a description of task #2."}
+        ];
+        dp.cellMarginBottom = 40;
+    
+        dp.init();
+    
+        function add() {
+            var name = prompt("New card name:", "Task");
+            if (!name) {
+                return;
+            }
+            dp.cards.add({id: DayPilot.guid(), name: name, column: "1"});
+        }
+    
+    </script>
+
+
+
 </div>
