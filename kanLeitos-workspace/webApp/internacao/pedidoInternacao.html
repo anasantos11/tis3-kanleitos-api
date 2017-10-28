@@ -195,7 +195,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="lineModalLabel">Lista de Pacientes</h3>
-                <button type="button" class="close" data-dismiss="modal">
+                <button id="CloseModalPesquisa" type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span>
                     <span class="sr-only">Close</span>
                 </button>
@@ -208,6 +208,7 @@
                             <th>Nome do Paciente</th>
                             <th>Nome da mãe</th>
                             <th>Data de nascimento</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -216,6 +217,11 @@
                             <td>{{paciente.nomePaciente}}</td>
                             <td>{{paciente.nomeMae}}</td>
                             <td>{{paciente.dataNascimento}}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" ng-click="setDadosPaciente(paciente)">
+                                    Escolher
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
