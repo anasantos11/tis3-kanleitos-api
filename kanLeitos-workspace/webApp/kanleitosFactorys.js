@@ -117,3 +117,15 @@ app.factory('registroInternacaoFactory', function ($http) {
     };
     return registro;
 });
+
+app.factory('usuarioFactory', function ($http) {
+    var usuario = {};
+    usuario.login = function (dados) {
+        return $http({
+            url: 'http://localhost:8080/Login',
+            method: 'POST',
+            data: dados
+        });
+    };
+    return usuario;
+});
