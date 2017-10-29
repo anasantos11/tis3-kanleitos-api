@@ -1,5 +1,8 @@
 package br.com.kanleitos.models;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,8 @@ import javax.persistence.Id;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import br.com.kanleitos.util.CriptografarSenha;
 
 @Entity
 public class Usuario {
@@ -81,6 +86,14 @@ public class Usuario {
 
 	public int getIdUsario() {
 		return idUsario;
+	}
+	
+	public void encodeSenha() {
+		try {
+			setSenha(CriptografarSenha.encode(senha));
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
