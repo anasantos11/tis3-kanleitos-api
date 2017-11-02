@@ -1,7 +1,12 @@
 var app = angular.module("kanleitos", ['ui.router']);
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-	$urlRouterProvider.otherwise("/home");
+	$urlRouterProvider.otherwise("/login");
+
+	$stateProvider.state("login",{
+		url : "/login",
+		templateUrl: "login.html"
+	});
 
 	$stateProvider.state("home", {
 		url: "/home",
@@ -33,3 +38,18 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 		templateUrl: "relatorios/leitos.html"
 	});
 })
+
+.run(['$rootScope', '$location',
+    function ($rootScope, $location) {
+
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            
+            if ($location.path() == '/login') {
+				$rootScope.IsLogin = true;
+				
+            }else{
+				$rootScope.IsLogin = false;
+			}
+        });
+}]);
+

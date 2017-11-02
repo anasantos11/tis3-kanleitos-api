@@ -12,7 +12,7 @@ body.sticky-footer {
   body.sticky-footer .content-wrapper {
     min-height: calc(100vh - 56px - 56px); }
 
-body.fixed-nav {
+div.fixed-nav {
   padding-top: 56px; }
 
 .content-wrapper {

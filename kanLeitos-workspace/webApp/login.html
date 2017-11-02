@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" class="body-full-height" ng-app="kanleitos">
-
-<head>
-    <title>KanLeitos</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link rel="stylesheet" type="text/css" id="theme" href="resources/css/login.css" />
-    <link href="resources/css/kan.css" rel="stylesheet">
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/fonts.css" rel="stylesheet" type="text/css">
-    <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-</head>
-
-<body >
-
     <div class="login-container" ng-controller="loginController">
         <div class="login-box animated fadeInDown">
             <div class="login-logo"></div>
@@ -31,7 +13,7 @@
                     </div>
                     <div class="form-group">
                             <button class="btn btn-info btn-block" ng-click="realizarLogin()">Login</button>
-                            <a href="" class="btn btn-link btn-block">Esqueceu sua senha?</a>
+                            <a href="" class="btn btn-link btn-block" >Esqueceu sua senha?</a>
                     </div>
                 </form>
             </div>
@@ -48,15 +30,3 @@
         </div>
 
     </div>
-
-</body>
-    <script src="resources/js/sweetalert.min.js"></script>
-
-    <!-- AngularJS, ordem não pode ser alterada -->
-    <script src="node_modules/angular/angular.min.js"></script>
-    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="app.js"></script>
-    <script src="kanleitosFactorys.js"></script>
-    <script src="resources/js/controllers/usuario/loginController.js"></script>
-
-</html>

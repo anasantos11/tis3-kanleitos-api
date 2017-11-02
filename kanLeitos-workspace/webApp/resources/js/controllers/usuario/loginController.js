@@ -35,7 +35,7 @@ app.controller('loginController', ["$scope", "$http","usuarioFactory", function 
             usuarioFactory.login($scope.login)
                 .then(function (response) {
                     if (response.data.usuarioValidado) {
-                        location.href = "/";
+                        location.href = "#!/home";
                     } else {
                         swal(
                             'Erro!',

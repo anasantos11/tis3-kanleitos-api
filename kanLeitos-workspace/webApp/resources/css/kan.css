@@ -1,3 +1,9 @@
+.container-kan {
+    float: left;
+    width: 100%;
+    min-height: 100%;
+}
+
 .mediumSize {
     width: 70% !important;
 }
