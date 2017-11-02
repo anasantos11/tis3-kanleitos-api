@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 
 import br.com.kanleitos.models.RegistroInternacao;
 import br.com.kanleitos.repository.RegistroInternacaoRepository;
+import br.com.kanleitos.util.Classificacao;
 
 @Controller
 public class KanController {
@@ -21,7 +22,7 @@ public class KanController {
 
 	@RequestMapping(value = "KanbanInternacoes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String getKanbanInternacoes(@RequestParam  String classificacao) throws JSONException {
-		Iterable<RegistroInternacao> registros = registroRepository.findByClassificacao(classificacao);
+		Iterable<RegistroInternacao> registros = registroRepository.findByClassificacao(Classificacao.fromName(classificacao));
 		Gson gson = new GsonBuilder().create();
 		String d = gson.toJson(registros);
 		return d;
