@@ -1,0 +1,41 @@
+<div ng-controller="dashboardController" class="row">
+    <div class="col-12">
+        <h1 class="main-title">Pacientes da classificação 
+            <b ng-class="{'text-success' : ngDialogData.pacientes[0].classificacao === 'VERDE', 'text-danger' : ngDialogData.pacientes[0].classificacao === 'VERMELHO', 'text-warning' : ngDialogData.pacientes[0].classificacao === 'AMARELO'}">
+                {{ngDialogData.pacientes[0].classificacao.toLowerCase()}}
+            </b>
+        </h1>
+    </div>
+    <div class="col-12">
+        <h4>Lista de Pacientes</h4>
+        <p>Exibindo <b>{{ngDialogData.pacientes.length}}</b> de <b>{{ngDialogData.pacientes.length}}</b></p>
+        <table class="table table-hover table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Nome do Paciente</th>
+                    <th>Idade</th>
+                    <th>Diagnostico</th>
+                    <th>Dias Internados</th>
+                    <th>Previsao de Alta</th>
+                    <th>Ala</th>
+                    <th>Enfermaria</th>
+                    <th>Leito</th>
+                    <th>Pendencia Atual</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="paciente in ngDialogData.pacientes">
+                   <td>{{paciente.pedidoInternacao.paciente.nomePaciente}}</td>
+                   <td>{{paciente.pedidoInternacao.paciente.idade}}</td>
+                   <td>{{paciente.pedidoInternacao.diagnostico.descricaoDiagnostico}}</td>
+                   <td>{{paciente.diasInternacao}}</td>
+                   <td>{{getLocalDate(paciente.previsaoAlta)}}</td>
+                   <td>{{paciente.pedidoInternacao.ala.nomeAla}}</td>
+                   <td>{{paciente.enfermaria.nomeEnfermaria}}</td>
+                   <td>{{paciente.leito.nomeLeito}}</td>
+                   <td>{{paciente.pendencias}}</td>
+                </tr>
+            </tbody>
+        </table>    
+    </div>
+</div>

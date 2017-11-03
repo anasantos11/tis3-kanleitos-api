@@ -129,3 +129,23 @@ app.factory('usuarioFactory', function ($http) {
     };
     return usuario;
 });
+
+app.factory("kanbanFactory", function($http){
+    var kanban = {};
+    kanban.getRegistrosPorClassificação = function(tipoClassificacao){
+        return $http({
+            url: "http://localhost:8080/KanbanInternacoes", 
+            method: 'GET',
+            params:  {classificacao: "" + tipoClassificacao}
+        });
+    }
+
+    kanban.atualizaRegistrosInternacao = function(tipoClassificacao){
+        return $http({
+            url: "http://localhost:8080/AtualizarInternacoes", 
+            method: 'GET'
+        });
+    }
+
+    return kanban;
+})

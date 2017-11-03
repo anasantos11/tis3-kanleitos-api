@@ -84,6 +84,36 @@ a > img{
 .form-group :-ms-input-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f } /* ie */
 .form-group input:-o-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f } /*opera*/
 
+.btn-circle {
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 15px;
+    font-size: 13px;
+    padding: unset;
+}
+
+.btn-dark {
+    background-color: #000;
+    color: #FFF;
+}
+
+table {
+    background: rgba(230, 230, 230, 0.2) !important
+}
+
+.ngdialog.ngdialog-theme-default .ngdialog-content{
+    background: #fff !important; 
+}
+
+.main-title {
+    color: #0078d7;
+    font-size: 18px;
+    letter-spacing: 0px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
 /*ICONS *//*
 .center-block {
     float: none;
