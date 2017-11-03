@@ -1,4 +1,4 @@
-app.controller('dashboardController', ["$scope" ,"$interval","kanbanFactory", "Notify", 
+app.controller('dashboardController', ["$scope" ,"$interval","kanbanFactory", "Notify",
     function($scope, $interval, kanbanFactory, Notify){
 
         $scope.kanban = {
@@ -16,6 +16,8 @@ app.controller('dashboardController', ["$scope" ,"$interval","kanbanFactory", "N
             }
         }
 
+        $scope.canOpenModal = false
+
         const openModalPaciente = (pacientes) =>{
             Notify.openModal("dashboard/modal.html", {pacientes: pacientes}, 1320)
         }
@@ -30,11 +32,14 @@ app.controller('dashboardController', ["$scope" ,"$interval","kanbanFactory", "N
         }
         
         const getAllInternacoes = ()=> {
+            $scope.canOpenModal = false
             return getRegistrosPorClassificação("Vermelho")
             .then(()=>{
                 return getRegistrosPorClassificação("Amarelo")
             }).then(()=>{
                 return getRegistrosPorClassificação("Verde")
+            }).then(()=>{
+                $scope.canOpenModal = true
             }).catch((err)=>{
                 console.log(err)
             })
@@ -56,14 +61,29 @@ app.controller('dashboardController', ["$scope" ,"$interval","kanbanFactory", "N
         }
 
         const init = () => {
-            getAllInternacoes()
+            getAllInternacoes().then(()=>{
+                $scope.canOpenModal = true
+            })
             
             $interval(()=>{
                 return getAllInternacoes()
             },10000)
         }
 
+        const setAllPendencies = (pendencia) =>{
+            var res = "Nenhuma Pendencia"
+            if(pendencia.length){
+                res = ""
+                for(var i = 0 ; i < pendencia.length; i++){
+                    res += "<div style='width: 100px;'>" + pendencia[i] +" </div>"
+                }
+            }
+
+            return res;
+        }
+
         $scope.init= init
+        $scope.setAllPendencies= setAllPendencies
         $scope.getLocalDate= getLocalDate
         $scope.getAllInternacoes = getAllInternacoes
         $scope.openModalPaciente = openModalPaciente    

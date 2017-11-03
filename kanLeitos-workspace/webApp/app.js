@@ -1,4 +1,4 @@
-var app = angular.module("kanleitos", ['ui.router', "ngDialog"]);
+var app = angular.module("kanleitos", ['ui.router', "ngDialog", "720kb.tooltips"]);
 
 app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 	$urlRouterProvider.otherwise("/login");

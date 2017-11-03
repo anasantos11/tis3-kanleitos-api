@@ -13,27 +13,31 @@
             <thead>
                 <tr>
                     <th>Nome do Paciente</th>
-                    <th>Idade</th>
+                    <th class="text-center">Idade</th>
                     <th>Diagnostico</th>
-                    <th>Dias Internados</th>
-                    <th>Previsao de Alta</th>
-                    <th>Ala</th>
-                    <th>Enfermaria</th>
-                    <th>Leito</th>
-                    <th>Pendencia Atual</th>
+                    <th class="text-center">Dias Internados</th>
+                    <th class="text-center">Previsao de Alta</th>
+                    <th class="text-center">Ala</th>
+                    <th class="text-center">Enfermaria</th>
+                    <th class="text-center">Leito</th>
+                    <th class="text-center">Pendencia Atual</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="paciente in ngDialogData.pacientes">
                    <td>{{paciente.pedidoInternacao.paciente.nomePaciente}}</td>
-                   <td>{{paciente.pedidoInternacao.paciente.idade}}</td>
+                   <td class="text-center">{{paciente.pedidoInternacao.paciente.idade}}</td>
                    <td>{{paciente.pedidoInternacao.diagnostico.descricaoDiagnostico}}</td>
-                   <td>{{paciente.diasInternacao}}</td>
-                   <td>{{getLocalDate(paciente.previsaoAlta)}}</td>
-                   <td>{{paciente.pedidoInternacao.ala.nomeAla}}</td>
-                   <td>{{paciente.enfermaria.nomeEnfermaria}}</td>
-                   <td>{{paciente.leito.nomeLeito}}</td>
-                   <td>{{paciente.pendencias}}</td>
+                   <td class="text-center">{{paciente.diasInternacao}}</td>
+                   <td class="text-center">{{getLocalDate(paciente.previsaoAlta)}}</td>
+                   <td class="text-center">{{paciente.pedidoInternacao.ala.nomeAla}}</td>
+                   <td class="text-center">{{paciente.enfermaria.nomeEnfermaria}}</td>
+                   <td class="text-center">{{paciente.leito.nomeLeito}}</td>
+                   <td class="text-center">
+                        <button class="btn-circle btn-info" tooltips tooltip-template="{{setAllPendencies(paciente.pendencias)}}">
+                            <i class="fa fa-file"></i>
+                        </button>
+                   </td>
                 </tr>
             </tbody>
         </table>    

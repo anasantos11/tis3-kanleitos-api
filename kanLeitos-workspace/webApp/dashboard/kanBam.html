@@ -6,7 +6,6 @@
     <li class="breadcrumb-item active">Kanban</li>
 </ol>
 
-
 <!-- Icon Cards-->
 <div class="row" ng-controller="dashboardController" ng-init="init()">
     <div class="col-xl-3 col-sm-6 mb-3">
@@ -19,9 +18,15 @@
             </div>
             <div class="card-footer text-white clearfix small z-1">
               <span class="float-left">Ver pacientes</span>
-              <button class="float-right btn-circle btn-dark" ng-click="openModalPaciente(kanban.Verde.pacientes)">
-                <i class="fa fa-eye"></i>
-              </button>
+              <div class="float-right">
+                <button tooltips tooltip-side="left" tooltip-template="Pressione!" ng-if="canOpenModal" class="btn-circle btn-dark" ng-click="openModalPaciente(kanban.Verde.pacientes)">
+                    <i class="fa fa-eye"></i>
+                </button>
+
+                <button tooltips tooltip-side="left" tooltip-template="Ainda não pode abrir" ng-disabled="true" ng-if="!canOpenModal" class="btn-circle btn-dark">
+                    <i class="fa fa-refresh rotate"></i>
+                </button>
+              </div>
             </div>
         </div>
     </div>
@@ -35,9 +40,15 @@
             </div>
             <div class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">Ver pacientes</span>
-                <button class="float-right btn-circle btn-dark" ng-click="openModalPaciente(kanban.Amarelo.pacientes)">
-                    <i class="fa fa-eye"></i>
-                </button> 
+                <div class="float-right">
+                    <button tooltips tooltip-side="left" tooltip-template="Pressione!" ng-if="canOpenModal" class="float-right btn-circle btn-dark" ng-click="openModalPaciente(kanban.Amarelo.pacientes)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+
+                    <button tooltips tooltip-side="left" tooltip-template="Ainda não pode abrir" ng-disabled="true" ng-if="!canOpenModal" class="float-right btn-circle btn-dark">
+                        <i class="fa fa-refresh rotate"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -51,16 +62,22 @@
             </div>
             <div class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">Ver pacientes</span>
-                <button class="float-right btn-circle btn-dark" ng-click="openModalPaciente(kanban.Vermelho.pacientes)">
-                    <i class="fa fa-eye"></i>
-                </button>
+                <div class="float-right">
+                    <button tooltips tooltip-side="left" tooltip-template="Pressione!" ng-if="canOpenModal" class="float-right btn-circle btn-dark" ng-click="openModalPaciente(kanban.Vermelho.pacientes)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+
+                    <button tooltips tooltip-side="left" tooltip-template="Ainda não pode abrir" ng-disabled="true" ng-if="!canOpenModal" class="float-right btn-circle btn-dark">
+                        <i class="fa fa-refresh rotate"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="col-3 text-right">
         <button class="btn btn-outline-info" ng-click="getAllInternacoes()">
-            <i class="fa fa-refresh"></i>
+            <i class="fa fa-refresh" ng-class="{'rotate' : !canOpenModal}"></i>
         </button>
     </div>
 </div>
