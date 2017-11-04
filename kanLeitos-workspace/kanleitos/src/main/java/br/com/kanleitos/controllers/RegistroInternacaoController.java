@@ -19,6 +19,8 @@ import br.com.kanleitos.repository.EnfermariaRepository;
 import br.com.kanleitos.repository.LeitoRepository;
 import br.com.kanleitos.repository.PedidoInternacaoRepository;
 import br.com.kanleitos.repository.RegistroInternacaoRepository;
+import br.com.kanleitos.util.Classificacao;
+import br.com.kanleitos.util.StatusRegistro;
 import br.com.kanleitos.util.TipoStatusLeito;
 
 @Controller
@@ -50,6 +52,8 @@ public class RegistroInternacaoController {
 		r.setPedidoInternacao(pedidoRepository.findOne(jsonObject.getInt("idPedido")));
 		r.setEnfermaria(enfermariaRepository.findOne(jsonObject.getInt("idEnfermaria")));
 		r.setLeito(leitoRepository.findOne(jsonObject.getInt("idLeito")));	
+		r.setClassificacao(Classificacao.VERDE);
+		r.setStatusRegistro(StatusRegistro.EM_ANDAMENTO);
 		registroRepository.save(r);
 		
 		//Alterar Status do Leito para Ocupado
