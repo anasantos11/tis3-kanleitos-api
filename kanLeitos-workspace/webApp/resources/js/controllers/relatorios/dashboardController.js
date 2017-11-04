@@ -67,7 +67,7 @@ app.controller('dashboardController', ["$scope" ,"$interval","kanbanFactory", "N
             
             $interval(()=>{
                 return getAllInternacoes()
-            },10000)
+            },20000)
         }
 
         const setAllPendencies = (pendencia) =>{
