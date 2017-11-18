@@ -99,7 +99,7 @@
 
 
             <div class="col-sm-3 form-group">
-                <label for="Status">Enfermaria</label>
+                <label for="Status">Enfermaria<b class="text-danger">*</b></label>
                 <select ng-model="registroInternacao.idEnfermaria" class="form-control" ng-change="carregarLeitosEnfermaria(registroInternacao.idEnfermaria)">
                     <option value="">Selecione</option>
                     <option ng-repeat="enfermaria in Enfermarias" value="{{enfermaria.idEnfermaria}}">{{enfermaria.nomeEnfermaria}}</option>
@@ -107,7 +107,7 @@
             </div>
 
             <div class="col-sm-3 form-group ">
-                <label for="numProntuario">Número do Leito</label>
+                <label for="numProntuario">Número do Leito<b class="text-danger">*</b></label>
                 <select ng-model="registroInternacao.idLeito" class="form-control">
                     <option value="">Selecione</option>
                     <option ng-repeat="leito in Leitos" value="{{leito.idLeito}}">{{leito.nomeLeito}}</option>
@@ -115,12 +115,12 @@
             </div>
 
             <div class="col-sm-3 form-group">
-                <label>Data de internação </label>
+                <label>Data de internação<b class="text-danger">*</b></label>
                 <input class="form-control" type="date" ng-model="registroInternacao.dataInternacao">
             </div>
 
             <div class="col-sm-3 form-group">
-                <label>Data de previsão de alta </label>
+                <label>Data de previsão de alta<b class="text-danger">*</b></label>
                 <input class="form-control" type="date" ng-model="registroInternacao.previsaoAlta">
             </div>
         </div>
