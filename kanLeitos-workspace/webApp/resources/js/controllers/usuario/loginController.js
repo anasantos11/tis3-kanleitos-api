@@ -31,6 +31,8 @@ app.controller('loginController', ["$scope", "$http","usuarioFactory",function (
     $scope.realizarLogin = function (login) {
         if ($scope.validarLogin()) {
             $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+            $scope.login.senha = codificar($scope.login.senha, "12345")
+            $scope.login.senha = decodificarParaSHA256($scope.login.senha, "12345")
             usuarioFactory.login($scope.login)
                 .then(function (response) {
                     if (response.data.usuarioValidado) {
@@ -60,8 +62,6 @@ app.controller('loginController', ["$scope", "$http","usuarioFactory",function (
                 });
         }
     }
-
-
     //CRIPTOGRAFIA BASEADA EM SHA256
     
     //DADO = valor que deseja codificar
@@ -81,8 +81,16 @@ app.controller('loginController', ["$scope", "$http","usuarioFactory",function (
         return bytes.toString(CryptoJS.enc.Utf8)
     }
 
+    //HASHCODIFICADA = dado que já esta encryptado que ira ser decodificado para SHA256 caso necessário
+    //CHAVEDEDECODIFICACAO = valor que deve ser usado como chave para decodificação da hash
+                            // pode ser qualuqer valor em string
+                            //exemplo de chave 123456
+    const decodificarParaSHA256 = (hashCodificada, chaveDeDecodificacao)=>{
+        var bytes  = CryptoJS.AES.decrypt(hashCodificada, chaveDeDecodificacao)
+        return bytes.toString()
+    }
+
     //EXEMPLO
     // var dadoCodificado = codificar("Luiz Henrique Silva Jesus", "12345");
-    // console.log(dadoCodificado)
-    // console.log(decodificar(dadoCodificado, "12345"))
+    // console.log(decodificarParaSHA256(dadoCodificado, "12345"))
 }]);

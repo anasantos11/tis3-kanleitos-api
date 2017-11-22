@@ -1,24 +1,24 @@
-app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "registroInternacaoFactory", "pedidoInternacaoFactory", "diagnosticosFactory", "alasFactory", "enfermariaFactory", "leitoFactory", function ($scope, $http, $filter, registroInternacaoFactory, pedidoInternacaoFactory, diagnosticosFactory, alasFactory, enfermariaFactory, leitoFactory) {
+app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "registroInternacaoFactory", "pedidoInternacaoFactory", "diagnosticosFactory", "alasFactory", "enfermariaFactory", "leitoFactory", "Notify",
+    function ($scope, $http, $filter, registroInternacaoFactory, pedidoInternacaoFactory, diagnosticosFactory, alasFactory, enfermariaFactory, leitoFactory, Notify) {
 
-    $scope.NovoRegistro = function () {
-        $scope.registroInternacao = {
-            numProntuario: null,
-            AIH: "",
-            nomePaciente: "",
-            nomeMae: "",
-            dataNascimento: "",
-            idade: null,
-            genero: "",
-            dataAdmissao: "",
-            medicoResponsavel: "",
-            residenteResponsavel: "",
-            dataInternacao: "",
-            previsaoAlta: ""
-        }
+    $scope.registroInternacao = {
+        numProntuario: null,
+        AIH: "",
+        nomePaciente: "",
+        nomeMae: "",
+        dataNascimento: "",
+        idade: null,
+        genero: "",
+        dataAdmissao: "",
+        medicoResponsavel: "",
+        residenteResponsavel: "",
+        dataInternacao: "",
+        nomeDiagnostico: null,
+        nomeAla: null,
+        previsaoAlta: ""
     }
 
     $scope.Inicializar = function () {
-        $scope.NovoRegistro();
         $scope.CarregarDiagnosticos();
         $scope.CarregarAlas();
         $scope.CarregarEnfermarias();
@@ -47,6 +47,38 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
             });
     };
 
+    const getData = (dataDesformatada) => {
+        const splitedDate = dataDesformatada.split("-")
+        return "" + splitedDate[1] + "/" + splitedDate[2] + "/" + splitedDate[0];
+    }
+
+    const getDataAdmimissao = (dataAdmissao) => {
+        const splitedDate = getData(dataAdmissao.split(" ")[0])
+        return splitedDate;
+    }
+
+    $scope.openModalPesquisaPedidoInternacao = () =>{
+        return Notify.openModal("internacao/modalPesquisaPedidoInternacao.html", null, "80%")
+        .closePromise.then((pedidoInternacao)=>{
+            console.log(pedidoInternacao)
+            if(!pedidoInternacao.value || pedidoInternacao.value === '$document' || pedidoInternacao.value === '$closeButton'){
+                return
+            }else{
+                $scope.registroInternacao.numProntuario  = pedidoInternacao.value.paciente.numProntuario
+                $scope.registroInternacao.AIH  = parseInt(pedidoInternacao.value.AIH)
+                $scope.registroInternacao.nomePaciente  = pedidoInternacao.value.paciente.nomePaciente
+                $scope.registroInternacao.nomeMae  = pedidoInternacao.value.paciente.nomeMae
+                $scope.registroInternacao.dataNascimento  = new Date(getData(pedidoInternacao.value.paciente.dataNascimento))
+                $scope.registroInternacao.idade  = pedidoInternacao.value.paciente.idade
+                $scope.registroInternacao.genero  = pedidoInternacao.value.paciente.genero
+                $scope.registroInternacao.dataAdmissao  = new Date(getDataAdmimissao(pedidoInternacao.value.dataAdmissao))
+                $scope.registroInternacao.nomeDiagnostico = pedidoInternacao.value.diagnostico.descricaoDiagnostico
+                $scope.registroInternacao.nomeAla = pedidoInternacao.value.ala.nomeAla
+                $scope.registroInternacao.medicoResponsavel  = pedidoInternacao.value.medicoResponsavel
+                $scope.registroInternacao.residenteResponsavel  = pedidoInternacao.value.residenteResponsavel
+            }
+        })
+    }
 
     $scope.CarregarDiagnosticos = function () {
         diagnosticosFactory.getDiagnosticos()
@@ -129,27 +161,6 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
             });
     };
     $scope.Inicializar();
-
-    $scope.carregarPedidos = function () {
-    pedidoInternacaoFactory.getPedidos()
-        .then(function (response) {
-            $scope.ListaPedidos = response.data;
-        }, function (response) {
-            if (response.data != undefined) {
-                swal(
-                    'Erro!',
-                    response.data.message,
-                    'error'
-                )
-            } else {
-                swal(
-                    'Erro!',
-                    'Ocorreu algum erro no servidor',
-                    'error'
-                )
-            }
-        });
-    };
 
     $scope.GetPedido = function () {
         setTimeout(function () {

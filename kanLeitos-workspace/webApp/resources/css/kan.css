@@ -160,6 +160,16 @@ accepted
   animation: rotating 2s linear infinite;
 }
 
+.iconForm i.fa {
+    right: 6px;
+}
+
+.iconForm button{
+    position: absolute;
+    top: -15px;
+    left: 5px;
+}
+
 /*ICONS *//*
 .center-block {
     float: none;

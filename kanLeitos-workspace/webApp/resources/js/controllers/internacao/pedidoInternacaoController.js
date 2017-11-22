@@ -1,5 +1,5 @@
-app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$filter", "pedidoInternacaoFactory", "diagnosticosFactory", "pacienteFactory", "alasFactory", 
-    function ($scope, $rootScope,$http, $filter, pedidoInternacaoFactory, diagnosticosFactory, pacienteFactory, alasFactory) {
+app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$filter", "pedidoInternacaoFactory", "diagnosticosFactory", "pacienteFactory", "alasFactory", "Notify",
+    function ($scope, $rootScope,$http, $filter, pedidoInternacaoFactory, diagnosticosFactory, pacienteFactory, alasFactory, Notify) {
 
         $scope.NovoPedido = function () {
             $scope.pedidoInternacao = {
@@ -8,7 +8,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
                 nomeMae: "",
                 dataNascimento: "",
                 idade: 0,
-                genero: "",
+                genero: null,
                 AIH: "",
                 dataPedido: new Date(),
                 status: "Pendente",
@@ -18,80 +18,45 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
             }
         }
 
-        $rootScope.$watch((data)=>{
-            if(data.pacienteSelecionado){
-                $scope.pedidoInternacao.numProntuario = data.pacienteSelecionado.numProntuario || null
-                $scope.pedidoInternacao.nomePaciente = data.pacienteSelecionado.nomePaciente || null
-                $scope.pedidoInternacao.nomeMae = data.pacienteSelecionado.nomeMae || null
-                $scope.pedidoInternacao.dataNascimento = new Date(getData(data.pacienteSelecionado.dataNascimento)) || null
-                $scope.pedidoInternacao.idade = data.pacienteSelecionado.idade || null
-                $scope.pedidoInternacao.genero = data.pacienteSelecionado.genero || null
-            }
-        })
+        $scope.openModalCadastro = () => {
+            return Notify.openModal("internacao/modalCadastro.html", null, "60%")
+            .closePromise.then((pacienteCadastrado)=>{
+                if(!pacienteCadastrado.value || pacienteCadastrado.value === '$document' || pacienteCadastrado.value === '$closeButton'){
+                    return
+                }else{
+                    $scope.pedidoInternacao.numProntuario = pacienteCadastrado.value.numProntuario
+                    $scope.pedidoInternacao.nomePaciente = pacienteCadastrado.value.nomePaciente
+                    $scope.pedidoInternacao.nomeMae = pacienteCadastrado.value.nomeMae
+                    $scope.pedidoInternacao.dataNascimento = new Date (getData(pacienteCadastrado.value.dataNascimento))
+                    $scope.pedidoInternacao.idade = pacienteCadastrado.value.idade
+                    $scope.pedidoInternacao.genero = pacienteCadastrado.value.genero
+                }
+            })
+        }
+
+        $scope.openModalPesquisa = () => {
+            return Notify.openModal("internacao/modalPesquisa.html", null, "80%")
+            .closePromise.then((pacienteEscolhido)=>{
+                console.log(pacienteEscolhido)
+                if(!pacienteEscolhido.value || pacienteEscolhido.value === '$document' || pacienteEscolhido.value === '$closeButton'){
+                    return
+                }else{
+                    $scope.pedidoInternacao.numProntuario = pacienteEscolhido.value.numProntuario
+                    $scope.pedidoInternacao.nomePaciente = pacienteEscolhido.value.nomePaciente
+                    $scope.pedidoInternacao.nomeMae = pacienteEscolhido.value.nomeMae
+                    $scope.pedidoInternacao.dataNascimento = new Date (getData(pacienteEscolhido.value.dataNascimento))
+                    $scope.pedidoInternacao.idade = pacienteEscolhido.value.idade
+                    $scope.pedidoInternacao.genero = pacienteEscolhido.value.genero
+                }
+
+            })
+        }
 
         $scope.Inicializar = function () {
             $scope.NovoPedido();
             $scope.CarregarDiagnosticos();
             $scope.CarregarAlas();
-        }
-
-        $scope.setDadosPaciente = (pacienteSelecionado) =>{
-            $rootScope.pacienteSelecionado = pacienteSelecionado
-            document.getElementById("CloseModalPesquisa").click()
-        }
-
-        $scope.cadastrarPaciente = function (paciente) {
-            if ($scope.validarDadosPaciente()) {
-                $scope.pedidoInternacao.dataNascimento = $filter('date')($scope.pedidoInternacao.dataNascimento, 'yyyy-MM-dd');
-                $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-                pacienteFactory.savePaciente($scope.pedidoInternacao)
-                    .then(function (response) {
-                        $scope.setDadosPaciente(response.data)
-                        swal(
-                            'Concluído!',
-                            'Cadastro feito com sucesso - Paciente: ' + response.data.nomePaciente,
-                            'success'
-                        )
-                        $('#cadastroPaciente').modal('hide');
-                        $scope.NovoPedido();
-                    }, function (response) {
-                        $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
-                        if (response.data != undefined) {
-                            swal(
-                                'Erro!',
-                                response.data.message,
-                                'error'
-                            )
-                        } else {
-                            swal(
-                                'Erro!',
-                                'Ocorreu algum erro no servidor',
-                                'error'
-                            )
-                        }
-                    });
-            }
-        }
-        $scope.carregarPacientes = function () {
-            pacienteFactory.getPacientes()
-                .then(function (response) {
-                    $scope.ListaPacientes = response.data;
-                }, function (response) {
-                    if (response.data != undefined) {
-                        swal(
-                            'Erro!',
-                            response.data.message,
-                            'error'
-                        )
-                    } else {
-                        swal(
-                            'Erro!',
-                            'Ocorreu algum erro no servidor',
-                            'error'
-                        )
-                    }
-                });
-        };
+        }   
 
         $scope.CarregarDiagnosticos = function () {
             diagnosticosFactory.getDiagnosticos()
@@ -133,6 +98,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
                     }
                 });
         };
+
         $scope.GetPaciente = function () {
             setTimeout(function () {
                 pacienteFactory.getPaciente($scope.pedidoInternacao.numProntuario, $scope.pedidoInternacao.nomeMae)
@@ -242,64 +208,10 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
             }
             return true;
         }
-        $scope.validarDadosPaciente = function () {
-            if ($scope.pedidoInternacao.numProntuario <= 0) {
-                swal(
-                    'Erro!',
-                    'Digite o número do prontuário!',
-                    'error'
-                )
-                return;
-            }
-            if ($scope.pedidoInternacao.nomePaciente == "") {
-                swal(
-                    'Erro!',
-                    'Digite o nome do paciente!',
-                    'error'
-                )
-                return;
-            }
-            if ($scope.pedidoInternacao.nomeMae == "") {
-                swal(
-                    'Erro!',
-                    'Digite o nome da mãe do paciente!',
-                    'error'
-                )
-                return;
-            }
-            if ($scope.pedidoInternacao.dataNascimento == "") {
-                swal(
-                    'Erro!',
-                    'Digite a data de nascimento!',
-                    'error'
-                )
-                return;
-            }
-            if ($scope.pedidoInternacao.idade <= 0) {
-                swal(
-                    'Erro!',
-                    'Digite a idade do paciente!',
-                    'error'
-                )
-                return;
-            }
-            if ($scope.pedidoInternacao.genero == "") {
-                swal(
-                    'Erro!',
-                    'Digite o sexo do paciente!',
-                    'error'
-                )
-                return;
-            }
-            return true;
-        }
 
         $scope.calcularIdade = function () {
-
-            // Obtém a idade em milissegundos
             var idadeP = new Date() - new Date($scope.pedidoInternacao.dataNascimento).getTime();
 
-            // Converte os milissegundos em data e subtrai da era linux
             var idadeData = new Date(idadeP);
             var idade = idadeData.getUTCFullYear() - 1970;
             if (!isNaN(idade) && idade != undefined) {
@@ -307,7 +219,6 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
             } else {
                 $scope.pedidoInternacao.idade = 0;
             }
-
         }
     }
 ]);

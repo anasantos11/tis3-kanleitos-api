@@ -1,0 +1,33 @@
+<div ng-controller="ModalPesquisaController" ng-init="carregarPacientes()">
+    <div class="row">
+        <div class="col-12 form-group">
+            <h3>Cadastrar Paciente</h3>
+        </div>
+        <div class="col-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nº Prontuário</th>
+                        <th>Nome do Paciente</th>
+                        <th>Nome da mãe</th>
+                        <th>Data de nascimento</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="paciente in ListaPacientes">
+                        <td>{{paciente.numProntuario}}</td>
+                        <td>{{paciente.nomePaciente}}</td>
+                        <td>{{paciente.nomeMae}}</td>
+                        <td>{{paciente.dataNascimento}}</td>
+                        <td>
+                            <button class="btn btn-info btn-sm" ng-click="closeThisDialog(paciente)">
+                                Escolher
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

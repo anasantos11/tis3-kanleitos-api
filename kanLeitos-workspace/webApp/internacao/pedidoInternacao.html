@@ -8,12 +8,13 @@
 <div class="jumbotron" ng-controller="pedidoInternacaoController">
     <form>
         <div class="row">
+            <div class="col-12 form-group">
+                <h3>Pedido Internação</h3>
+            </div>
             <div class="col-sm-12 form-group">
-                <button data-toggle="modal" data-target="#cadastroPaciente" class="btn btn-primary btn-info" title="Cadastrar novo paciente">Cadastrar novo paciente </button> &nbsp;&nbsp;
-                <button data-toggle="modal" data-target="#modalPesquisa" class="btn btn-primary btn-info" ng-click="carregarPacientes()"
-                    title="Pesquisar paciente">
+                <button class="btn btn-primary btn-info" ng-click="openModalCadastro()" tooltips tooltip-template="Cadastrar novo paciente">Cadastrar novo paciente </button>
+                <button class="btn btn-primary btn-info" ng-click="openModalPesquisa()" tooltips tooltip-template="Pesquisar">
                     Pesquisar paciente
-                    <i class="fa fa-search"> </i>
                 </button>
             </div>
         </div>

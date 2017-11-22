@@ -7,44 +7,49 @@
 
 <div class="jumbotron" ng-controller="registroInternacaoController" class="col-12 col-md-auto">
     <form>
-        <legend> Dados do Pedido de Internação </legend>
         <div class="row">
+            <div class="col-12 form-group">
+                <h3>Registrar Internação</h3>
+            </div>
+            <div class="col-12">
+                <legend> Dados do Pedido de Internação </legend>
+            </div>
             <div class="col-sm-4 form-group ">
                 <label for="numProntuario">Número do Prontuário</label>
                 <div class="input-group">
-                    <input class="form-control" type="number" ng-model="pedidoInternacao.paciente.numProntuario" ng-change="GetPedido()" />
-                    <span class="input-group-btn">registroInternacao
-                            <button data-toggle="modal" data-target="#modalPedido" class="btn btn-info btn-lg btn-search" type="button" ng-click="carregarPedidos()">
-                                <i class="fa fa fa-search"></i>
-                            </button>
-                        </span>
+                    <input class="form-control" type="number" ng-model="registroInternacao.numProntuario" ng-change="GetPedido()" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg btn-search" type="button" ng-click="openModalPesquisaPedidoInternacao()">
+                            <i class="fa fa fa-search"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-3 form-group ">
                 <label for="aih">AIH</label>
-                <input ng-disabled="true" class="form-control" type="number" ng-model="pedidoInternacao.AIH">
+                <input ng-disabled="true" class="form-control" type="number" ng-model="registroInternacao.AIH">
             </div>
 
             <div class="col-sm-6 form-group ">
                 <label for="nomePaciente">Nome do Paciente</label>
-                <input ng-disabled="true" class="form-control" type="text" ng-model="pedidoInternacao.paciente.nomePaciente">
+                <input ng-disabled="true" class="form-control" type="text" ng-model="registroInternacao.nomePaciente">
             </div>
 
             <div class="col-sm-6 form-group ">
                 <label for="nomeMae">Nome da Mãe</label>
-                <input ng-disabled="true" class="form-control" type="text" ng-model="pedidoInternacao.paciente.nomeMae">
+                <input ng-disabled="true" class="form-control" type="text" ng-model="registroInternacao.nomeMae">
             </div>
 
             <div class="col-sm-3 form-group">
                 <label>Data de nascimento:</label>
-                <input ng-disabled="true" class="form-control" type="date" ng-model="pedidoInternacao.paciente.dataNascimento" ng-change="paciente.idade = calcularIdade(paciente.nascimento)">
+                <input ng-disabled="true" class="form-control" type="date" ng-model="registroInternacao.dataNascimento" ng-change="paciente.idade = calcularIdade(paciente.nascimento)">
             </div>
 
             <div class="col-sm-2 form-group">
                 <label for="idade">Idade</label>
-                <input ng-disabled="true" type="text" ng-model="pedidoInternacao.paciente.idade" class="form-control">
+                <input ng-disabled="true" type="text" ng-model="registroInternacao.idade" class="form-control">
             </div>
 
             <div class="col-sm-4 form-group ">
@@ -52,50 +57,47 @@
                 </br>
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input ng-disabled="true" type="radio" ng-model="pedidoInternacao.paciente.genero" class="form-check-input" value="Feminino" checked> Feminino
+                        <input ng-disabled="true" type="radio" ng-model="registroInternacao.genero" class="form-check-input" value="Feminino" checked> Feminino
                     </label>
                 </div>
 
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input ng-disabled="true" class="form-check-input" ng-model="pedidoInternacao.paciente.genero" type="radio" value="Masculino"> Masculino
+                        <input ng-disabled="true" class="form-check-input" ng-model="registroInternacao.genero" type="radio" value="Masculino"> Masculino
                     </label>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="form-group col-xs-6 col-md-4">
-                <label>Diagnóstico </label>
-                <select ng-disabled="true" class="form-control" ng-model="pedidoInternacao.diagnostico.idDiagnostico">
-                    <option value="">Selecione </option>
-                    <option ng-repeat="diagnostico in Diagnosticos" value="{{diagnostico.idDiagnostico}}">{{diagnostico.descricaoDiagnostico}}</option>
-                </select>
+            <div class="form-group col-xs-6 col-md-4 iconForm">
+                <label>Diagnóstico</label>
+                <button tooltips tooltip-template="{{(registroInternacao.nomeDiagnostico) ? registroInternacao.nomeDiagnostico : 'Pesquise um pedido primeiro'}}" class="btn-circle btn-dark">
+                    <i class="fa fa-eye"></i>
+                </button>
+                <input ng-disabled="true" class="form-control" type="text" ng-model="registroInternacao.nomeDiagnostico">
             </div>
             <div class="form-group col-xs-6 col-md-4">
                 <label>Ala</label>
-                <select ng-disabled="true" ng-model="pedidoInternacao.ala.idAla" class="form-control">
-                    <option value="">Selecione</option>
-                    <option ng-repeat="ala in Alas" value="{{ala.idAla}}">{{ala.nomeAla}}</option>
-                </select>
-
+                <input ng-disabled="true" class="form-control" type="text" ng-model="registroInternacao.nomeAla">
             </div>
             <div class="col-sm-3 form-group">
                 <label>Data de admissão </label>
-                <input ng-disabled="true" class="form-control" type="date" ng-model="pedidoInternacao.dataAdmissao">
+                <input ng-disabled="true" class="form-control" type="date" ng-model="registroInternacao.dataAdmissao">
             </div>
             <div class="col-sm-6 form-group">
                 <label>Médico Responsável </label>
-                <input ng-disabled="true" type="text" class="form-control" placeholder="Médico Responsável" ng-model="pedidoInternacao.medicoResponsavel">
+                <input ng-disabled="true" type="text" class="form-control" placeholder="Médico Responsável" ng-model="registroInternacao.medicoResponsavel">
             </div>
             <div class="col-sm-6 form-group">
                 <label>Residente Responsável</label>
-                <input ng-disabled="true" type="text" class="form-control" placeholder="Residente Responsável" ng-model="pedidoInternacao.residenteResponsavel">
+                <input ng-disabled="true" type="text" class="form-control" placeholder="Residente Responsável" ng-model="registroInternacao.residenteResponsavel">
             </div>
 
 
-
-            <legend> Dados de Registro de Internação </legend>
+            <div class="col-12">
+                <legend> Dados de Registro de Internação </legend>
+            </div>
 
 
             <div class="col-sm-3 form-group">
@@ -127,72 +129,5 @@
     </form>
     <div class="col-sm-12 text-right">
         <button class="btn btn-success btn-success" ng-click="salvarRegistroInternacao()">Registrar Internação </button>
-    </div>
-</div>
-
-<!-- MODAL DE PESQUISA -->
-<div class="modal fade" id="modalPedido" ng-init="carregarPedidos()" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-    aria-hidden="true" ng-controller="registroInternacaoController">
-    <div class="modal-dialog mediumSize">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="lineModalLabel">Lista de Pedidos Internação</h3>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nº Prontuário</th>
-                            <th>Nome do Paciente</th>
-                            <th>Nome da mãe</th>
-                            <th>Data de nascimento</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="pedido in ListaPedidos">
-                            <td>{{pedido.paciente.numProntuario}}</td>
-                            <td>{{pedido.paciente.nomePaciente}}</td>
-                            <td>{{pedido.paciente.nomeMae}}</td>
-                            <td>{{pedido.paciente.dataNascimento}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="col-sm-12 ">
-                    <div class="result pull-left">
-                        <strong>Mostrando 1 até 6 de 5000</strong>
-                    </div>
-                    <ul class="pagination pull-right">
-                        <li>
-                            <a href="#">«</a>
-                        </li>
-                        <li>
-                            <a href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li>
-                            <a href="#">5</a>
-                        </li>
-                        <li>
-                            <a href="#">»</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="fecharModal" class="btn btn-danger btn-danger" data-dismiss="modal" role="button">Fechar</button>
-            </div>
-        </div>
     </div>
 </div>
