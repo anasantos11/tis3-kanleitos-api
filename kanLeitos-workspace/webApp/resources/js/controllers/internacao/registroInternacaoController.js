@@ -15,7 +15,8 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
         dataInternacao: "",
         nomeDiagnostico: null,
         nomeAla: null,
-        previsaoAlta: ""
+        previsaoAlta: "",
+        idPedidoInternacao: null
     }
 
     $scope.Inicializar = function () {
@@ -60,10 +61,10 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
     $scope.openModalPesquisaPedidoInternacao = () =>{
         return Notify.openModal("internacao/modalPesquisaPedidoInternacao.html", null, "80%")
         .closePromise.then((pedidoInternacao)=>{
-            console.log(pedidoInternacao)
             if(!pedidoInternacao.value || pedidoInternacao.value === '$document' || pedidoInternacao.value === '$closeButton'){
                 return
             }else{
+                $scope.registroInternacao.idPedidoInternacao = pedidoInternacao.value.idPedidoInternacao
                 $scope.registroInternacao.numProntuario  = pedidoInternacao.value.paciente.numProntuario
                 $scope.registroInternacao.AIH  = parseInt(pedidoInternacao.value.AIH)
                 $scope.registroInternacao.nomePaciente  = pedidoInternacao.value.paciente.nomePaciente
@@ -164,19 +165,21 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
 
     $scope.GetPedido = function () {
         setTimeout(function () {
-        pedidoInternacaoFactory.getPedido($scope.pedidoInternacao.paciente.numProntuario)
+        pedidoInternacaoFactory.getPedido($scope.registroInternacao.numProntuario)
             .then(function (response) {
-                $scope.pedidoInternacao = response.data;
-                $scope.pedidoInternacao.paciente.dataNascimento = new Date($scope.pedidoInternacao.paciente.dataNascimento);
-                $scope.pedidoInternacao.dataAdmissao = new Date($scope.pedidoInternacao.dataAdmissao);
-                $scope.pedidoInternacao.AIH = parseInt($scope.pedidoInternacao.AIH);
-                $scope.pedidoInternacao.ala = $scope.Alas.filter(function (obj) {
-                    return obj.idAla == $scope.pedidoInternacao.ala.idAla;
-                })[0];
-                $scope.pedidoInternacao.diagnostico = $scope.Diagnosticos.filter(function (obj) {
-                    return obj.idDiagnostico == $scope.pedidoInternacao.diagnostico.idDiagnostico;
-                })[0];
-
+                $scope.registroInternacao.idPedidoInternacao = response.data.idPedidoInternacao
+                $scope.registroInternacao.numProntuario = response.data.paciente.numProntuario
+                $scope.registroInternacao.AIH = parseInt(response.data.AIH)
+                $scope.registroInternacao.nomePaciente = response.data.paciente.nomePaciente
+                $scope.registroInternacao.nomeMae = response.data.paciente.nomeMae
+                $scope.registroInternacao.dataNascimento = new Date(getData(response.data.paciente.dataNascimento))
+                $scope.registroInternacao.idade = response.data.paciente.idade
+                $scope.registroInternacao.genero = response.data.paciente.genero
+                $scope.registroInternacao.dataAdmissao = new Date(getData(response.data.paciente.dataNascimento))
+                $scope.registroInternacao.medicoResponsavel = response.data.medicoResponsavel
+                $scope.registroInternacao.residenteResponsavel = response.data.residenteResponsavel
+                $scope.registroInternacao.nomeDiagnostico = response.data.diagnostico.descricaoDiagnostico
+                $scope.registroInternacao.nomeAla = response.data.ala.nomeAla
             }, function (response) {
                     swal(
                         'Erro!',
@@ -188,20 +191,36 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
     }
     $scope.salvarRegistroInternacao = function () {
         if ($scope.validarRegistroInternacao()) {
-        $scope.registroInternacao.idPedido = $scope.pedidoInternacao.idPedidoInternacao;
+        $scope.registroInternacao.idPedido = $scope.registroInternacao.idPedidoInternacao;
         $scope.registroInternacao.dataInternacao = $filter('date')($scope.registroInternacao.dataInternacao, 'yyyy-MM-dd HH:mm:ss');
         $scope.registroInternacao.previsaoAlta = $filter('date')($scope.registroInternacao.previsaoAlta, 'yyyy-MM-dd HH:mm:ss');
 
 
-        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-        registroInternacaoFactory.saveRegistroInternacao($scope.registroInternacao)
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+    registroInternacaoFactory.saveRegistroInternacao($scope.registroInternacao)
             .then(function (response) {
                 swal(
                     'Concluído!',
                     'Internação realizada com sucesso, nº ' + response.data.idRegistroInternacao,
                     'success'
                 )
-                $scope.NovoRegistro();
+                $scope.registroInternacao.idPedidoInternacao = null
+                $scope.registroInternacao.numProntuario = null
+                $scope.registroInternacao.AIH = ""
+                $scope.registroInternacao.nomePaciente = ""
+                $scope.registroInternacao.nomeMae = ""
+                $scope.registroInternacao.dataNascimento = ""
+                $scope.registroInternacao.idade = null
+                $scope.registroInternacao.genero = ""
+                $scope.registroInternacao.dataAdmissao = ""
+                $scope.registroInternacao.medicoResponsavel = ""
+                $scope.registroInternacao.residenteResponsavel = ""
+                $scope.registroInternacao.dataInternacao = ""
+                $scope.registroInternacao.nomeDiagnostico = null
+                $scope.registroInternacao.nomeAla = null
+                $scope.registroInternacao.previsaoAlta = ""
+                $scope.registroInternacao.idEnfermaria = null
+                $scope.registroInternacao.idLeito = null
             }, function (response) {
                 $scope.registroInternacao.dataInternacao = new Date($scope.registroInternacao.dataInternacao);
                 $scope.registroInternacao.previsaoAlta = new Date($scope.registroInternacao.previsaoAlta);
@@ -243,7 +262,7 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
     }
 
     $scope.validarRegistroInternacao = function () {
-        if ($scope.pedidoInternacao == undefined) {
+        if ($scope.registroInternacao == undefined) {
             swal(
                 'Erro!',
                 'Pedido de Internação não encontrado!',
@@ -251,7 +270,7 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
             )
             return;
         }
-        if ($scope.pedidoInternacao.idPedidoInternacao <= 0) {
+        if ($scope.registroInternacao.idPedidoInternacao <= 0) {
             swal(
                 'Erro!',
                 'Pedido de Internação não encontrado!',

@@ -1,21 +1,19 @@
 app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$filter", "pedidoInternacaoFactory", "diagnosticosFactory", "pacienteFactory", "alasFactory", "Notify",
     function ($scope, $rootScope,$http, $filter, pedidoInternacaoFactory, diagnosticosFactory, pacienteFactory, alasFactory, Notify) {
 
-        $scope.NovoPedido = function () {
-            $scope.pedidoInternacao = {
-                numProntuario: 0,
-                nomePaciente: "",
-                nomeMae: "",
-                dataNascimento: "",
-                idade: 0,
-                genero: null,
-                AIH: "",
-                dataPedido: new Date(),
-                status: "Pendente",
-                medicoResponsavel: "",
-                residenteResponsavel: "",
-                dataAdmissao: ""
-            }
+    $scope.pedidoInternacao = {
+            numProntuario: 0,
+            nomePaciente: "",
+            nomeMae: "",
+            dataNascimento: "",
+            idade: 0,
+            genero: null,
+            AIH: "",
+            dataPedido: new Date(),
+            status: "Pendente",
+            medicoResponsavel: "",
+            residenteResponsavel: "",
+            dataAdmissao: ""
         }
 
         $scope.openModalCadastro = () => {
@@ -53,7 +51,6 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
         }
 
         $scope.Inicializar = function () {
-            $scope.NovoPedido();
             $scope.CarregarDiagnosticos();
             $scope.CarregarAlas();
         }   
@@ -129,12 +126,24 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
                 $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
                 pedidoInternacaoFactory.savePedidoInternacao($scope.pedidoInternacao)
                     .then(function (response) {
+                        $scope.pedidoInternacao.numProntuario =  0,
+                        $scope.pedidoInternacao.nomePaciente =  "",
+                        $scope.pedidoInternacao.nomeMae =  "",
+                        $scope.pedidoInternacao.dataNascimento =  "",
+                        $scope.pedidoInternacao.idade =  0,
+                        $scope.pedidoInternacao.genero =  null,
+                        $scope.pedidoInternacao.AIH =  "",
+                        $scope.pedidoInternacao.dataPedido =  new Date(),
+                        $scope.pedidoInternacao.status =  "Pendente",
+                        $scope.pedidoInternacao.medicoResponsavel =  "",
+                        $scope.pedidoInternacao.residenteResponsavel =  "",
+                        $scope.pedidoInternacao.dataAdmissao =  "",
+
                         swal(
                             'Concluído!',
                             'Pedido realizado com sucesso, nº ' + response.data.idPedidoInternacao,
                             'success'
                         )
-                        $scope.NovoPedido();
                     }, function (response) {
                         $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
                         $scope.pedidoInternacao.dataPedido = new Date($scope.pedidoInternacao.dataPedido);
