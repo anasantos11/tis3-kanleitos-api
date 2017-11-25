@@ -13,7 +13,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
             status: "Pendente",
             medicoResponsavel: "",
             residenteResponsavel: "",
-            dataAdmissao: ""
+            dataAdmissao: new Date()
         }
 
         $scope.openModalCadastro = () => {
