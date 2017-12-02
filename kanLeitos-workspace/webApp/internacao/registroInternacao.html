@@ -112,7 +112,7 @@
                 <label for="numProntuario">Número do Leito<b class="text-danger">*</b></label>
                 <select ng-model="registroInternacao.idLeito" class="form-control">
                     <option value="">Selecione</option>
-                    <option ng-repeat="leito in Leitos" value="{{leito.idLeito}}">{{leito.nomeLeito}}</option>
+                    <option ng-repeat="leito in Leitos" value="{{leito.idLeito}}">{{leito.nomeLeito + " " + leito.generoLeito.substr(0,1)}}</option>
                 </select>
             </div>
 

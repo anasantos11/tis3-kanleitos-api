@@ -31,8 +31,8 @@ app.controller('loginController', ["$scope", "$http","usuarioFactory",function (
     $scope.realizarLogin = function (login) {
         if ($scope.validarLogin()) {
             $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-            $scope.login.senha = codificar($scope.login.senha, "12345")
-            $scope.login.senha = decodificarParaSHA256($scope.login.senha, "12345")
+           // $scope.login.senha = codificar($scope.login.senha, "12345")
+           // $scope.login.senha = decodificarParaSHA256($scope.login.senha, "12345")
             usuarioFactory.login($scope.login)
                 .then(function (response) {
                     if (response.data.usuarioValidado) {
