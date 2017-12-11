@@ -1,11 +1,14 @@
 //var app = angular.module("kanleitos", []);
 //Factorys
+
+var DEV_HJK = "https://kanleitoshjk-service.azurewebsites.net/";
+
 app.factory('alasFactory', function ($http) {
     var alas = {};
     //Get alas
     alas.getAlas = function () {
         return $http({
-            url: "http://localhost:8080/Alas",
+            url: DEV_HJK + "Alas",
             method: 'GET'
         });
     };
@@ -17,7 +20,7 @@ app.factory('enfermariaFactory', function ($http) {
     //Get Enfermarias
     enfermarias.getEnfermarias = function () {
         return $http({
-            url: "http://localhost:8080/Enfermarias",
+            url: DEV_HJK + "Enfermarias",
             method: 'GET'
         });
     };
@@ -29,13 +32,13 @@ app.factory('leitoFactory', function ($http) {
     //Get Leitos
     leitos.getLeitos = function () {
         return $http({
-            url: "http://localhost:8080/Leitos",
+            url: DEV_HJK + "Leitos",
             method: 'GET'
         });
     };
     leitos.getLeitoEnfermaria = function (idEnfermaria) {
     return $http({
-        url: "http://localhost:8080/GetLeitosEnfermaria",
+        url: DEV_HJK + "GetLeitosEnfermaria",
         method: 'GET',
         params: { idEnfermaria: idEnfermaria }
     });
@@ -47,7 +50,7 @@ app.factory('diagnosticosFactory', function ($http) {
     //Get Diagnosticos
     diagnosticos.getDiagnosticos = function () {
         return $http({
-            url: "http://localhost:8080/Diagnosticos",
+            url: DEV_HJK + "Diagnosticos",
             method: 'GET'
         });
     };
@@ -58,14 +61,14 @@ app.factory('pacienteFactory', function ($http) {
     //Get Diagnosticos
     pacientes.getPacientes = function () {
         return $http({
-            url: "http://localhost:8080/ListaPacientes",
+            url: DEV_HJK + "ListaPacientes",
             method: 'GET'
         });
     };
     //Get Paciente pelo numProntuario ou nomeMae
     pacientes.getPaciente = function (prontuario, mae) {
         return $http({
-            url: "http://localhost:8080/Paciente",
+            url: DEV_HJK + "Paciente",
             method: 'GET',
             params: { numProntuario: prontuario, nomeMae: mae }
         });
@@ -73,7 +76,7 @@ app.factory('pacienteFactory', function ($http) {
     //Salvar Pacientes
     pacientes.savePaciente = function (dados) {
         return $http({
-            url: 'http://localhost:8080/CadastroPaciente',
+            url: DEV_HJK + "CadastroPaciente",
             method: 'POST',
             data: dados
         });
@@ -85,21 +88,21 @@ app.factory('pedidoInternacaoFactory', function ($http) {
     //Salvar Pedido Internacao
     pedido.savePedidoInternacao = function (dados) {
         return $http({
-            url: 'http://localhost:8080/PedidoInternacao',
+            url: DEV_HJK + "PedidoInternacao",
             method: 'POST',
             data: dados
         });
     };
     pedido.getPedido = function (prontuario) {
         return $http({
-            url: "http://localhost:8080/GetPedidoInternacao",
+            url: DEV_HJK + "GetPedidoInternacao",
             method: 'GET',
             params: { numProntuario: prontuario }
         });
     };
     pedido.getPedidos = function () {
     return $http({
-        url: "http://localhost:8080/ListaPedidos",
+        url: DEV_HJK + "ListaPedidos",
         method: 'GET'
     });
     };
@@ -110,7 +113,7 @@ app.factory('registroInternacaoFactory', function ($http) {
     //Salvar Registro Internacao
     registro.saveRegistroInternacao = function (dados) {
         return $http({
-            url: 'http://localhost:8080/RegistroInternacao',
+            url: DEV_HJK + "RegistroInternacao",
             method: 'POST',
             data: dados
         });
@@ -122,7 +125,7 @@ app.factory('usuarioFactory', function ($http) {
     var usuario = {};
     usuario.login = function (dados) {
         return $http({
-            url: 'http://localhost:8080/Login',
+            url: DEV_HJK + "Login",
             method: 'POST',
             data: dados
         });
@@ -134,7 +137,7 @@ app.factory("kanbanFactory", function($http){
     var kanban = {};
     kanban.getRegistrosPorClassificação = function(tipoClassificacao){
         return $http({
-            url: "http://localhost:8080/KanbanInternacoes", 
+            url: DEV_HJK + "KanbanInternacoes", 
             method: 'GET',
             params:  {classificacao: "" + tipoClassificacao}
         });
@@ -142,7 +145,7 @@ app.factory("kanbanFactory", function($http){
 
     kanban.atualizaRegistrosInternacao = function(tipoClassificacao){
         return $http({
-            url: "http://localhost:8080/AtualizarInternacoes", 
+            url: DEV_HJK + "AtualizarInternacoes", 
             method: 'GET'
         });
     }
