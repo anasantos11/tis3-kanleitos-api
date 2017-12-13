@@ -1,4 +1,4 @@
-webApp/node_modules/*
+aswebApp/node_modules/*
 webApp/package-lock.json
 /.metadata/
 /.recommenders/
