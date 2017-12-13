@@ -1,4 +1,4 @@
-<html ng-app="kanleitos" ng-contrerio="dashboardController">
+<html ng-app="kanleitos" ng-controller="KanController">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -178,7 +178,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-danger" href="#!/login" onClick = "sairAplicacao()">Sair</a>
+                        <a class="btn btn-danger" href="#!/login" ng-click = "sairAplicacao()">Sair</a>
                     </div>
                 </div>
             </div>
