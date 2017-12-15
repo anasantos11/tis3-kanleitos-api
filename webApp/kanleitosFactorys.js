@@ -3,7 +3,7 @@
 
 //var DEV_HJK = "https://kanleitoshjk-service.azurewebsites.net/";
 
-var LOCAL_HJK = "http://localhost:8080/";
+var DEV_HJK = "http://localhost:8080/";
 
 app.factory('alasFactory', function ($http) {
     var alas = {};
