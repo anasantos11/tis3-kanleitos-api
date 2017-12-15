@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,8 +14,9 @@ import org.json.JSONObject;
 public class Ala {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idAla;
+	@SequenceGenerator(name="ALA_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="ALA_ID")
+	private long idAla;
 
 	@Column(name = "nomeAla", nullable = false)
 	private String nomeAla;
@@ -44,12 +46,8 @@ public class Ala {
 
 	}
 
-	public int getIdAla() {
+	public long getIdAla() {
 		return idAla;
-	}
-
-	public void setIdAla(int idAla) {
-		this.idAla = idAla;
 	}
 
 	public String getNomeAla() {

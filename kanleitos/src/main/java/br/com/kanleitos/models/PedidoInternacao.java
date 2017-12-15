@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,11 +19,12 @@ import org.json.JSONObject;
 public class PedidoInternacao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPedidoInternacao;
+	@SequenceGenerator(name="PEDIDO_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="PEDIDO_ID")
+	private long idPedidoInternacao;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idPaciente", nullable = false)
+	@JoinColumn(name = "numProntuario", nullable = false)
 	private Paciente paciente;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -153,7 +155,7 @@ public class PedidoInternacao {
 		AIH = aIH;
 	}
 
-	public int getIdPedidoInternacao() {
+	public long getIdPedidoInternacao() {
 		return idPedidoInternacao;
 	}
 

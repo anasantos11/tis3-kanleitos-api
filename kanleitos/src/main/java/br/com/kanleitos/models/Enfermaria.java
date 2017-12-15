@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,8 +18,9 @@ import org.json.JSONObject;
 public class Enfermaria {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idEnfermaria;
+	@SequenceGenerator(name="ENF_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="ENF_ID")
+	private long idEnfermaria;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idAla", nullable = false)
@@ -100,7 +102,7 @@ public class Enfermaria {
 		this.inativa = inativa;
 	}
 
-	public int getIdEnfermaria() {
+	public long getIdEnfermaria() {
 		return idEnfermaria;
 	}
 

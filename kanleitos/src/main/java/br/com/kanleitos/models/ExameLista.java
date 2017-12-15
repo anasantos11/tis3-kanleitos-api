@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,8 +20,9 @@ import org.json.JSONObject;
 public class ExameLista {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idExameLista;
+	@SequenceGenerator(name="EXAME_LISTA_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="EXAME_LISTA_ID")
+	private long idExameLista;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "registroInternacao",referencedColumnName = "idRegistroInternacao")
@@ -42,7 +44,7 @@ public class ExameLista {
 			setRegistroInternacao(json.getJSONObject((ExameListaKeys.REGISTRO_INTERNACAO)));
 	}
 
-	public int getIdExameLista() {
+	public long getIdExameLista() {
 		return idExameLista;
 	}
 

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.json.JSONException;
@@ -19,8 +20,9 @@ import br.com.kanleitos.util.CriptografarSenha;
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idUsario;
+	@SequenceGenerator(name="USUARIO_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="USUARIO_ID")
+	private long idUsario;
 
 	@NotEmpty
 	@Column(name = "login", nullable = false)
@@ -84,7 +86,7 @@ public class Usuario {
 		this.inativo = inativo;
 	}
 
-	public int getIdUsario() {
+	public long getIdUsario() {
 		return idUsario;
 	}
 	

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,8 +17,9 @@ import org.json.JSONObject;
 public class TipoPendencia {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPendencia;
+	@SequenceGenerator(name="TIPO_PENDENCIA_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="TIPO_PENDENCIA_ID")
+	private long idPendencia;
 	
 	@Column(name = "descPendencia", nullable = false)
 	private String descPendencia;
@@ -44,7 +46,7 @@ public class TipoPendencia {
 	public void setDescPendencia(String descPendencia) {
 		this.descPendencia = descPendencia;
 	}
-	public int getIdPendencia() {
+	public long getIdPendencia() {
 		return idPendencia;
 	}
 

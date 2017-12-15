@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,8 +26,9 @@ import br.com.kanleitos.util.StatusRegistroConverter;
 public class RegistroInternacao {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idRegistroInternacao;
+	@SequenceGenerator(name="REGISTRO_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="REGISTRO_ID")
+	private long idRegistroInternacao;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idPedidoInternacao", nullable = false)
@@ -214,7 +216,7 @@ public class RegistroInternacao {
 		this.classificacao = classificacao;
 	}
 
-	public int getIdRegistroInternacao() {
+	public long getIdRegistroInternacao() {
 		return idRegistroInternacao;
 	}
 

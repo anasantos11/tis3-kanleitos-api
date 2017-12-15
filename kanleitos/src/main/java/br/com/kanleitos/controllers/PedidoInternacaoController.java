@@ -68,8 +68,8 @@ public class PedidoInternacaoController {
 		if(numProntuario != null && !numProntuario.isEmpty()) {
 			paciente = pacienteRepository.findByNumProntuario(Integer.parseInt(numProntuario));
 			if(paciente.size() > 0) {
-				int id = paciente.get(0).getIdPaciente();
-				if( id > 0)
+				long pront = paciente.get(0).getNumProntuario();
+				if( pront > 0)
 					pedido = repository.findByPaciente(paciente.get(0));
 			}
 		}else {

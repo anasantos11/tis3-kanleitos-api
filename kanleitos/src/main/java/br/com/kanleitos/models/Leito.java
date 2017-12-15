@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,8 +22,9 @@ import br.com.kanleitos.util.TipoStatusLeito;
 public class Leito {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idLeito;
+	@SequenceGenerator(name="LEITO_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="LEITO_ID")
+	private long idLeito;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idAla", nullable = false)
@@ -142,7 +144,7 @@ public class Leito {
 		this.statusLeito = statusLeito;
 	}
 
-	public int getIdLeito() {
+	public long getIdLeito() {
 		return idLeito;
 	}
 

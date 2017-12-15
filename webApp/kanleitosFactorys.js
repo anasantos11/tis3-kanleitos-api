@@ -1,7 +1,9 @@
 //var app = angular.module("kanleitos", []);
 //Factorys
 
-var DEV_HJK = "https://kanleitoshjk-service.azurewebsites.net/";
+//var DEV_HJK = "https://kanleitoshjk-service.azurewebsites.net/";
+
+var LOCAL_HJK = "http://localhost:8080/";
 
 app.factory('alasFactory', function ($http) {
     var alas = {};

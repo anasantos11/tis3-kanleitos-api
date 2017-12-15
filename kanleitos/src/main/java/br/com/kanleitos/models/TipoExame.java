@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,8 +17,9 @@ import org.json.JSONObject;
 public class TipoExame {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idExame;
+	@SequenceGenerator(name="TIPO_EXAME_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="TIPO_EXAME_ID")
+	private long idExame;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "exameLista",referencedColumnName = "idExameLista")
@@ -64,7 +66,7 @@ public class TipoExame {
 		this.inativo = inativo;
 	}
 
-	public int getIdExame() {
+	public long getIdExame() {
 		return idExame;
 	}
 	

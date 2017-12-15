@@ -2,8 +2,6 @@ package br.com.kanleitos.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.json.JSONException;
@@ -12,13 +10,9 @@ import org.json.JSONObject;
 
 @Entity
 public class Paciente {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPaciente;
-	
 	@Column(name = "numProntuario", nullable = false)
-	private int numProntuario;
+	private long numProntuario;
 	
 	@Column(name = "nomePaciente", nullable = false)
 	private String nomePaciente;
@@ -71,18 +65,12 @@ public class Paciente {
 		setNumProntuario(-1);
 	}
 
-	public int getIdPaciente() {
-		return this.idPaciente;
-	}
 
-	public void setIdPaciente(int idPaciente) {
-		this.idPaciente = idPaciente;
-	}   
-	public int getNumProntuario() {
+	public long getNumProntuario() {
 		return this.numProntuario;
 	}
 
-	public void setNumProntuario(int numProntuario) {
+	public void setNumProntuario(long numProntuario) {
 		this.numProntuario = numProntuario;
 	}   
 	public String getNomePaciente() {
@@ -123,7 +111,7 @@ public class Paciente {
 	
 	@Override
 	public String toString() {
-		return "Paciente [idPaciente=" + idPaciente + ", numProntuario=" + numProntuario + ", nomePaciente="
+		return "Paciente [numProntuario=" + numProntuario + ", nomePaciente="
 				+ nomePaciente + ", idade=" + idade + ", genero=" + genero + ", nomeMae=" + nomeMae
 				+ ", dataNascimento=" + dataNascimento + "]";
 	}

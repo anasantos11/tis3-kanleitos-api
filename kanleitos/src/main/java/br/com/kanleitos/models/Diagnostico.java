@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,8 +14,9 @@ import org.json.JSONObject;
 public class Diagnostico {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idDiagnostico;
+	@SequenceGenerator(name="DIAG_ID",  initialValue=1)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="DIAG_ID")
+	private long idDiagnostico;
 
 	@Column(name = "descricaoDiagnostico", nullable = false)
 	private String descricaoDiagnostico;
@@ -74,7 +76,7 @@ public class Diagnostico {
 		this.tempoPermanencia = tempoPermanencia;
 	}
 
-	public int getIdDiagnostico() {
+	public long getIdDiagnostico() {
 		return idDiagnostico;
 	}
 
