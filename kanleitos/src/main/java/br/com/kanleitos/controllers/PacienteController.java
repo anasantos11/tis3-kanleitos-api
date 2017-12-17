@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import br.com.kanleitos.models.Paciente;
 import br.com.kanleitos.repository.PacienteRepository;
 import br.com.kanleitos.util.Resposta;
@@ -39,9 +36,7 @@ public class PacienteController{
 	@RequestMapping(value = "ListaPacientes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String listarPacientes() throws JSONException {
 		Iterable<Paciente> pacientes = repository.findAll();
-		Gson gson = new GsonBuilder().create();
-		String d = gson.toJson(pacientes);
-		return d;
+		return Resposta.respostaToGson(pacientes);
 	}
 	
 	@RequestMapping(value = "Paciente", method = org.springframework.web.bind.annotation.RequestMethod.GET)
@@ -53,9 +48,7 @@ public class PacienteController{
 			paciente = repository.findByNomeMae(nomeMae);
 		}
 
-		Gson gson = new GsonBuilder().create();
-		String d = gson.toJson(paciente);
-		return d;
+		return Resposta.respostaToGson(paciente);
 	}
 	
 	

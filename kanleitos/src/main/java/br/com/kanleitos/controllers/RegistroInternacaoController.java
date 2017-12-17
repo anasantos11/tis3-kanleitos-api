@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import br.com.kanleitos.models.RegistroInternacao;
 import br.com.kanleitos.repository.EnfermariaRepository;
 import br.com.kanleitos.repository.LeitoRepository;
 import br.com.kanleitos.repository.PedidoInternacaoRepository;
 import br.com.kanleitos.repository.RegistroInternacaoRepository;
 import br.com.kanleitos.util.Classificacao;
+import br.com.kanleitos.util.Resposta;
 import br.com.kanleitos.util.StatusRegistro;
 import br.com.kanleitos.util.TipoStatusLeito;
 
@@ -60,16 +58,12 @@ public class RegistroInternacaoController {
 		r.getLeito().setStatusLeito(TipoStatusLeito.OCUPADO_COMUM);	
 		leitoRepository.save(r.getLeito());
 		
-		Gson gson = new GsonBuilder().create();
-		String response = gson.toJson(r);
-		return response;
+		return Resposta.respostaToGson(r);
 	}
 	
 	@RequestMapping(value = "PacientesInternados", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String listarInternacoes() throws JSONException {
 		Iterable<RegistroInternacao> internacoes = registroRepository.findAll();
-		Gson gson = new GsonBuilder().create();
-		String d = gson.toJson(internacoes);
-		return d;
+		return Resposta.respostaToGson(internacoes);
 	}
 }

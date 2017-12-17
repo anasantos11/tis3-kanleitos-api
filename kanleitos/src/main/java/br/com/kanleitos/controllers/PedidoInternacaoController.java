@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import br.com.kanleitos.models.Paciente;
 import br.com.kanleitos.models.PedidoInternacao;
 import br.com.kanleitos.repository.AlaRepository;
 import br.com.kanleitos.repository.DiagnosticoRepository;
 import br.com.kanleitos.repository.PacienteRepository;
 import br.com.kanleitos.repository.PedidoInternacaoRepository;
+import br.com.kanleitos.util.Resposta;
 
 @Controller
 public class PedidoInternacaoController {
@@ -56,9 +54,7 @@ public class PedidoInternacaoController {
 		
 		
 		repository.save(p);
-		Gson gson = new GsonBuilder().create();
-		String response = gson.toJson(p);
-		return response;
+		return Resposta.respostaToGson(p);
 	}
 	
 	@RequestMapping(value = "GetPedidoInternacao", method = org.springframework.web.bind.annotation.RequestMethod.GET)
@@ -75,18 +71,13 @@ public class PedidoInternacaoController {
 		}else {
 			//paciente = repository.findOne(Integer.parseInt(idPedidoInternacao));
 		}
-
-		Gson gson = new GsonBuilder().create();
-		String d = gson.toJson(pedido.get(0));
-		return d;
+		return Resposta.respostaToGson(pedido.get(0));
 	}
 	
 	@RequestMapping(value = "ListaPedidos", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String listarPedidos() throws JSONException {
 		Iterable<PedidoInternacao> pedidos = repository.findAll();
-		Gson gson = new GsonBuilder().create();
-		String d = gson.toJson(pedidos);
-		return d;
+		return Resposta.respostaToGson(pedidos);
 	}
 
 }
