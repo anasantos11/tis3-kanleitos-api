@@ -13,27 +13,35 @@ function ($scope, $http, $filter, pacienteFactory, Notify) {
     $scope.cadastrarPaciente = function (paciente) {
         if ($scope.validarDadosPaciente()) {
             $scope.paciente.dataNascimento = $filter('date')($scope.paciente.dataNascimento, 'yyyy-MM-dd');
-            $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+
             pacienteFactory.savePaciente($scope.paciente)
                 .then(function (response) {
-                    return $scope.closeThisDialog(response.data)
-                }).then(()=>{
-                    return swal(
-                        'Concluído!',
-                        'Cadastro feito com sucesso - Paciente: ' + response.data.nomePaciente,
+                    if(!response.data.erro){                    
+                        swal( 'Concluído!',
+                        'Cadastro realizado com sucesso - Paciente: ' + response.data.nomePaciente,
                         'success'
-                    )
-                }).catch((response)=>{
+                        )
+                        return $scope.closeThisDialog(response.data);
+                    }else{
+                        swal( 'Erro!',
+                            'Paciente já cadastrado!',
+                            'error'
+                        )
+                        return;
+                    }
+                    
+                })
+                .catch((response)=>{
                         if (response.data != undefined) {
                             swal(
                                 'Erro!',
-                                response.data.message,
+                                response.data.error + " " + response.data.message,
                                 'error'
                             )
                         } else {
                             swal(
                                 'Erro!',
-                                'Ocorreu algum erro no servidor',
+                                response.message,
                                 'error'
                             )
                         }

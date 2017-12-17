@@ -1,59 +1,64 @@
-app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$filter", "pedidoInternacaoFactory", "diagnosticosFactory", "pacienteFactory", "alasFactory", "Notify",
-    function ($scope, $rootScope,$http, $filter, pedidoInternacaoFactory, diagnosticosFactory, pacienteFactory, alasFactory, Notify) {
+app.controller('pedidoInternacaoController', ["$scope", "$rootScope", "$http", "$filter", "pedidoInternacaoFactory", "diagnosticosFactory", "pacienteFactory", "alasFactory", "Notify",
+    function ($scope, $rootScope, $http, $filter, pedidoInternacaoFactory, diagnosticosFactory, pacienteFactory, alasFactory, Notify) {
 
-    $scope.pedidoInternacao = {
-            numProntuario: 0,
-            nomePaciente: "",
-            nomeMae: "",
-            dataNascimento: "",
-            idade: 0,
-            genero: null,
-            AIH: "",
-            dataPedido: new Date(),
-            status: "Pendente",
-            medicoResponsavel: "",
-            residenteResponsavel: "",
-            dataAdmissao: new Date()
-        }
+        $scope.novoPedidoInternacao = function () {
+            $scope.pedidoInternacao = {
+                numProntuario: 0,
+                nomePaciente: "",
+                nomeMae: "",
+                dataNascimento: "",
+                idade: 0,
+                genero: null,
+                AIH: "",
+                dataPedido: new Date(),
+                status: "Pendente",
+                medicoResponsavel: "",
+                residenteResponsavel: "",
+                dataAdmissao: new Date()
+            }
+        };
+
+        $scope.novoPedidoInternacao();
+
 
         $scope.openModalCadastro = () => {
             return Notify.openModal("internacao/modalCadastro.html", null, "60%")
-            .closePromise.then((pacienteCadastrado)=>{
-                if(!pacienteCadastrado.value || pacienteCadastrado.value === '$document' || pacienteCadastrado.value === '$closeButton'){
-                    return
-                }else{
-                    $scope.pedidoInternacao.numProntuario = pacienteCadastrado.value.numProntuario
-                    $scope.pedidoInternacao.nomePaciente = pacienteCadastrado.value.nomePaciente
-                    $scope.pedidoInternacao.nomeMae = pacienteCadastrado.value.nomeMae
-                    $scope.pedidoInternacao.dataNascimento = new Date (getData(pacienteCadastrado.value.dataNascimento))
-                    $scope.pedidoInternacao.idade = pacienteCadastrado.value.idade
-                    $scope.pedidoInternacao.genero = pacienteCadastrado.value.genero
-                }
-            })
+                .closePromise.then((pacienteCadastrado) => {
+                    if (!pacienteCadastrado.value || pacienteCadastrado.value === '$document' || pacienteCadastrado.value === '$closeButton') {
+                        return
+                    } else {
+                        $scope.pedidoInternacao.numProntuario = pacienteCadastrado.value.numProntuario
+                        $scope.pedidoInternacao.nomePaciente = pacienteCadastrado.value.nomePaciente
+                        $scope.pedidoInternacao.nomeMae = pacienteCadastrado.value.nomeMae
+                        $scope.pedidoInternacao.dataNascimento = new Date(getData(pacienteCadastrado.value.dataNascimento))
+                        $scope.pedidoInternacao.idade = pacienteCadastrado.value.idade
+                        $scope.pedidoInternacao.genero = pacienteCadastrado.value.genero
+                    }
+                })
         }
 
         $scope.openModalPesquisa = () => {
             return Notify.openModal("internacao/modalPesquisa.html", null, "80%")
-            .closePromise.then((pacienteEscolhido)=>{
-                console.log(pacienteEscolhido)
-                if(!pacienteEscolhido.value || pacienteEscolhido.value === '$document' || pacienteEscolhido.value === '$closeButton'){
-                    return
-                }else{
-                    $scope.pedidoInternacao.numProntuario = pacienteEscolhido.value.numProntuario
-                    $scope.pedidoInternacao.nomePaciente = pacienteEscolhido.value.nomePaciente
-                    $scope.pedidoInternacao.nomeMae = pacienteEscolhido.value.nomeMae
-                    $scope.pedidoInternacao.dataNascimento = new Date (getData(pacienteEscolhido.value.dataNascimento))
-                    $scope.pedidoInternacao.idade = pacienteEscolhido.value.idade
-                    $scope.pedidoInternacao.genero = pacienteEscolhido.value.genero
-                }
+                .closePromise.then((pacienteEscolhido) => {
+                    console.log(pacienteEscolhido)
+                    if (!pacienteEscolhido.value || pacienteEscolhido.value === '$document' || pacienteEscolhido.value === '$closeButton') {
+                        return
+                    } else {
+                        $scope.pedidoInternacao.numProntuario = pacienteEscolhido.value.numProntuario
+                        $scope.pedidoInternacao.nomePaciente = pacienteEscolhido.value.nomePaciente
+                        $scope.pedidoInternacao.nomeMae = pacienteEscolhido.value.nomeMae
+                        $scope.pedidoInternacao.dataNascimento = new Date(getData(pacienteEscolhido.value.dataNascimento))
+                        $scope.pedidoInternacao.idade = pacienteEscolhido.value.idade
+                        $scope.pedidoInternacao.genero = pacienteEscolhido.value.genero
+                    }
 
-            })
+                })
         }
 
         $scope.Inicializar = function () {
             $scope.CarregarDiagnosticos();
             $scope.CarregarAlas();
-        }   
+        }
 
         $scope.CarregarDiagnosticos = function () {
             diagnosticosFactory.getDiagnosticos()
@@ -126,18 +131,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope","$http", "$
                 $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
                 pedidoInternacaoFactory.savePedidoInternacao($scope.pedidoInternacao)
                     .then(function (response) {
-                        $scope.pedidoInternacao.numProntuario =  0,
-                        $scope.pedidoInternacao.nomePaciente =  "",
-                        $scope.pedidoInternacao.nomeMae =  "",
-                        $scope.pedidoInternacao.dataNascimento =  "",
-                        $scope.pedidoInternacao.idade =  0,
-                        $scope.pedidoInternacao.genero =  null,
-                        $scope.pedidoInternacao.AIH =  "",
-                        $scope.pedidoInternacao.dataPedido =  new Date(),
-                        $scope.pedidoInternacao.status =  "Pendente",
-                        $scope.pedidoInternacao.medicoResponsavel =  "",
-                        $scope.pedidoInternacao.residenteResponsavel =  "",
-                        $scope.pedidoInternacao.dataAdmissao =  "",
+                        $scope.novoPedidoInternacao();
 
                         swal(
                             'Concluído!',

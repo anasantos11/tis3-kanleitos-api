@@ -11,6 +11,13 @@ firebase.initializeApp(config);
 
 var isLogado = false;
 
+var kanHeaders = {
+    headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }
+};
+
+
 var app = angular.module("kanleitos", [
 	'firebase',
 	'ui.router',

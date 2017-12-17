@@ -1,7 +1,4 @@
 package br.com.kanleitos.controllers;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +13,27 @@ import com.google.gson.GsonBuilder;
 
 import br.com.kanleitos.models.Paciente;
 import br.com.kanleitos.repository.PacienteRepository;
+import br.com.kanleitos.util.Resposta;
 
 @Controller
+
 public class PacienteController{
 
 	@Autowired
 	private PacienteRepository repository;
 
-	@RequestMapping(value = "CadastroPaciente", method = org.springframework.web.bind.annotation.RequestMethod.POST)
+	@RequestMapping(value = "CadastroPaciente", method = org.springframework.web.bind.annotation.RequestMethod.POST,consumes="application/json")
 	public @ResponseBody String cadastrarPaciente(@RequestBody String json) throws JSONException {
-		String decoded = null;
-		try {
-			decoded = URLDecoder.decode(json, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		Paciente p = new Paciente(new JSONObject(decoded));
-		repository.save(p);
 
-		Gson gson = new GsonBuilder().create();
-		String response = gson.toJson(p);
-		return response;
+		Paciente p = new Paciente(new JSONObject(json));
+		boolean exists = repository.existsByNumProntuario(p.getNumProntuario());
+
+		if(!exists) {
+			repository.save(p);
+			return Resposta.respostaToJson(false, p);
+		}else {
+			return Resposta.respostaToJson(true, p);
+		}
 	}
 	
 	@RequestMapping(value = "ListaPacientes", method = org.springframework.web.bind.annotation.RequestMethod.GET)
@@ -51,7 +48,7 @@ public class PacienteController{
 	public @ResponseBody String getPaciente(@RequestParam  String numProntuario, String nomeMae) throws JSONException {
 		Iterable<Paciente> paciente;
 		if(numProntuario != null && !numProntuario.isEmpty()) {
-			paciente = repository.findByNumProntuario(Integer.parseInt(numProntuario));
+			paciente = repository.findByNumProntuario(Long.parseLong(numProntuario));
 		}else {
 			paciente = repository.findByNomeMae(nomeMae);
 		}

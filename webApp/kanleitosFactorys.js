@@ -3,7 +3,7 @@
 
 //var DEV_HJK = "https://kanleitoshjk-service.azurewebsites.net/";
 
-var DEV_HJK = "http://localhost:8080/";
+var DEV_HJK = "http://localhost:9090/";
 
 app.factory('alasFactory', function ($http) {
     var alas = {};
@@ -23,7 +23,7 @@ app.factory('enfermariaFactory', function ($http) {
     enfermarias.getEnfermarias = function () {
         return $http({
             url: DEV_HJK + "Enfermarias",
-            method: 'GET'
+            method: 'GET',
         });
     };
     return enfermarias;
@@ -80,7 +80,8 @@ app.factory('pacienteFactory', function ($http) {
         return $http({
             url: DEV_HJK + "CadastroPaciente",
             method: 'POST',
-            data: dados
+            data: dados,
+            kanHeaders
         });
     };
     return pacientes;
