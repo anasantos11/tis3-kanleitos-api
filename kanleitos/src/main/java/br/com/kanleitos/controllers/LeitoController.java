@@ -38,7 +38,7 @@ public class LeitoController{
 		List<Leito> leitos = null;
 		Enfermaria enfermaria = null;
 		if(idEnfermaria != null && !idEnfermaria.isEmpty()) {
-			enfermaria = repositoryEnfermaria.findOne(Integer.parseInt(idEnfermaria));
+			enfermaria = repositoryEnfermaria.findOne(Long.parseLong(idEnfermaria));
 			
 			if(enfermaria != null) {
 				leitos = repository.findByEnfermaria(enfermaria);

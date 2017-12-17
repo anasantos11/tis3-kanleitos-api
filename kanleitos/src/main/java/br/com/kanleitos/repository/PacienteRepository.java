@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import br.com.kanleitos.models.Paciente;
 
 @Repository
-public interface PacienteRepository extends CrudRepository<Paciente, Integer> {
+public interface PacienteRepository extends CrudRepository<Paciente, Long> {
 	List<Paciente> findByNumProntuario(long numProntuario);
 	boolean existsByNumProntuario(long numProntuario);
 	List<Paciente> findByNomeMae(String nomeMae);

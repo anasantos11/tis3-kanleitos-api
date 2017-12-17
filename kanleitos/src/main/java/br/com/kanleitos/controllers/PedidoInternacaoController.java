@@ -50,8 +50,8 @@ public class PedidoInternacaoController {
 		PedidoInternacao p = new PedidoInternacao(jsonObject);
 		//Get Paciente Ala e Diagnotisco
 		p.setPaciente(pacienteRepository.findByNumProntuario(jsonObject.getInt("numProntuario")).get(0));
-		p.setAla(repositoryAla.findOne((jsonObject.getInt("idAla"))));
-		p.setDiagnostico(repositoryDiagnostico.findOne((jsonObject.getInt("idDiagnostico"))));
+		p.setAla(repositoryAla.findOne((jsonObject.getLong("idAla"))));
+		p.setDiagnostico(repositoryDiagnostico.findOne((jsonObject.getLong("idDiagnostico"))));
 		
 		
 		

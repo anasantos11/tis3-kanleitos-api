@@ -49,9 +49,9 @@ public class RegistroInternacaoController {
 		JSONObject jsonObject = new JSONObject(decoded);
 		RegistroInternacao r = new RegistroInternacao(jsonObject);
 		//Get PedidoInternacao Enfermaria e Leito
-		r.setPedidoInternacao(pedidoRepository.findOne(jsonObject.getInt("idPedido")));
-		r.setEnfermaria(enfermariaRepository.findOne(jsonObject.getInt("idEnfermaria")));
-		r.setLeito(leitoRepository.findOne(jsonObject.getInt("idLeito")));	
+		r.setPedidoInternacao(pedidoRepository.findOne(jsonObject.getLong("idPedido")));
+		r.setEnfermaria(enfermariaRepository.findOne(jsonObject.getLong("idEnfermaria")));
+		r.setLeito(leitoRepository.findOne(jsonObject.getLong("idLeito")));	
 		r.setClassificacao(Classificacao.VERDE);
 		r.setStatusRegistro(StatusRegistro.EM_ANDAMENTO);
 		registroRepository.save(r);

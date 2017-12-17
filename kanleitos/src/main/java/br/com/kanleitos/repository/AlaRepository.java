@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.kanleitos.models.Ala;
 
 @Repository
-public interface AlaRepository extends CrudRepository<Ala, Integer> {
+public interface AlaRepository extends CrudRepository<Ala, Long> {
 
 }

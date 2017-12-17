@@ -9,6 +9,6 @@ import br.com.kanleitos.models.Paciente;
 import br.com.kanleitos.models.PedidoInternacao;
 
 @Repository
-public interface PedidoInternacaoRepository extends CrudRepository<PedidoInternacao, Integer> {
+public interface PedidoInternacaoRepository extends CrudRepository<PedidoInternacao, Long> {
 	List<PedidoInternacao> findByPaciente(Paciente paciente);
 }

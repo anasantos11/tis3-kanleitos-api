@@ -10,7 +10,7 @@ import br.com.kanleitos.util.Classificacao;
 import br.com.kanleitos.util.StatusRegistro;
 
 @Repository
-public interface RegistroInternacaoRepository extends CrudRepository<RegistroInternacao, Integer> {
+public interface RegistroInternacaoRepository extends CrudRepository<RegistroInternacao, Long> {
 	List<RegistroInternacao> findByClassificacao(Classificacao classificacao);
 	List<RegistroInternacao> findByStatusRegistro(StatusRegistro statusRegistro);
 

@@ -9,6 +9,6 @@ import br.com.kanleitos.models.Enfermaria;
 import br.com.kanleitos.models.Leito;
 
 @Repository
-public interface LeitoRepository extends CrudRepository<Leito, Integer> {
+public interface LeitoRepository extends CrudRepository<Leito, Long> {
 	List<Leito> findByEnfermaria(Enfermaria enfermaria);
 }

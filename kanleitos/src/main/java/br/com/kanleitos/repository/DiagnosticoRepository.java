@@ -7,7 +7,7 @@ import br.com.kanleitos.models.Diagnostico;
 
 
 @Repository
-public interface DiagnosticoRepository extends CrudRepository<Diagnostico, Integer> {
+public interface DiagnosticoRepository extends CrudRepository<Diagnostico, Long> {
 
 	
 }
