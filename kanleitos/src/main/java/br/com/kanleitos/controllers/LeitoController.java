@@ -15,6 +15,7 @@ import br.com.kanleitos.models.Enfermaria;
 import br.com.kanleitos.models.Leito;
 import br.com.kanleitos.repository.EnfermariaRepository;
 import br.com.kanleitos.repository.LeitoRepository;
+import br.com.kanleitos.util.TipoStatusLeito;
 
 @Controller
 public class LeitoController{
@@ -41,9 +42,10 @@ public class LeitoController{
 			enfermaria = repositoryEnfermaria.findOne(Long.parseLong(idEnfermaria));
 			
 			if(enfermaria != null) {
-				leitos = repository.findByEnfermaria(enfermaria);
+				leitos = repository.findByEnfermariaAndStatusLeito(enfermaria,TipoStatusLeito.DESOCUPADO);
 			}
 		}
+		
 		Gson gson = new GsonBuilder().create();
 		String d = gson.toJson(leitos);
 		return d;
