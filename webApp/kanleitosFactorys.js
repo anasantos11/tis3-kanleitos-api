@@ -40,6 +40,17 @@ app.factory('enfermariaFactory', function ($http) {
             kanHeaders
         });
     };
+
+    //Get Enfermarias By Ala
+
+    enfermarias.getEnfermariasByAlas = function (idAla) {
+        return $http({
+            url: URL_REQ + "GetEnfermariasByAlas",
+            method: 'GET',
+            params: { idAla: idAla },
+            kanHeaders
+        });
+    };
     return enfermarias;
 });
 
