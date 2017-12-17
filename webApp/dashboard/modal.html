@@ -15,6 +15,7 @@
                     <th>Nome do Paciente</th>
                     <th class="text-center">Idade</th>
                     <th>Diagnostico</th>
+                    <th class="text-center">Data da Internação</th>
                     <th class="text-center">Dias Internados</th>
                     <th class="text-center">Previsao de Alta</th>
                     <th class="text-center">Ala</th>
@@ -28,6 +29,7 @@
                    <td>{{paciente.pedidoInternacao.paciente.nomePaciente}}</td>
                    <td class="text-center">{{paciente.pedidoInternacao.paciente.idade}}</td>
                    <td>{{paciente.pedidoInternacao.diagnostico.descricaoDiagnostico}}</td>
+                   <td class="text-center">{{getLocalDate(paciente.pedidoInternacao.dataAdmissao)}}</td>
                    <td class="text-center">{{paciente.diasInternacao}}</td>
                    <td class="text-center">{{getLocalDate(paciente.previsaoAlta)}}</td>
                    <td class="text-center">{{paciente.pedidoInternacao.ala.nomeAla}}</td>

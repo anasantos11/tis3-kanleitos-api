@@ -19,7 +19,7 @@
                         <td>{{pedido.paciente.numProntuario}}</td>
                         <td>{{pedido.paciente.nomePaciente}}</td>
                         <td>{{pedido.paciente.nomeMae}}</td>
-                        <td>{{pedido.paciente.dataNascimento}}</td>
+                        <td>{{pedido.paciente.dataNascimento | date: "dd/MM/yyyy"}}</td>
                         <td>
                             <button class="btn btn-info" ng-click="closeThisDialog(pedido)">
                                 Escolher
