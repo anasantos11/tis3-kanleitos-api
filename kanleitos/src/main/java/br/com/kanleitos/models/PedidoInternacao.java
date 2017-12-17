@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +15,9 @@ import javax.persistence.SequenceGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import br.com.kanleitos.util.StatusPedido;
+import br.com.kanleitos.util.StatusPedidoConverter;
 
 @Entity
 public class PedidoInternacao {
@@ -51,7 +55,8 @@ public class PedidoInternacao {
 	private String dataPedido;
 
 	@Column(name = "statusPedido", nullable = false)
-	private String statusPedido;
+	@Convert(converter = StatusPedidoConverter.class)
+	private StatusPedido statusPedido;
 
 	public PedidoInternacao() throws JSONException {
 		setAIH(null);
@@ -62,7 +67,7 @@ public class PedidoInternacao {
 		setPaciente(new Paciente());
 		setResidenteResponsavel(null);
 		setDataPedido(LocalDate.now().toString());
-		setStatusPedido("Pendente");
+		setStatusPedido(StatusPedido.PENDENTE);
 
 	}
 	public void setPaciente(Paciente paciente) {
@@ -119,8 +124,7 @@ public class PedidoInternacao {
 			setDataPedido(json.getString(PedidoInternacaoKeys.DATA_PEDIDO));
 
 		if (json.has(PedidoInternacaoKeys.STATUS_PEDIDO))
-			setStatusPedido(json.getString(PedidoInternacaoKeys.STATUS_PEDIDO));
-
+			setStatusPedido(StatusPedido.fromName(json.getString(PedidoInternacaoKeys.STATUS_PEDIDO)));
 	}
 
 	public String getMedicoResponsavel() {
@@ -191,11 +195,11 @@ public class PedidoInternacao {
 		this.dataPedido = dataPedido;
 	}
 
-	public String getStatusPedido() {
+	public StatusPedido getStatusPedido() {
 		return statusPedido;
 	}
 
-	public void setStatusPedido(String statusPedido) {
+	public void setStatusPedido(StatusPedido statusPedido) {
 		this.statusPedido = statusPedido;
 	}
 

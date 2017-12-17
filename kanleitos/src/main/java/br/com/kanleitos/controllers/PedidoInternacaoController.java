@@ -1,7 +1,5 @@
 package br.com.kanleitos.controllers;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
 
 import org.json.JSONException;
@@ -38,21 +36,14 @@ public class PedidoInternacaoController {
 
 	@RequestMapping(value = "PedidoInternacao", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String pedidoInternacao(@RequestBody String json) throws JSONException {
-		String decoded = null;
-		try {
-			decoded = URLDecoder.decode(json, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		JSONObject jsonObject = new JSONObject(decoded);
+		JSONObject jsonObject = new JSONObject(json);
 		PedidoInternacao p = new PedidoInternacao(jsonObject);
+		
 		//Get Paciente Ala e Diagnotisco
 		p.setPaciente(pacienteRepository.findByNumProntuario(jsonObject.getInt("numProntuario")).get(0));
 		p.setAla(repositoryAla.findOne((jsonObject.getLong("idAla"))));
 		p.setDiagnostico(repositoryDiagnostico.findOne((jsonObject.getLong("idDiagnostico"))));
-		
-		
-		
+	
 		repository.save(p);
 		return Resposta.respostaToGson(p);
 	}

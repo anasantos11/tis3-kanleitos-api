@@ -1,8 +1,5 @@
 package br.com.kanleitos.controllers;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +20,10 @@ import br.com.kanleitos.util.TipoStatusLeito;
 
 @Controller
 public class RegistroInternacaoController {
-	
+
 	@Autowired
 	private RegistroInternacaoRepository registroRepository;
-	
+
 	@Autowired
 	private PedidoInternacaoRepository pedidoRepository;
 
@@ -38,29 +35,24 @@ public class RegistroInternacaoController {
 
 	@RequestMapping(value = "RegistroInternacao", method = org.springframework.web.bind.annotation.RequestMethod.POST)
 	public @ResponseBody String registroInternacao(@RequestBody String json) throws JSONException {
-		String decoded = null;
-		try {
-			decoded = URLDecoder.decode(json, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		JSONObject jsonObject = new JSONObject(decoded);
+
+		JSONObject jsonObject = new JSONObject(json);
 		RegistroInternacao r = new RegistroInternacao(jsonObject);
-		//Get PedidoInternacao Enfermaria e Leito
+		// Get PedidoInternacao Enfermaria e Leito
 		r.setPedidoInternacao(pedidoRepository.findOne(jsonObject.getLong("idPedido")));
 		r.setEnfermaria(enfermariaRepository.findOne(jsonObject.getLong("idEnfermaria")));
-		r.setLeito(leitoRepository.findOne(jsonObject.getLong("idLeito")));	
+		r.setLeito(leitoRepository.findOne(jsonObject.getLong("idLeito")));
 		r.setClassificacao(Classificacao.VERDE);
 		r.setStatusRegistro(StatusRegistro.EM_ANDAMENTO);
 		registroRepository.save(r);
-		
-		//Alterar Status do Leito para Ocupado
-		r.getLeito().setStatusLeito(TipoStatusLeito.OCUPADO_COMUM);	
+
+		// Alterar Status do Leito para Ocupado
+		r.getLeito().setStatusLeito(TipoStatusLeito.OCUPADO_COMUM);
 		leitoRepository.save(r.getLeito());
-		
+
 		return Resposta.respostaToGson(r);
 	}
-	
+
 	@RequestMapping(value = "PacientesInternados", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String listarInternacoes() throws JSONException {
 		Iterable<RegistroInternacao> internacoes = registroRepository.findAll();
