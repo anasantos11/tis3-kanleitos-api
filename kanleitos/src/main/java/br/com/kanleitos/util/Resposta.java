@@ -3,9 +3,6 @@ package br.com.kanleitos.util;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 public class Resposta {
 	public Resposta() {
 	}
@@ -17,7 +14,6 @@ public class Resposta {
 		
 	public static String respostaToJson(boolean erro, Object dados) {
 		JSONObject json = new JSONObject(dados);
-		Gson gson = new GsonBuilder().create();
 		try {
 			json.put(RespostaKeys.ERRO, erro);
 		} catch (JSONException e) {
