@@ -128,7 +128,6 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope", "$http", "
                 $scope.pedidoInternacao.dataAdmissao = $filter('date')($scope.pedidoInternacao.dataAdmissao, 'yyyy-MM-dd HH:mm:ss');
                 $scope.pedidoInternacao.dataPedido = $filter('date')($scope.pedidoInternacao.dataPedido, 'yyyy-MM-dd HH:mm:ss');
 
-                $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
                 pedidoInternacaoFactory.savePedidoInternacao($scope.pedidoInternacao)
                     .then(function (response) {
                         $scope.novoPedidoInternacao();

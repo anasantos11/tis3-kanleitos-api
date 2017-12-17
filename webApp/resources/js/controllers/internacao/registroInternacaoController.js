@@ -195,8 +195,6 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
         $scope.registroInternacao.dataInternacao = $filter('date')($scope.registroInternacao.dataInternacao, 'yyyy-MM-dd HH:mm:ss');
         $scope.registroInternacao.previsaoAlta = $filter('date')($scope.registroInternacao.previsaoAlta, 'yyyy-MM-dd HH:mm:ss');
 
-
-    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
     registroInternacaoFactory.saveRegistroInternacao($scope.registroInternacao)
             .then(function (response) {
                 swal(

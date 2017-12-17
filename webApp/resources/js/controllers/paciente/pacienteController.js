@@ -77,8 +77,6 @@ app.controller('pacienteController', ["$scope", "$http", "$filter", "pacienteFac
 			Genero: $scope.paciente.sexo,
 		};
 
-		$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-
 		pacienteFactory.savePaciente(request)
 			.then(function (response) {
 				if (!response.data.Resposta.erro) {

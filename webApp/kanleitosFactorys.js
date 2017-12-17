@@ -4,11 +4,18 @@ var HJK = "https://kanleitoshjk-service.azurewebsites.net/";
 
 var URL_REQ = "http://localhost:9090/";
 
-if(local == "dev-kanleitos.azurewebsites.net"){
-   URL_REQ = DEV;
-}else if(local == "kanleitoshjk.azurewebsites.net"){
+if (local == "dev-kanleitos.azurewebsites.net") {
+    URL_REQ = DEV;
+} else if (local == "kanleitoshjk.azurewebsites.net") {
     URL_REQ = HJK;
 }
+
+var kanHeaders = {
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+    }
+};
+
 //Factorys
 app.factory('alasFactory', function ($http) {
     var alas = {};
@@ -16,7 +23,8 @@ app.factory('alasFactory', function ($http) {
     alas.getAlas = function () {
         return $http({
             url: URL_REQ + "Alas",
-            method: 'GET'
+            method: 'GET',
+            kanHeaders
         });
     };
     return alas;
@@ -29,6 +37,7 @@ app.factory('enfermariaFactory', function ($http) {
         return $http({
             url: URL_REQ + "Enfermarias",
             method: 'GET',
+            kanHeaders
         });
     };
     return enfermarias;
@@ -40,15 +49,17 @@ app.factory('leitoFactory', function ($http) {
     leitos.getLeitos = function () {
         return $http({
             url: URL_REQ + "Leitos",
-            method: 'GET'
+            method: 'GET',
+            kanHeaders
         });
     };
     leitos.getLeitoEnfermaria = function (idEnfermaria) {
-    return $http({
-        url: URL_REQ + "GetLeitosEnfermaria",
-        method: 'GET',
-        params: { idEnfermaria: idEnfermaria }
-    });
+        return $http({
+            url: URL_REQ + "GetLeitosEnfermaria",
+            method: 'GET',
+            params: { idEnfermaria: idEnfermaria },
+            kanHeaders
+        });
     };
     return leitos;
 });
@@ -58,7 +69,8 @@ app.factory('diagnosticosFactory', function ($http) {
     diagnosticos.getDiagnosticos = function () {
         return $http({
             url: URL_REQ + "Diagnosticos",
-            method: 'GET'
+            method: 'GET',
+            kanHeaders
         });
     };
     return diagnosticos;
@@ -69,7 +81,8 @@ app.factory('pacienteFactory', function ($http) {
     pacientes.getPacientes = function () {
         return $http({
             url: URL_REQ + "ListaPacientes",
-            method: 'GET'
+            method: 'GET',
+            kanHeaders
         });
     };
     //Get Paciente pelo numProntuario ou nomeMae
@@ -77,7 +90,8 @@ app.factory('pacienteFactory', function ($http) {
         return $http({
             url: URL_REQ + "Paciente",
             method: 'GET',
-            params: { numProntuario: prontuario, nomeMae: mae }
+            params: { numProntuario: prontuario, nomeMae: mae },
+            kanHeaders
         });
     };
     //Salvar Pacientes
@@ -98,21 +112,24 @@ app.factory('pedidoInternacaoFactory', function ($http) {
         return $http({
             url: URL_REQ + "PedidoInternacao",
             method: 'POST',
-            data: dados
+            data: dados,
+            kanHeaders
         });
     };
     pedido.getPedido = function (prontuario) {
         return $http({
             url: URL_REQ + "GetPedidoInternacao",
             method: 'GET',
-            params: { numProntuario: prontuario }
+            params: { numProntuario: prontuario },
+            kanHeaders
         });
     };
     pedido.getPedidos = function () {
-    return $http({
-        url: URL_REQ + "ListaPedidos",
-        method: 'GET'
-    });
+        return $http({
+            url: URL_REQ + "ListaPedidos",
+            method: 'GET',
+            kanHeaders
+        });
     };
     return pedido;
 });
@@ -123,7 +140,8 @@ app.factory('registroInternacaoFactory', function ($http) {
         return $http({
             url: URL_REQ + "RegistroInternacao",
             method: 'POST',
-            data: dados
+            data: dados,
+            kanHeaders
         });
     };
     return registro;
@@ -135,26 +153,29 @@ app.factory('usuarioFactory', function ($http) {
         return $http({
             url: URL_REQ + "Login",
             method: 'POST',
-            data: dados
+            data: dados,
+            kanHeaders
         });
     };
     return usuario;
 });
 
-app.factory("kanbanFactory", function($http){
+app.factory("kanbanFactory", function ($http) {
     var kanban = {};
-    kanban.getRegistrosPorClassificação = function(tipoClassificacao){
+    kanban.getRegistrosPorClassificação = function (tipoClassificacao) {
         return $http({
-            url: URL_REQ + "KanbanInternacoes", 
+            url: URL_REQ + "KanbanInternacoes",
             method: 'GET',
-            params:  {classificacao: "" + tipoClassificacao}
+            params: { classificacao: "" + tipoClassificacao },
+            kanHeaders
         });
     }
 
-    kanban.atualizaRegistrosInternacao = function(tipoClassificacao){
+    kanban.atualizaRegistrosInternacao = function (tipoClassificacao) {
         return $http({
-            url: URL_REQ + "AtualizarInternacoes", 
-            method: 'GET'
+            url: URL_REQ + "AtualizarInternacoes",
+            method: 'GET',
+            kanHeaders
         });
     }
 
