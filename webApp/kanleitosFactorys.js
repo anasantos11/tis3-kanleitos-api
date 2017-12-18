@@ -135,9 +135,9 @@ app.factory('pedidoInternacaoFactory', function ($http) {
             kanHeaders
         });
     };
-    pedido.getPedidos = function () {
+    pedido.getPedidosEmAberto = function () {
         return $http({
-            url: URL_REQ + "ListaPedidos",
+            url: URL_REQ + "PedidosEmAberto",
             method: 'GET',
             kanHeaders
         });

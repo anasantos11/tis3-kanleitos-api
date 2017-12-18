@@ -18,6 +18,7 @@ import br.com.kanleitos.repository.DiagnosticoRepository;
 import br.com.kanleitos.repository.PacienteRepository;
 import br.com.kanleitos.repository.PedidoInternacaoRepository;
 import br.com.kanleitos.util.Resposta;
+import br.com.kanleitos.util.StatusPedido;
 
 @Controller
 public class PedidoInternacaoController {
@@ -65,10 +66,17 @@ public class PedidoInternacaoController {
 		return Resposta.respostaToGson(pedido.get(0));
 	}
 	
-	@RequestMapping(value = "ListaPedidos", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	@RequestMapping(value = "ListaTodosPedidos", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String listarPedidos() throws JSONException {
 		Iterable<PedidoInternacao> pedidos = repository.findAll();
 		return Resposta.respostaToGson(pedidos);
 	}
+	
+	@RequestMapping(value = "PedidosEmAberto", method = org.springframework.web.bind.annotation.RequestMethod.GET)
+	public @ResponseBody String pedidosEmAndamento() throws JSONException {
+		List<PedidoInternacao> pedidos = repository.findByStatusPedidoOrStatusPedido(StatusPedido.PENDENTE, StatusPedido.ATRASADO);
+		return Resposta.respostaToGson(pedidos);
+	}
+
 
 }
