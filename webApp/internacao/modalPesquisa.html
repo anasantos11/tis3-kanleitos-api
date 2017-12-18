@@ -1,33 +1,35 @@
 <div ng-controller="ModalPesquisaController" ng-init="carregarPacientes()">
-    <div class="row">
-        <div class="col-12 form-group">
-            <h3>Cadastrar Paciente</h3>
-        </div>
-        <div class="col-12">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-center">Nº Prontuário</th>
-                        <th class="text-center">Nome do Paciente</th>
-                        <th class="text-center">Nome da mãe</th>
-                        <th class="text-center">Data de nascimento</th>
-                        <th class="text-center">Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="paciente in ListaPacientes">
-                        <td class="text-center">{{paciente.numProntuario}}</td>
-                        <td class="text-center">{{paciente.nomePaciente}}</td>
-                        <td class="text-center">{{paciente.nomeMae}}</td>
-                        <td class="text-center">{{paciente.dataNascimento | date: "dd/MM/yyyy"}}</td>
-                        <td class="text-center">
-                            <button class="btn btn-info btn-sm" ng-click="closeThisDialog(paciente)">
+    <div class="col-lg-12 kan-row no-padding">
+        <fieldset class="col-lg-12 col-sm-12 kan-group no-padding">
+            <h4 class="padding-bottom kan-title">Lista de Pacientes
+                <i class="fa fa-info fa-1-x kan-icon" tooltip-side="bottom" tooltips tooltip-template="Escolha um paciente para solicitar a internação"></i>
+            </h4>
+            <div class="col-lg-12 col-sm-12 kan-group no-padding">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Nº Prontuário</th>
+                            <th class="text-center">Nome do Paciente</th>
+                            <th class="text-center">Nome da mãe</th>
+                            <th class="text-center">Data de nascimento</th>
+                            <th class="text-center">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="paciente in ListaPacientes">
+                            <td class="text-center">{{paciente.numProntuario}}</td>
+                            <td class="text-center">{{paciente.nomePaciente}}</td>
+                            <td class="text-center">{{paciente.nomeMae}}</td>
+                            <td class="text-center">{{paciente.dataNascimento | date: "dd/MM/yyyy"}}</td>
+                            <td class="text-center">
+                                <button class="btn btn-info btn-sm" ng-click="closeThisDialog(paciente)">
                                 Escolher
                             </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
     </div>
 </div>
