@@ -84,6 +84,11 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 		url: "/leitos",
 		templateUrl: "relatorios/leitos.html"
 	});
+
+	$stateProvider.state("relatorioPedidosEmAberto", {
+		url: "/relatorioPedidosEmAberto",
+		templateUrl: "relatorios/pedidoInternacaoEmAberto.html"
+	});
 })
 
 app.run(['$rootScope', '$location',

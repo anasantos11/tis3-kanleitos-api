@@ -7,24 +7,24 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Nº Prontuário</th>
-                        <th>Nome do Paciente</th>
-                        <th>Nome da mãe</th>
-                        <th>Idade</th>
-                        <th>Data Admissão</th>
-                        <th>Horas aguardando</th>
-                        <th>Ação</th>
+                        <th class="text-center">Nº Prontuário</th>
+                        <th class="text-center">Nome do Paciente</th>
+                        <th class="text-center">Nome da mãe</th>
+                        <th class="text-center">Idade</th>
+                        <th class="text-center">Data Admissão</th>
+                        <th class="text-center">Horas aguardando</th>
+                        <th class="text-center">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="pedido in listaPedidos">
-                        <td>{{pedido.paciente.numProntuario}}</td>
-                        <td>{{pedido.paciente.nomePaciente}}</td>
-                        <td>{{pedido.paciente.nomeMae}}</td>
-                        <td>{{pedido.paciente.idade}}</td>
-                        <td>{{pedido.dataAdmissao | date: "dd/MM/yy HH:mm"}}</td>
-                        <td>{{pedido.horasAguardando}}</td>
-                        <td>
+                        <td class="text-center">{{pedido.paciente.numProntuario}}</td>
+                        <td class="text-center">{{pedido.paciente.nomePaciente}}</td>
+                        <td class="text-center">{{pedido.paciente.nomeMae}}</td>
+                        <td class="text-center">{{pedido.paciente.idade}}</td>
+                        <td class="text-center">{{pedido.dataAdmissao | date: "dd/MM/yy HH:mm"}}</td>
+                        <td class="text-center">{{pedido.horasAguardando}}</td>
+                        <td class="text-center"> 
                             <button class="btn btn-info" ng-click="closeThisDialog(pedido)">
                                 Escolher
                             </button>

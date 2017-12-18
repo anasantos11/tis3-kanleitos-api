@@ -109,8 +109,9 @@ span.nav-link-text {
     z-index: 1 !important;
 }
 
-table {
-    background: rgba(230, 230, 230, 0.2) !important
+thead {
+    background: rgba(230, 230, 230, 0.2) !important;
+    font-size: 14px;
 }
 
 .ngdialog.ngdialog-theme-default .ngdialog-content{
@@ -183,4 +184,19 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 .content-wrapper{
     padding-bottom: 30px;
+}
+
+.table{
+    font-size: 12px;
+    table-layout: fixed;
+}
+
+.padding-bottom{
+    padding-bottom: 15px;
+}
+
+table td { 
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

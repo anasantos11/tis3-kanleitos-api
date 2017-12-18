@@ -22,7 +22,7 @@
 </head>
 
 <body ng-cloak>
-    <div ng-cloak ng-show="!IsLogin" class="fixed-nav sticky-footer bg-dark" id="page-top" >
+    <div ng-cloak ng-show="!IsLogin" class="fixed-nav sticky-footer bg-dark" id="page-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <a href="#!/home"> 
             <img  id="logo" src="img/LogoKanleitos.png" > 
@@ -69,7 +69,18 @@
                     </a>
                         <ul class="sidenav-second-level collapse" id="collapseMulti">
                             <li>
-                                <a href="#!/leitos">Leitos </a>
+                                <a class="nav-link-text" href="#!/leitos">
+                                <i class="fa fa-bed" aria-hidden="true"></i>
+                                <span class="nav-link-text">
+                            Leitos</span>
+                            </a>
+                            </li>
+                            <li>
+                                <a class="nav-link-text" href="#!/relatorioPedidosEmAberto">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <span class="nav-link-text">
+                            Pedidos de Internação Abertos</span>
+                            </a>
                             </li>
                         </ul>
                     </li>
@@ -153,9 +164,9 @@
                 </ul>
             </div>
         </nav>
-    </div> 
-    <div  ng-cloak ng-class="IsLogin ? 'content-kan' : 'content-wrapper' ">
-        <div  ng-class="IsLogin ? '' : 'container-fluid'">
+    </div>
+    <div ng-cloak ng-class="IsLogin ? 'content-kan' : 'content-wrapper' ">
+        <div ng-class="IsLogin ? '' : 'container-fluid'">
             <div ui-view></div>
         </div>
         <!--<footer ng-show="!IsLogin" class="sticky-footer">
@@ -167,8 +178,9 @@
         </footer> 
         <a ng-show="!IsLogin" class="scroll-to-top rounded" href="#/page-top">
             <i class="fa fa-angle-up"></i>
-        </a>--> 
-        <div ng-show="!IsLogin" class="modal fade" id="sairAppModal" tabindex="-1" role="dialog" aria-labelledby="sairAppModalLabel" aria-hidden="true">
+        </a>-->
+        <div ng-show="!IsLogin" class="modal fade" id="sairAppModal" tabindex="-1" role="dialog" aria-labelledby="sairAppModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog smallSize" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -182,13 +194,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-danger" href="#!/login" ng-click = "sairAplicacao()">Sair</a>
+                        <a class="btn btn-danger" href="#!/login" ng-click="sairAplicacao()">Sair</a>
                     </div>
                 </div>
             </div>
         </div>
-     </div>
-     
+    </div>
+
 </body>
 <script src="resources/js/jquery/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

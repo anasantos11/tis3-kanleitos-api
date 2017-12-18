@@ -1,39 +1,43 @@
 <div ng-controller="ModalPesquisaPedidoInternacaoController" ng-init="carregarPedidos()">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <span>Relatórios</span>
+        </li>
+        <li class="breadcrumb-item active">
+            <span> Pedidos em Aberto</span>
+        </li>
+    </ol>
+
     <div class="row">
-        <div class="col-12 form-group">
-            <h3>Lista de pedidos de internação</h3>
-        </div>
-        <div class="col-12">
+        <fieldsat class="col-md-6 padding-bottom">
+            <label for="search">Busca</label>
+            <input id="search" class="form-control" type="text" ng-model="search" placeholder="Digite para pesquisar">
+        </fieldsat>
+        <fieldsat class="col-md-12 tabela">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Ala</th>
-                        <th>Diagnóstico</th>
-                        <th>Nº Prontuário</th>
-                        <th>Nome do Paciente</th>
-                        <th>Nome da mãe</th>
-                        <th>Idade</th>
-                        <th>Data Admissão</th>
-                        <th>Horas aguardando</th>
-                        <th>Ação</th>
+                        <th class="text-center ellipsis">Ala</th>
+                        <th class="text-center ellipsis"  colspan="2">Diagnóstico</th>
+                        <th class="text-center ellipsis">Prontuário</th>
+                        <th class="text-center ellipsis">Paciente</th>
+                        <th class="text-center ellipsis">Idade</th>
+                        <th class="text-center ellipsis">Data Admissão</th>
+                        <th class="text-center ellipsis">Tempo Aguard.</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="pedido in listaPedidos">
-                        <td>{{pedido.paciente.numProntuario}}</td>
-                        <td>{{pedido.paciente.nomePaciente}}</td>
-                        <td>{{pedido.paciente.nomeMae}}</td>
-                        <td>{{pedido.paciente.idade}}</td>
-                        <td>{{pedido.dataAdmissao | date: "dd/MM/yy HH:mm"}}</td>
-                        <td>{{pedido.horasAguardando}}</td>
-                        <td>
-                            <button class="btn btn-info" ng-click="closeThisDialog(pedido)">
-                                Escolher
-                            </button>
-                        </td>
+                    <tr ng-repeat="pedido in listaPedidos  | filter : search | orderBy: '-horasAguardando'">
+                        <td class="text-center ellipsis" title="{{pedido.ala.nomeAla}}">{{pedido.ala.nomeAla}}</td>
+                        <td class="text-center ellipsis" title="{{pedido.diagnostico.descricaoDiagnostico}}" colspan="2">{{pedido.diagnostico.descricaoDiagnostico}}</td>
+                        <td class="text-center ellipsis" title="{{pedido.paciente.numProntuario}}">{{pedido.paciente.numProntuario}}</td>
+                        <td class="text-center ellipsis" title="{{pedido.paciente.nomePaciente}}">{{pedido.paciente.nomePaciente}}</td>
+                        <td class="text-center ellipsis" title="{{pedido.paciente.idade}}">{{pedido.paciente.idade}}</td>
+                        <td class="text-center ellipsis" title="{{pedido.dataAdmissao | date: " dd/MM/yy HH:mm "}}">{{pedido.dataAdmissao | date: "dd/MM/yy HH:mm"}}</td>
+                        <td class="text-center ellipsis" title="{{pedido.horasAguardando}}">{{pedido.horasAguardando}}</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </fieldsat>
+        </fieldsat>
     </div>
-</div>

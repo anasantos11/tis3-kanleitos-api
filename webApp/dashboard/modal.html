@@ -1,15 +1,14 @@
 <div ng-controller="dashboardController" class="row">
     <div class="col-12">
-        <h1 class="main-title">Pacientes da classificação 
+        <h1 class="main-title">Pacientes da Classificação - 
             <b ng-class="{'text-success' : ngDialogData.pacientes[0].classificacao === 'VERDE', 'text-danger' : ngDialogData.pacientes[0].classificacao === 'VERMELHO', 'text-warning' : ngDialogData.pacientes[0].classificacao === 'AMARELO'}">
-                {{ngDialogData.pacientes[0].classificacao.toLowerCase()}}
+                {{ngDialogData.pacientes[0].classificacao}}
             </b>
         </h1>
     </div>
     <div class="col-12">
-        <h4>Lista de Pacientes</h4>
         <p>Exibindo <b>{{ngDialogData.pacientes.length}}</b> de <b>{{ngDialogData.pacientes.length}}</b></p>
-        <table class="table table-hover table-striped table-bordered">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Nome do Paciente</th>
@@ -26,13 +25,13 @@
             </thead>
             <tbody>
                 <tr ng-repeat="paciente in ngDialogData.pacientes">
-                   <td>{{paciente.pedidoInternacao.paciente.nomePaciente}}</td>
-                   <td class="text-center">{{paciente.pedidoInternacao.paciente.idade}}</td>
-                   <td>{{paciente.pedidoInternacao.diagnostico.descricaoDiagnostico}}</td>
+                   <td title="{{paciente.pedidoInternacao.paciente.nomePaciente}}">{{paciente.pedidoInternacao.paciente.nomePaciente}}</td>
+                   <td class="text-center" title="{{paciente.pedidoInternacao.paciente.idade}}">{{paciente.pedidoInternacao.paciente.idade}}</td>
+                   <td title="{{paciente.pedidoInternacao.diagnostico.descricaoDiagnostico}}">{{paciente.pedidoInternacao.diagnostico.descricaoDiagnostico}}</td>
                    <td class="text-center">{{getLocalDate(paciente.pedidoInternacao.dataAdmissao)}}</td>
                    <td class="text-center">{{paciente.diasInternacao}}</td>
                    <td class="text-center">{{getLocalDate(paciente.previsaoAlta)}}</td>
-                   <td class="text-center">{{paciente.pedidoInternacao.ala.nomeAla}}</td>
+                   <td class="text-center" title="{{paciente.pedidoInternacao.ala.nomeAla}}">{{paciente.pedidoInternacao.ala.nomeAla}}</td>
                    <td class="text-center">{{paciente.enfermaria.nomeEnfermaria}}</td>
                    <td class="text-center">{{paciente.leito.nomeLeito}}</td>
                    <td class="text-center">
