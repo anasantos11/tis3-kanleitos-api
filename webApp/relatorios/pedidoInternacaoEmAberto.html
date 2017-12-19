@@ -8,36 +8,37 @@
         </li>
     </ol>
 
-    <div class="row">
-        <fieldsat class="col-md-6 padding-bottom">
-            <label for="search">Busca</label>
+    <div class="col-lg-12 col-sm-12 kan-row">
+        <div class="col-lg-6 col-sm-12 padding-bottom">
+            <h5 for="search">Busca
+                <i class="fa fa-info fa-1-x kan-icon" tooltip-side="bottom" tooltips tooltip-template="Campo para filtrar dados na lista exibida."></i>
+            </h5>
             <input id="search" class="form-control" type="text" ng-model="search" placeholder="Digite para pesquisar">
-        </fieldsat>
-        <fieldsat class="col-md-12 tabela">
+        </div>
+        <div class="col-lg-12 col-sm-12">
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="text-center ellipsis">Ala</th>
-                        <th class="text-center ellipsis"  colspan="2">Diagnóstico</th>
+                        <th class="ellipsis">Ala</th>
+                        <th class="ellipsis">Diagnóstico</th>
                         <th class="text-center ellipsis">Prontuário</th>
                         <th class="text-center ellipsis">Paciente</th>
                         <th class="text-center ellipsis">Idade</th>
-                        <th class="text-center ellipsis">Data Admissão</th>
-                        <th class="text-center ellipsis">Tempo Aguard.</th>
+                        <th class="text-center ellipsis" >Data Admissão</th>
+                        <th class="text-center ellipsis" title="Tempo de Espera">Tempo Esp.</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="pedido in listaPedidos  | filter : search | orderBy: '-horasAguardando'">
-                        <td class="text-center ellipsis" title="{{pedido.ala.nomeAla}}">{{pedido.ala.nomeAla}}</td>
-                        <td class="text-center ellipsis" title="{{pedido.diagnostico.descricaoDiagnostico}}" colspan="2">{{pedido.diagnostico.descricaoDiagnostico}}</td>
-                        <td class="text-center ellipsis" title="{{pedido.paciente.numProntuario}}">{{pedido.paciente.numProntuario}}</td>
+                        <td class="ellipsis" title="{{pedido.ala.nomeAla}}">{{pedido.ala.nomeAla}}</td>
+                        <td class="ellipsis" title="{{pedido.diagnostico.descricaoDiagnostico}}"    >{{pedido.diagnostico.descricaoDiagnostico}} </td>
+                        <td class="text-center ellipsis" title="{{pedido.paciente.numProntuario}}">{{pedido.paciente.numProntuario | limitTo: 10}}</td>
                         <td class="text-center ellipsis" title="{{pedido.paciente.nomePaciente}}">{{pedido.paciente.nomePaciente}}</td>
                         <td class="text-center ellipsis" title="{{pedido.paciente.idade}}">{{pedido.paciente.idade}}</td>
-                        <td class="text-center ellipsis" title="{{pedido.dataAdmissao | date: " dd/MM/yy HH:mm "}}">{{pedido.dataAdmissao | date: "dd/MM/yy HH:mm"}}</td>
+                        <td class="text-center ellipsis" title="{{pedido.dataAdmissao | date: 'dd/MM/yy HH:mm'}}">{{pedido.dataAdmissao | date: "dd/MM/yy H:m"}}</td>
                         <td class="text-center ellipsis" title="{{pedido.horasAguardando}}">{{pedido.horasAguardando}}</td>
                     </tr>
                 </tbody>
             </table>
-        </fieldsat>
-        </fieldsat>
+        </div>
     </div>
