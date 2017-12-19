@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="pedido in listaPedidos  | filter : search | orderBy: '-horasAguardando'">
+                    <tr ng-repeat="pedido in listaPedidos  | filter : search | orderBy: 'dataAdmissao'">
                         <td class="ellipsis" title="{{pedido.ala.nomeAla}}">{{pedido.ala.nomeAla}}</td>
                         <td class="ellipsis" title="{{pedido.diagnostico.descricaoDiagnostico}}"    >{{pedido.diagnostico.descricaoDiagnostico}} </td>
                         <td class="text-center ellipsis" title="{{pedido.paciente.numProntuario}}">{{pedido.paciente.numProntuario | limitTo: 10}}</td>

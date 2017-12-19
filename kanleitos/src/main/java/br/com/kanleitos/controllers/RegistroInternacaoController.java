@@ -15,6 +15,7 @@ import br.com.kanleitos.repository.PedidoInternacaoRepository;
 import br.com.kanleitos.repository.RegistroInternacaoRepository;
 import br.com.kanleitos.util.Classificacao;
 import br.com.kanleitos.util.Resposta;
+import br.com.kanleitos.util.StatusPedido;
 import br.com.kanleitos.util.StatusRegistro;
 import br.com.kanleitos.util.TipoStatusLeito;
 
@@ -49,6 +50,10 @@ public class RegistroInternacaoController {
 		// Alterar Status do Leito para Ocupado
 		r.getLeito().setStatusLeito(TipoStatusLeito.OCUPADO_COMUM);
 		leitoRepository.save(r.getLeito());
+		
+		//Atualizar Pedido para concluido
+		r.getPedidoInternacao().setStatusPedido(StatusPedido.CONCLUIDO);
+		pedidoRepository.save(r.getPedidoInternacao());
 
 		return Resposta.respostaToGson(r);
 	}

@@ -16,15 +16,21 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
                 dataInternacao: new Date(),
                 idDiagnostico: -1,
                 nomeDiagnostico: null,
+                tempoPermanencia: 0,
                 idAla: -1,
                 nomeAla: null,
                 previsaoAlta: "",
-                idPedidoInternacao: null
+                idPedidoInternacao: null,
+                dataPedido: ""
             }
         };
 
         $scope.novoRegistroInternacao();
-
+        $scope.calcularPrevisaoAlta = function () {
+            $scope.registroInternacao.previsaoAlta = new Date($scope.registroInternacao.dataInternacao);
+            $scope.registroInternacao.previsaoAlta.setDate($scope.registroInternacao.previsaoAlta.getDate()
+                + $scope.registroInternacao.tempoPermanencia);
+        };
         $scope.Inicializar = function () {
             $scope.CarregarDiagnosticos();
             $scope.CarregarAlas();
@@ -68,23 +74,27 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
                     if (!pedidoInternacao.value || pedidoInternacao.value === '$document' || pedidoInternacao.value === '$closeButton') {
                         return
                     } else {
-                        $scope.registroInternacao.idPedidoInternacao = pedidoInternacao.value.idPedidoInternacao
-                        $scope.registroInternacao.numProntuario = pedidoInternacao.value.paciente.numProntuario
-                        $scope.registroInternacao.AIH = parseInt(pedidoInternacao.value.AIH)
-                        $scope.registroInternacao.nomePaciente = pedidoInternacao.value.paciente.nomePaciente
-                        $scope.registroInternacao.nomeMae = pedidoInternacao.value.paciente.nomeMae
-                        $scope.registroInternacao.dataNascimento = new Date(getData(pedidoInternacao.value.paciente.dataNascimento))
-                        $scope.registroInternacao.idade = pedidoInternacao.value.paciente.idade
-                        $scope.registroInternacao.genero = pedidoInternacao.value.paciente.genero
-                        $scope.registroInternacao.dataAdmissao = new Date(getDataAdmimissao(pedidoInternacao.value.dataAdmissao))
-                        $scope.registroInternacao.idDiagnostico = pedidoInternacao.value.diagnostico.idDiagnostico
-                        $scope.registroInternacao.nomeDiagnostico = pedidoInternacao.value.diagnostico.descricaoDiagnostico
-                        $scope.registroInternacao.idAla = pedidoInternacao.value.ala.idAla
-                        $scope.registroInternacao.nomeAla = pedidoInternacao.value.ala.nomeAla
-                        $scope.registroInternacao.medicoResponsavel = pedidoInternacao.value.medicoResponsavel
-                        $scope.registroInternacao.residenteResponsavel = pedidoInternacao.value.residenteResponsavel
-                        
+                        $scope.registroInternacao.idPedidoInternacao = pedidoInternacao.value.idPedidoInternacao;
+                        $scope.registroInternacao.numProntuario = pedidoInternacao.value.paciente.numProntuario;
+                        $scope.registroInternacao.dataPedido = new Date(pedidoInternacao.value.dataPedido);
+                        $scope.registroInternacao.AIH = parseInt(pedidoInternacao.value.AIH);
+                        $scope.registroInternacao.nomePaciente = pedidoInternacao.value.paciente.nomePaciente;
+                        $scope.registroInternacao.nomeMae = pedidoInternacao.value.paciente.nomeMae;
+                        $scope.registroInternacao.dataNascimento = new Date(getData(pedidoInternacao.value.paciente.dataNascimento));
+                        $scope.registroInternacao.idade = pedidoInternacao.value.paciente.idade;
+                        $scope.registroInternacao.genero = pedidoInternacao.value.paciente.genero;
+                        $scope.registroInternacao.dataAdmissao = new Date(getDataAdmimissao(pedidoInternacao.value.dataAdmissao));
+                        $scope.registroInternacao.idDiagnostico = pedidoInternacao.value.diagnostico.idDiagnostico;
+                        $scope.registroInternacao.nomeDiagnostico = pedidoInternacao.value.diagnostico.descricaoDiagnostico;
+                        $scope.registroInternacao.tempoPermanencia = pedidoInternacao.value.diagnostico.tempoPermanencia;
+                        $scope.registroInternacao.idAla = pedidoInternacao.value.ala.idAla;
+                        $scope.registroInternacao.nomeAla = pedidoInternacao.value.ala.nomeAla;
+                        $scope.registroInternacao.medicoResponsavel = pedidoInternacao.value.medicoResponsavel;
+                        $scope.registroInternacao.residenteResponsavel = pedidoInternacao.value.residenteResponsavel;
+
+
                         $scope.CarregarEnfermarias($scope.registroInternacao.idAla);
+                        $scope.calcularPrevisaoAlta();
                     }
                 })
         }
@@ -125,7 +135,7 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
                             'Erro!',
                             'Ocorreu algum erro no servidor',
                             'error'
-                        )   
+                        )
                     }
                 });
         };

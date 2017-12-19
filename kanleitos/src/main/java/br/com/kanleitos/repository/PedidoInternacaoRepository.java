@@ -12,5 +12,8 @@ import br.com.kanleitos.util.StatusPedido;
 @Repository
 public interface PedidoInternacaoRepository extends CrudRepository<PedidoInternacao, Long> {
 	List<PedidoInternacao> findByPaciente(Paciente paciente);
-	List<PedidoInternacao> findByStatusPedidoOrStatusPedido(StatusPedido emAndamento,StatusPedido atrasado );
+
+	List<PedidoInternacao> findByStatusPedidoOrStatusPedido(StatusPedido pendente, StatusPedido atrasado);
+
+	List<PedidoInternacao> findByPacienteAndStatusPedido(Paciente paciente, StatusPedido pendente);
 }

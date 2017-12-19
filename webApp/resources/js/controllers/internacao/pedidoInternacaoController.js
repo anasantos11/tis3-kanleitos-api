@@ -130,27 +130,40 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope", "$http", "
 
                 pedidoInternacaoFactory.savePedidoInternacao($scope.pedidoInternacao)
                     .then(function (response) {
-                        $scope.novoPedidoInternacao();
+                        if (!response.data.erro) {
 
-                        swal(
-                            'Concluído!',
-                            'Pedido realizado com sucesso, nº ' + response.data.idPedidoInternacao,
-                            'success'
-                        )
-                    }, function (response) {
+                            swal('Concluído!',
+                                'Cadastro realizado com sucesso - Paciente: ' + response.data.idPedidoInternacao,
+                                'success'
+                            )
+
+                            $scope.novoPedidoInternacao();
+                        } else {
+                            $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
+                            $scope.pedidoInternacao.dataPedido = new Date($scope.pedidoInternacao.dataPedido);
+                            $scope.pedidoInternacao.dataAdmissao = new Date($scope.pedidoInternacao.dataAdmissao);
+                            swal('Erro!',
+                                'Paciente possui pedido em aberto!',
+                                'error'
+                            )
+                            return;
+                        }
+
+                    })
+                    .catch((response) => {
                         $scope.pedidoInternacao.dataNascimento = new Date($scope.pedidoInternacao.dataNascimento);
                         $scope.pedidoInternacao.dataPedido = new Date($scope.pedidoInternacao.dataPedido);
                         $scope.pedidoInternacao.dataAdmissao = new Date($scope.pedidoInternacao.dataAdmissao);
                         if (response.data != undefined) {
                             swal(
                                 'Erro!',
-                                response.data.message,
+                                response.data.error + " " + response.data.message,
                                 'error'
                             )
                         } else {
                             swal(
                                 'Erro!',
-                                'Ocorreu algum erro no servidor',
+                                response.message,
                                 'error'
                             )
                         }

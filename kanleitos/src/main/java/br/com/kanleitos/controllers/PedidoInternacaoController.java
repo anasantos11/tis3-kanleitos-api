@@ -40,43 +40,50 @@ public class PedidoInternacaoController {
 		JSONObject jsonObject = new JSONObject(json);
 		PedidoInternacao p = new PedidoInternacao(jsonObject);
 		
-		//Get Paciente Ala e Diagnotisco
+		// Get Paciente Ala e Diagnotisco
 		p.setPaciente(pacienteRepository.findByNumProntuario(jsonObject.getInt("numProntuario")).get(0));
 		p.setAla(repositoryAla.findOne((jsonObject.getLong("idAla"))));
 		p.setDiagnostico(repositoryDiagnostico.findOne((jsonObject.getLong("idDiagnostico"))));
-	
-		repository.save(p);
-		return Resposta.respostaToGson(p);
+
+		List<PedidoInternacao> pedidos = repository.findByPacienteAndStatusPedido(p.getPaciente(), StatusPedido.PENDENTE);
+		
+		if (pedidos.size() == 0) {
+			repository.save(p);
+			return Resposta.respostaToJson(false, p);
+		} else {
+			return Resposta.respostaToJson(true, p);
+		}
 	}
-	
+
 	@RequestMapping(value = "GetPedidoInternacao", method = org.springframework.web.bind.annotation.RequestMethod.GET)
-	public @ResponseBody String getPaciente(@RequestParam  String numProntuario, String idPedidoInternacao) throws JSONException {
+	public @ResponseBody String getPaciente(@RequestParam String numProntuario, String idPedidoInternacao)
+			throws JSONException {
 		List<PedidoInternacao> pedido = null;
 		List<Paciente> paciente = null;
-		if(numProntuario != null && !numProntuario.isEmpty()) {
+		if (numProntuario != null && !numProntuario.isEmpty()) {
 			paciente = pacienteRepository.findByNumProntuario(Integer.parseInt(numProntuario));
-			if(paciente.size() > 0) {
+			if (paciente.size() > 0) {
 				long pront = paciente.get(0).getNumProntuario();
-				if( pront > 0)
+				if (pront > 0)
 					pedido = repository.findByPaciente(paciente.get(0));
 			}
-		}else {
-			//paciente = repository.findOne(Integer.parseInt(idPedidoInternacao));
+		} else {
+			// paciente = repository.findOne(Integer.parseInt(idPedidoInternacao));
 		}
 		return Resposta.respostaToGson(pedido.get(0));
 	}
-	
+
 	@RequestMapping(value = "ListaTodosPedidos", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String listarPedidos() throws JSONException {
 		Iterable<PedidoInternacao> pedidos = repository.findAll();
 		return Resposta.respostaToGson(pedidos);
 	}
-	
+
 	@RequestMapping(value = "PedidosEmAberto", method = org.springframework.web.bind.annotation.RequestMethod.GET)
 	public @ResponseBody String pedidosEmAndamento() throws JSONException {
-		List<PedidoInternacao> pedidos = repository.findByStatusPedidoOrStatusPedido(StatusPedido.PENDENTE, StatusPedido.ATRASADO);
+		List<PedidoInternacao> pedidos = repository.findByStatusPedidoOrStatusPedido(StatusPedido.PENDENTE,
+				StatusPedido.ATRASADO);
 		return Resposta.respostaToGson(pedidos);
 	}
-
 
 }
