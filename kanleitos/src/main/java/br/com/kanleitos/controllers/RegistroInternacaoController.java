@@ -1,5 +1,7 @@
 package br.com.kanleitos.controllers;
 
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,17 +47,25 @@ public class RegistroInternacaoController {
 		r.setLeito(leitoRepository.findOne(jsonObject.getLong("idLeito")));
 		r.setClassificacao(Classificacao.VERDE);
 		r.setStatusRegistro(StatusRegistro.EM_ANDAMENTO);
-		registroRepository.save(r);
 
-		// Alterar Status do Leito para Ocupado
-		r.getLeito().setStatusLeito(TipoStatusLeito.OCUPADO_COMUM);
-		leitoRepository.save(r.getLeito());
+		List<RegistroInternacao> registros = registroRepository
+				.findByPedidoInternacaoAndStatusRegistro(r.getPedidoInternacao(), StatusRegistro.EM_ANDAMENTO);
 		
-		//Atualizar Pedido para concluido
-		r.getPedidoInternacao().setStatusPedido(StatusPedido.CONCLUIDO);
-		pedidoRepository.save(r.getPedidoInternacao());
+		if (registros.size() == 0) {
+			registroRepository.save(r);
+			// Alterar Status do Leito para Ocupado
+			r.getLeito().setStatusLeito(TipoStatusLeito.OCUPADO_COMUM);
+			leitoRepository.save(r.getLeito());
 
-		return Resposta.respostaToGson(r);
+			// Atualizar Pedido para concluido
+			r.getPedidoInternacao().setStatusPedido(StatusPedido.CONCLUIDO);
+			pedidoRepository.save(r.getPedidoInternacao());
+
+			return Resposta.respostaToJson(false, r);
+		} else {
+			return Resposta.respostaToJson(true, r);
+		}
+
 	}
 
 	@RequestMapping(value = "PacientesInternados", method = org.springframework.web.bind.annotation.RequestMethod.GET)

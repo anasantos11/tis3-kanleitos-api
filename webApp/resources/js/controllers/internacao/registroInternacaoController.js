@@ -215,26 +215,39 @@ app.controller('registroInternacaoController', ["$scope", "$http", "$filter", "r
 
                 registroInternacaoFactory.saveRegistroInternacao($scope.registroInternacao)
                     .then(function (response) {
-                        swal(
-                            'Concluído!',
-                            'Internação realizada com sucesso, nº ' + response.data.idRegistroInternacao,
-                            'success'
-                        )
-                        $scope.novoRegistroInternacao();
+                        if (!response.data.erro) {
 
-                    }, function (response) {
+                            swal('Concluído!',
+                                'Internação realizada com sucesso - nº: ' + response.data.idRegistroInternacao,
+                                'success'
+                            )
+
+                            $scope.novoRegistroInternacao();
+
+                        } else {
+                            $scope.registroInternacao.dataInternacao = new Date($scope.registroInternacao.dataInternacao);
+                            $scope.registroInternacao.previsaoAlta = new Date($scope.registroInternacao.previsaoAlta);
+                            swal('Erro!',
+                                'Paciente já está internado!',
+                                'error'
+                            )
+                            return;
+                        }
+
+                    })
+                    .catch((response) => {
                         $scope.registroInternacao.dataInternacao = new Date($scope.registroInternacao.dataInternacao);
                         $scope.registroInternacao.previsaoAlta = new Date($scope.registroInternacao.previsaoAlta);
                         if (response.data != undefined) {
                             swal(
                                 'Erro!',
-                                response.data.message,
+                                response.data.error + " " + response.data.message,
                                 'error'
                             )
                         } else {
                             swal(
                                 'Erro!',
-                                'Ocorreu algum erro no servidor',
+                                response.message,
                                 'error'
                             )
                         }

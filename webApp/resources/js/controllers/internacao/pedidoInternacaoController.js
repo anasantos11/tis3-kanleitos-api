@@ -133,7 +133,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope", "$http", "
                         if (!response.data.erro) {
 
                             swal('Concluído!',
-                                'Cadastro realizado com sucesso - Paciente: ' + response.data.idPedidoInternacao,
+                                'Pedido realizado com sucesso - nº: ' + response.data.idPedidoInternacao,
                                 'success'
                             )
 
