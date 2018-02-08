@@ -9,193 +9,117 @@
     <title>KanLeitos</title>
     <link href="resources/css/kan.css" rel="stylesheet">
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="resources/css/sb-admin.css" rel="stylesheet">
     <link href="resources/fonts.css" rel="stylesheet" type="text/css">
     <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="node_modules/ng-dialog/css/ngDialog.min.css">
     <link rel="stylesheet" href="node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
-    <link rel="stylesheet" href="node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
     <link rel="stylesheet" href="node_modules/angular-tooltips/dist/angular-tooltips.min.css">
-    <link rel="stylesheet" type="text/css" id="theme" href="resources/css/login.css" />
+    <!--<link rel="stylesheet" type="text/css" id="themeLogin" href="resources/css/login.css" />-->
 
 </head>
 
-<body ng-cloak>
-    <div ng-cloak ng-show="!IsLogin" class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body>
+    <!-- MENU NAV -->
+    <div ng-show="!IsLogin" class="fixed-nav">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-            <a href="#!/home"> 
-            <img  id="logo" src="img/LogoKanleitos.png" > 
-            <button class=" navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button> 
-         </a>
+            <a href="#!/home">
+                <img id="logo" src="img/LogoKanleitos.png">
+                <button class=" navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </a>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <ul class="navbar-nav navbar-sidenav" id="sideNavResponsive">
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Internação">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
-                        <i class="fa fa-plus-square fa-lg"></i>
-                        <span class="nav-link-text">
-                            Internação</span>
-                    </a>
-                        <ul class="sidenav-second-level collapse" id="collapseComponents">
-                            <!--<li>
-                           <a href="#!/cadastroPaciente" ui-sref-active="true">
-                                <i class="fa fa-user-plus fa-lg" aria-hidden="true"></i>&nbsp&nbspCadastro Paciente
-                            </a>
-                        </li> -->
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePedidos" data-parent="#sideNavResponsive">
+                            <i class="fa fa-plus-square fa-lg"></i>
+                            <span class="nav-link-text">
+                                Internação</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapsePedidos">
                             <li>
                                 <a class="nav-link-text" href="#!/pedidoInternacao">
-                                <i class="fa fa-user-plus" aria-hidden="true"></i>
-                                <span class="nav-link-text">
-                            Pedido Internação</span>
-                            </a>
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                    <span class="nav-link-text">
+                                        Pedido Internação</span>
+                                </a>
                             </li>
                             <li>
                                 <a href="#!/registroInternacao">
-                                <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
-                                <span class="nav-link-text">
-                            Registrar Internação</span>
-                            </a>
+                                    <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+                                    <span class="nav-link-text">
+                                        Registrar Internação</span>
+                                </a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Relatórios">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-                        <i class="fa fa-file-text fa-lg"></i>
-                        <span class="nav-link-text">
-                            Relatórios</span>
-                    </a>
-                        <ul class="sidenav-second-level collapse" id="collapseMulti">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseRelatorios" data-parent="#sideNavResponsive">
+                            <i class="fa fa-file-text fa-lg"></i>
+                            <span class="nav-link-text">
+                                Relatórios</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseRelatorios">
                             <li>
                                 <a class="nav-link-text" href="#!/leitos">
-                                <i class="fa fa-bed" aria-hidden="true"></i>
-                                <span class="nav-link-text">
-                            Leitos</span>
-                            </a>
+                                    <i class="fa fa-bed" aria-hidden="true"></i>
+                                    <span class="nav-link-text">
+                                        Leitos</span>
+                                </a>
                             </li>
                             <li>
                                 <a class="nav-link-text" href="#!/relatorioPedidosEmAberto">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                <span class="nav-link-text">
-                            Pedidos de Internação Abertos</span>
-                            </a>
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    <span class="nav-link-text">
+                                        Pedidos de Internação Abertos</span>
+                                </a>
                             </li>
                         </ul>
                     </li>
-                    <!--
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Área do usuário">
-                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-                        <i class="fa fa-user-md fa-lg"></i>
-                        <span class="nav-link-text">
-                            Área do Usuário</span>
-                    </a>
-                        <ul class="sidenav-second-level collapse" id="collapseExamplePages">
-                            <li>
-                                <a href="#!/emConstrucao">Cadastrar Novo Usuário</a>
-                            </li>
-                        </ul>
-                    </li>-->
                 </ul>
                 <ul class="navbar-nav sidenav-toggler">
                     <li class="nav-item">
                         <a class="nav-link text-center" id="sidenavToggler">
-                        <i class="fa fa-fw fa-angle-left"></i>
-                    </a>
+                            <i class="fa fa-fw fa-angle-left"></i>
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item dropdown">
-                        <!-- <a class="nav-link dropdown-toggle mr-lg-2" href="#!/" id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-bell"></i>
-                        <span class="d-lg-none">Notificações
-                            <span class="badge badge-pill badge-warning">6 Novas</span>
-                        </span>
-                        <span class="new-indicator text-warning d-none d-lg-block">
-                            <i class="fa fa-fw fa-circle"></i>
-                            <span class="number">6</span>
-                        </span>
-                    </a>
-                   <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-                        <h6 class="dropdown-header">Novas Notificações:</h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#!/emConstrucao">
-                            <span class="text-success">
-                                <strong>
-                                    <i class="fa fa-long-arrow-up"></i>
-                                    Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#!/emConstrucao">
-                            <span class="text-danger">
-                                <strong>
-                                    <i class="fa fa-long-arrow-down"></i>
-                                    Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#!/emConstrucao">
-                            <span class="text-success">
-                                <strong>
-                                    <i class="fa fa-long-arrow-up"></i>
-                                    Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item small" href="#!/emConstrucao">
-                            View all alerts
-                        </a>
-                    </div>
-                </li>
-                 <h6 style="color: white"> Seja bem-vindo(a), Nome do Usuário</h6>  -->
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="modal" data-target="#sairAppModal">
-                        <i class="fa fa-fw fa-sign-out"></i>
-                        Sair</a>
+                                <i class="fa fa-fw fa-sign-out"></i>
+                                Sair</a>
                         </li>
                 </ul>
             </div>
         </nav>
     </div>
+    <!-- VIEW -->
     <div ng-cloak ng-class="IsLogin ? 'content-kan' : 'content-wrapper' ">
         <div ng-class="IsLogin ? '' : 'container-fluid'">
             <div ui-view></div>
         </div>
-        <!--<footer ng-show="!IsLogin" class="sticky-footer">
-            <div class="container">
-                <div class="text-center">
-                    <small>Copyright &copy; KanLeitos 2017</small>
+    </div>
+    <!-- MODAL SAIR APP -->
+    <div ng-show="!IsLogin" class="modal fade" id="sairAppModal" tabindex="-1" role="dialog" aria-labelledby="sairAppModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog smallSize" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sairAppModalLabel">Confirmação de saída</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-        </footer> 
-        <a ng-show="!IsLogin" class="scroll-to-top rounded" href="#/page-top">
-            <i class="fa fa-angle-up"></i>
-        </a>-->
-        <div ng-show="!IsLogin" class="modal fade" id="sairAppModal" tabindex="-1" role="dialog" aria-labelledby="sairAppModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog smallSize" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="sairAppModalLabel">Confirmação de saída</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Clique em "Sair" para finalizar a sessão atual.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-danger" href="#!/login" ng-click="sairAplicacao()">Sair</a>
-                    </div>
+                <div class="modal-body">
+                    Clique em "Sair" para finalizar a sessão atual.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger" href="#!/login" ng-click="sairAplicacao()">Sair</a>
                 </div>
             </div>
         </div>
@@ -203,13 +127,8 @@
 
 </body>
 <script src="resources/js/jquery/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="resources/js/jquery/jquery.easing.min.js"></script>
-<script src="resources/js/jquery/jquery.dataTables.js"></script>
 <script src="resources/js/popper.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/dataTables.bootstrap4.js"></script>
-<script src="node_modules/sweetalert2/src/sweetalert2.js"></script>
 <script src="resources/js/sweetalert.min.js"></script>
 <script src="resources/js/sb-admin.min.js"></script>
 <script src="resources/js/kanLeitosApp.js"></script>
@@ -219,15 +138,14 @@
 <script src="node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
 <script src="resources/js/firebase.js"></script>
 <script src="node_modules/angularfire/dist/angularfire.min.js"></script>
+<script src="node_modules/ng-dialog/js/ngDialog.min.js"></script>
+<script src="node_modules/angular-tooltips/dist/angular-tooltips.min.js"></script>
 
 
 <script src="app.js"></script>
 <script src="kanleitosFactorys.js"></script>
 <script src="resources/js/services/notify.js"></script>
-<script src="node_modules/ng-dialog/js/ngDialog.min.js"></script>
-<script src="node_modules/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
-<script src="node_modules/angular-tooltips/dist/angular-tooltips.min.js"></script>
-<script src="node_modules/crypto-js/crypto-js.js"></script>
+
 
 <script src="resources/js/controllers/internacao/registroInternacaoController.js"></script>
 <script src="resources/js/controllers/internacao/modalCadastroController.js"></script>

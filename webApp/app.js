@@ -15,8 +15,7 @@ var app = angular.module("kanleitos", [
 	'firebase',
 	'ui.router',
 	"ngDialog",
-	"720kb.tooltips",
-	"ui.utils.masks"]);
+	"720kb.tooltips"]);
 
 app.controller('KanController', ['$rootScope', '$scope', '$state', '$firebaseAuth', function ($rootScope, $scope, $state, $firebaseAuth) {
 	$scope.auth = $firebaseAuth();

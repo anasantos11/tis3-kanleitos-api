@@ -66,72 +66,9 @@ a > img{
     width:30%;
 }
 
-
-@media only screen and (max-width: 768px) {
-a > img{
-    width:65%
-}
-.navbar-dark .navbar-toggler{
-    margin-left: 12%;
-}
-}
-
-
-.navbar-dark .navbar-toggler{
-    margin-left: 12%;
-}
-
-
-#mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
-    padding-top: 40px;
-}
-
 span.nav-link-text {
     padding-left: 20px;
 }
-/* end Dropzone */
-/* errors */
-.error-container {
-  width: 500px;
-  margin: 50px auto 0px;
-}
-.error-container .error-code {
-  float: left;
-  width: 100%;
-  font-size: 135px;
-  line-height: 130px;
-  text-align: center;
-  color: #333;
-  font-weight: 300;
-}
-.error-container .error-text {
-  float: left;
-  width: 100%;
-  margin-top: 10px;
-  font-size: 26px;
-  line-height: 24px;
-  text-transform: uppercase;
-  color: #666;
-  text-align: center;
-  font-weight: 400;
-}
-.error-container .error-subtext {
-  float: left;
-  width: 100%;
-  margin: 30px 0px 10px;
-  font-size: 13px;
-  line-height: 20px;
-  color: #AAA;
-  text-align: center;
-  font-weight: 400;
-}
-.error-container .error-actions {
-  float: left;
-  width: 100%;
-  margin-top: 10px;
-}
-/* end errors */
-
 .form-group ::-webkit-input-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f }
 .form-group ::-moz-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f } /* firefox 19+ */
 .form-group :-ms-input-placeholder::before { font-family: fontAwesome; content:'\f002  '; color: #69f } /* ie */
