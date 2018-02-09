@@ -1,10 +1,10 @@
 <div ng-controller="dashboardController" class="row">
     <div class="col-12">
-        <h1 class="main-title">Pacientes da Classificação - 
+        <h4 class="kan-title">Pacientes da Classificação - 
             <b ng-class="{'text-success' : ngDialogData.pacientes[0].classificacao === 'VERDE', 'text-danger' : ngDialogData.pacientes[0].classificacao === 'VERMELHO', 'text-warning' : ngDialogData.pacientes[0].classificacao === 'AMARELO'}">
                 {{ngDialogData.pacientes[0].classificacao}}
             </b>
-        </h1>
+        </h4>
     </div>
     <div class="col-12">
         <p>Exibindo <b>{{ngDialogData.pacientes.length}}</b> de <b>{{ngDialogData.pacientes.length}}</b></p>
@@ -35,7 +35,7 @@
                    <td class="text-center">{{paciente.enfermaria.nomeEnfermaria}}</td>
                    <td class="text-center">{{paciente.leito.nomeLeito}}</td>
                    <td class="text-center">
-                        <button class="btn-circle btn-info" tooltips tooltip-template="{{setAllPendencies(paciente.pendencias)}}">
+                        <button class="kan-btn-circle btn-info" tooltips tooltip-template="{{setAllPendencies(paciente.pendencias)}}">
                             <i class="fa fa-file"></i>
                         </button>
                    </td>
