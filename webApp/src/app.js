@@ -51,7 +51,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	$stateProvider.state("login", {
 		url: "/login",
-		templateUrl: "login.html"
+		templateUrl: "templates/login.html"
 	});
 
 	$stateProvider.state("home", {
@@ -61,7 +61,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	$stateProvider.state("emConstrucao", {
 		url: "/emConstrucao",
-		templateUrl: "erro.html",
+		templateUrl: "templates/erro.html",
 	});
 
 	$stateProvider.state("cadastroPaciente", {
