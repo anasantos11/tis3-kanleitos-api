@@ -56,7 +56,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	$stateProvider.state("home", {
 		url: "/home",
-		templateUrl: "templates/dashboard/kanban-leitos.html",
+		templateUrl: "templates/relatorios/kanban-leitos.html",
 	});
 
 	$stateProvider.state("emConstrucao", {

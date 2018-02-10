@@ -38,7 +38,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope", "$http", "
         }
 
         $scope.openModalPesquisa = () => {
-            return Notify.openModal("templates/internacao/listaPacientes.html", null, "80%")
+            return Notify.openModal("templates/relatorios/listaPacientes.html", null, "80%")
                 .closePromise.then((pacienteEscolhido) => {
                     console.log(pacienteEscolhido)
                     if (!pacienteEscolhido.value || pacienteEscolhido.value === '$document' || pacienteEscolhido.value === '$closeButton') {
