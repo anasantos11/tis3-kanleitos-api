@@ -1,4 +1,7 @@
-aswebApp/node_modules/*
+webApp/node_modules/*
+webApp/bower_components/*
 webApp/package-lock.json
+webApp/dist/*
+
 /.metadata/
 /.recommenders/
