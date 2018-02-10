@@ -22,7 +22,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope", "$http", "
 
 
         $scope.openModalCadastro = () => {
-            return Notify.openModal("internacao/modalCadastro.html", null, "60%")
+            return Notify.openModal("templates/internacao/cadastroPaciente.html", null, "60%")
                 .closePromise.then((pacienteCadastrado) => {
                     if (!pacienteCadastrado.value || pacienteCadastrado.value === '$document' || pacienteCadastrado.value === '$closeButton') {
                         return
@@ -38,7 +38,7 @@ app.controller('pedidoInternacaoController', ["$scope", "$rootScope", "$http", "
         }
 
         $scope.openModalPesquisa = () => {
-            return Notify.openModal("internacao/modalPesquisa.html", null, "80%")
+            return Notify.openModal("templates/internacao/listaPacientes.html", null, "80%")
                 .closePromise.then((pacienteEscolhido) => {
                     console.log(pacienteEscolhido)
                     if (!pacienteEscolhido.value || pacienteEscolhido.value === '$document' || pacienteEscolhido.value === '$closeButton') {

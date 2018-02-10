@@ -19,7 +19,7 @@ app.controller('dashboardController', ["$scope" ,"$interval","kanbanFactory", "N
         $scope.canOpenModal = false
 
         const openModalPaciente = (pacientes) =>{
-            Notify.openModal("dashboard/modal.html", {pacientes: pacientes}, "90%")
+            Notify.openModal("templates/dashboard/modal-kanban.html", {pacientes: pacientes}, "90%")
         }
 
         const atualizaRegistrosInternacao = () =>{

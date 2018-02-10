@@ -56,7 +56,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	$stateProvider.state("home", {
 		url: "/home",
-		templateUrl: "dashboard/kanBam.html",
+		templateUrl: "templates/dashboard/kanban-leitos.html",
 	});
 
 	$stateProvider.state("emConstrucao", {
@@ -66,27 +66,27 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	$stateProvider.state("cadastroPaciente", {
 		url: "/cadastroPaciente",
-		templateUrl: "internacao/cadastroPaciente.html"
+		templateUrl: "templates/internacao/cadastroPaciente.html"
 	});
 
 	$stateProvider.state("pedidoInternacao", {
 		url: "/pedidoInternacao",
-		templateUrl: "internacao/pedidoInternacao.html"
+		templateUrl: "templates/internacao/pedidoInternacao.html"
 	});
 
 	$stateProvider.state("registroInternacao", {
 		url: "/registroInternacao",
-		templateUrl: "internacao/registroInternacao.html"
+		templateUrl: "templates/internacao/registroInternacao.html"
 	});
 
 	$stateProvider.state("leitos", {
 		url: "/leitos",
-		templateUrl: "relatorios/leitos.html"
+		templateUrl: "templates/relatorios/leitos.html"
 	});
 
 	$stateProvider.state("relatorioPedidosEmAberto", {
 		url: "/relatorioPedidosEmAberto",
-		templateUrl: "relatorios/pedidoInternacaoEmAberto.html"
+		templateUrl: "templates/relatorios/pedidoInternacaoEmAberto.html"
 	});
 })
 
