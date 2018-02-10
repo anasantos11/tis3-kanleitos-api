@@ -100,16 +100,32 @@ gulp.task('libs-js', function () {
         .pipe(gulp.dest('dist/libs/js'))
 });
 
-// Tarefa padrão quando executado o comando GULP
-gulp.task('default', [
-    "libs-css",
-    "libs-js",
-    "libs-fonts",
+// Tarefa de monitoração caso algum arquivo seja modificado
+gulp.task('watch', function () {
+    gulp.watch("src/**/*", ["files-src"]);
+
+});
+
+
+gulp.task("files-src", [
     "copy-templates",
     "copy-index-html",
     "copy-img",
     "concat-kan-js",
-    "copy-kan-libs"]
+    "copy-kan-libs"
+]);
+
+gulp.task("public-libs", [
+    "libs-css",
+    "libs-js",
+    "libs-fonts"]
+);
+
+// Tarefa padrão quando executado o comando GULP
+gulp.task('default', [
+    "public-libs",
+    "files-src",
+    "watch"]
 );
 
 
