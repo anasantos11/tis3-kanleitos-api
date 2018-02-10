@@ -1,1 +1,0 @@
-angular.modules("hjk.controllers" , [])
