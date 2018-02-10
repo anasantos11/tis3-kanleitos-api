@@ -17,6 +17,7 @@
     "bower": "^1.8.2",
     "gulp": "*",
     "gulp-concat": "*",
-    "gulp-main-bower-files": "^1.6.2"
+    "gulp-main-bower-files": "^1.6.2",
+    "gulp-replace": "^0.6.1"
   }
 }
